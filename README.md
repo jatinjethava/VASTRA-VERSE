@@ -54,7 +54,6 @@ A modern full-stack MERN e-commerce platform for premium fashion and streetwear.
 - Axios
 - React Query (TanStack Query)
 - Swiper.js
-- Framer Motion
 
 ## Backend
 
@@ -96,13 +95,13 @@ vastra-verse/
 Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/vastra-verse.git
+git clone https://github.com/jatinjethava/vastra-verse.git
 ```
 
 Move into the project
 
 ```bash
-cd vastra-verse
+cd vastraverse
 ```
 
 ---
@@ -137,7 +136,7 @@ npm install
 ## Server (.env)
 
 ```env
-PORT=5000
+PORT=8200
 
 MONGO_URI=
 
@@ -221,15 +220,7 @@ npm run dev -- --port 5174
 You can add screenshots here after deployment.
 
 ```
-Home Page
 
-Admin Dashboard
-
-Product Details
-
-Checkout Page
-
-Order History
 ```
 
 ---
