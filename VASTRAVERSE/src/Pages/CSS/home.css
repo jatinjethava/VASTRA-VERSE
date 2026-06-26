@@ -1,0 +1,126 @@
+html {
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--brand-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    border: 2px solid var(--brand-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-orange);
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+.float-slow {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 15px rgba(225, 225, 225, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(225, 225, 225, 0.5), 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.pulse-glow-btn {
+    animation: pulse-glow 3s infinite;
+}
+
+.text-gradient-primary {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 50%, #ffbe53 100%);
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-flame {
+    background: linear-gradient(to right, var(--brand-red), var(--brand-orange), var(--brand-gold));
+    -webkit-text-fill-color: transparent;
+}
+
+.glass-card {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.17);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+    border-color: rgba(76, 76, 76, 0.2);
+    transform: translateY(-6px);
+    /* box-shadow: 0 12px 40px 0 rgba(84, 84, 84, 0.1); */
+}
+
+.burger-layer {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.burger-layer:hover {
+    transform: scale(1.05) translateY(-5px);
+    filter: drop-shadow(0 15px 20px rgba(249, 115, 22, 0.3));
+}
+
+.burger-showcase-container {
+    perspective: 1000px;
+}
+
+.active-nav-link::after {
+    width: 100% !important;
+}
+
+.typing {
+    width: fit-content;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid white;
+    animation:
+        typing 3s steps(11) infinite,
+        blink 0.7s step-end infinite;
+}
+
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+
+    50% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}

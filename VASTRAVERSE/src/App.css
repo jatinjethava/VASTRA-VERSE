@@ -1,0 +1,87 @@
+/* responsive code for mobile device */
+
+@media (min-width: 200px) and (max-width: 400px) {
+
+    /* navbar */
+    .logo {
+        font-size: 10px !important;
+    }
+
+    /* home slider  */
+    .home-slider {
+        justify-content: center !important;
+        text-align: center !important;
+    }
+
+    .home-slider .home-slider-content {
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+
+    .home-slider-content>div:first-child {
+        align-self: center !important;
+        justify-content: center !important;
+    }
+
+    .home-slider-content>div:first-child>span:first-child {
+        display: none;
+    }
+
+    .home-slider-content h1 {
+        font-size: 1.5rem !important;
+        text-align: center !important;
+        font-size: 1.2rem !important;
+    }
+
+    .home-slider-content p {
+        font-size: 0.8rem !important;
+        text-align: center !important;
+    }
+
+    .home-slider-content>div:last-child {
+        justify-content: center !important;
+        text-align: center !important;
+        margin: 0 auto !important;
+    }
+
+    .home-slider-content>div:last-child>a {
+        padding: 10px;
+        font-size: 9px !important;
+    }
+
+    .campaign-btn {
+        flex-direction: column !important;
+    }
+}
+
+
+
+@media (min-width: 400px) and (max-width: 430px) {
+    .campaign-btn {
+        flex-direction: row !important;
+    }
+
+}
+
+@media (min-width: 430px) and (max-width: 640px) {
+    .campaign-btn {
+        flex-direction: row !important;
+    }
+
+    .campaign-btn>a {
+        font-size: 11px !important;
+    }
+
+    .backTitle {
+        font-size: 15px;
+    }
+
+    .backDesc {
+        font-size: 9px;
+    }
+
+    .featureItem {
+        font-size: 9px;
+    }
+}

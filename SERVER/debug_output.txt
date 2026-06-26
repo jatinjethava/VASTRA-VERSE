@@ -1,0 +1,93 @@
+Base paths found: [{"routerName":"admin","routerFile":"admin","basePath":""},{"routerName":"blog","routerFile":"blog","basePath":""},{"routerName":"cart","routerFile":"cart","basePath":""},{"routerName":"category","routerFile":"category","basePath":""},{"routerName":"order","routerFile":"order","basePath":""},{"routerName":"payment","routerFile":"payment","basePath":""},{"routerName":"product","routerFile":"product","basePath":""},{"routerName":"user","routerFile":"user","basePath":""},{"routerName":"wishlist","routerFile":"wishlist","basePath":""}]
+Processing router: admin at 
+Found 0 routes in admin
+Processing router: blog at 
+Found 5 routes in blog
+  Processing route: POST /create-blog
+    Found schema: createBlogSchema for controller: createBlog
+  Processing route: PUT /update-blog/:id
+    Found schema: updateBlogSchema for controller: updateBlog
+  Processing route: PUT /update-blog-status/:id
+    Found schema: updateBlogStatusSchema for controller: updateBlogStatus
+  Processing route: DELETE /delete-blog/:id
+  Processing route: GET /get-all-blog
+Processing router: cart at 
+Found 8 routes in cart
+  Processing route: POST /add-to-cart
+    Found schema: addToCartSchema for controller: addToCart
+  Processing route: PUT /update-cart/:id
+    Found schema: updateCartSchema for controller: updateCart
+  Processing route: DELETE /delete-cart/:id
+    Found schema: deleteCartSchema for controller: deleteCart
+  Processing route: DELETE /clear-cart
+  Processing route: GET /get-cart
+  Processing route: PUT /increase-quantity/:id
+    Found schema: increaseQuantitySchema for controller: increaseQuantity
+  Processing route: PUT /decrease-quantity/:id
+    Found schema: decreaseQuantitySchema for controller: decreaseQuantity
+  Processing route: PUT /apply-coupon-code
+    Found schema: applyCuponCodeSchema for controller: applyCuponCode
+Processing router: category at 
+Found 8 routes in category
+  Processing route: POST /createCategory
+    Found schema: createCategorySchema for controller: createCategory
+  Processing route: PUT /updateCategory/:id
+    Found schema: updateCategorySchema for controller: updateCategory
+  Processing route: DELETE /deleteCategory/:id
+    Found schema: deleteCategorySchema for controller: deleteCategory
+  Processing route: GET /getAllCategory
+  Processing route: GET /getParentCategory
+  Processing route: GET /shopBySlug/:slug
+  Processing route: GET /getChildCategory/:id
+  Processing route: GET /getChildCategoriesBySlug/:slug
+Processing router: order at 
+Found 7 routes in order
+  Processing route: POST /create-order
+    Found schema: createOrderSchema for controller: createOrder
+  Processing route: GET /orders
+  Processing route: PUT /cancel-order/:orderId
+    Found schema: cancelOrderSchema for controller: cancelOrder
+  Processing route: GET /admin/orders
+  Processing route: PUT /update-order/:orderId
+    Found schema: updateOrderSchema for controller: updateOrder
+  Processing route: PUT /update-payment-status/:orderId
+    Found schema: updatePaymentStatusSchema for controller: updatePaymentStatus
+  Processing route: POST /add-reason/:orderId
+    Found schema: cancelOrderSchema for controller: addReason
+Processing router: payment at 
+Found 5 routes in payment
+  Processing route: POST /create-payment-order
+    Found schema: createPaymentOrderSchema for controller: createPaymentOrder
+  Processing route: POST /verify-payment
+    Found schema: verifyPaymentSchema for controller: verifyPayment
+  Processing route: POST /create-refund
+    Found schema: createRefundSchema for controller: createRefund
+  Processing route: GET /get-payment-by-id
+    Found schema: getPaymentByIdSchema for controller: getPaymentById
+  Processing route: POST /fail-payment
+    Found schema: failPaymentSchema for controller: failPayment
+Processing router: product at 
+Found 7 routes in product
+  Processing route: POST /product/create
+    Found schema: createProductSchema for controller: createProduct
+  Processing route: PUT /product/update/:id
+    Found schema: updateProductSchema for controller: updateProduct
+  Processing route: DELETE /product/delete/:id
+    Found schema: deleteProductSchema for controller: deleteProduct
+  Processing route: GET /product/get
+  Processing route: GET /product/get-published
+  Processing route: GET /product/get/:id
+    Found schema: getProductByIdSchema for controller: getProductByCategory
+  Processing route: GET /product/filter
+    Found schema: filterProductSchema for controller: filterProducts
+Processing router: user at 
+Found 0 routes in user
+Processing router: wishlist at 
+Found 4 routes in wishlist
+  Processing route: POST /wishlist/add
+    Found schema: addWishlistSchema for controller: addToWishlist
+  Processing route: DELETE /wishlist/remove
+    Found schema: removeWishlistSchema for controller: removeFromWishlist
+  Processing route: GET /wishlist/get
+    Found schema: getWishlistSchema for controller: getWishlistForCheck
+  Processing route: GET /wishlist/get-products

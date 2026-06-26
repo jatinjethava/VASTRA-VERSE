@@ -1,0 +1,2057 @@
+{
+  "item": [
+    {
+      "id": "ccf263a6-ce7c-4d28-ac4b-1f76bda28682",
+      "name": "ADMIN",
+      "description": {
+        "content": "Routes for admin",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "c909bb81-306a-4489-805b-75370d71ff6c",
+      "name": "BLOG",
+      "description": {
+        "content": "Routes for blog",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c96e90fd-0ef6-42aa-a88d-92015e072085",
+          "name": "Create Blog",
+          "request": {
+            "description": {
+              "content": "Controller: createBlog\nSchema: createBlogSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| author | string | Optional |\n| title | string | Required |\n| description | string | Required |\n| subTitle | string | Required |\n| subDescription | string | Required |\n| content | array | Required |\n| category | string | Required |\n| seoTitle | string | Optional |\n| seoDescription | string | Optional |\n| seoKeywords | array | Optional |\n| status | string | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "create-blog"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "author",
+                  "value": "admin",
+                  "type": "text"
+                },
+                {
+                  "key": "title",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                },
+                {
+                  "key": "subTitle",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "subDescription",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                },
+                {
+                  "key": "content",
+                  "value": "[\"sample_string\"]",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "fashion",
+                  "type": "text"
+                },
+                {
+                  "key": "seoTitle",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "seoDescription",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                },
+                {
+                  "key": "seoKeywords",
+                  "value": "[\"sample_string\"]",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "draft",
+                  "type": "text"
+                },
+                {
+                  "key": "featuredImage",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "1ccd46ea-1a9e-407c-9530-7f0bebd99a51",
+          "name": "Update Blog",
+          "request": {
+            "description": {
+              "content": "Controller: updateBlog\nSchema: updateBlogSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| author | string | Optional |\n| title | string | Optional |\n| description | string | Optional |\n| subTitle | string | Optional |\n| subDescription | string | Optional |\n| content | array | Optional |\n| featuredImage | string | Optional |\n| images | array | Optional |\n| category | string | Optional |\n| seoTitle | string | Optional |\n| seoDescription | string | Optional |\n| seoKeywords | array | Optional |\n| status | string | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "update-blog",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "method": "PUT",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "author",
+                  "value": "admin",
+                  "type": "text"
+                },
+                {
+                  "key": "title",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                },
+                {
+                  "key": "subTitle",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "subDescription",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                },
+                {
+                  "key": "content",
+                  "value": "[\"sample_string\"]",
+                  "type": "text"
+                },
+                {
+                  "key": "featuredImage",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "category",
+                  "value": "fashion",
+                  "type": "text"
+                },
+                {
+                  "key": "seoTitle",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "seoDescription",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                },
+                {
+                  "key": "seoKeywords",
+                  "value": "[\"sample_string\"]",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "draft",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "18d9d13f-b847-4ce1-aa7c-9eae2f1f4539",
+          "name": "Update Blog Status",
+          "request": {
+            "description": {
+              "content": "Controller: updateBlogStatus\nSchema: updateBlogStatusSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| id | string | Required |\n| status | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "update-blog-status",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"60d21b4667d0d8992e610c85\",\n  \"status\": \"draft\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "841c2b0f-70c7-4af0-8ff7-8947da3f4358",
+          "name": "Delete :id",
+          "request": {
+            "description": {
+              "content": "Controller: deleteBlog",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "delete-blog",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "ea6e9fd5-7bb5-41ef-86df-225f2e4aee4c",
+          "name": "Get Get-all-blog",
+          "request": {
+            "description": {
+              "content": "Controller: getAllBlog",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "get-all-blog"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "event": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "TOKEN",
+            "value": "{{TOKEN}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c65ae652-0d66-4320-8855-6bcbf1a93cc5",
+      "name": "CART",
+      "description": {
+        "content": "Routes for cart",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ffe629d2-367d-481b-8fb3-d2f652abf7cd",
+          "name": "Add To Cart",
+          "request": {
+            "description": {
+              "content": "Controller: addToCart\nSchema: addToCartSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| productId | string | Required |\n| quantity | number | Required |\n| size | string | Required |\n| color | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "add-to-cart"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"60d21b4667d0d8992e610c85\",\n  \"quantity\": 123,\n  \"size\": \"XS\",\n  \"color\": \"sample_color\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "bb7b8e8d-6ff2-4cc8-9062-053bf40b883e",
+          "name": "Update Cart",
+          "request": {
+            "description": {
+              "content": "Controller: updateCart\nSchema: updateCartSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| id | string | Required |\n| quantity | number | Optional |\n| size | string | Optional |\n| color | string | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "update-cart",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"60d21b4667d0d8992e610c85\",\n  \"quantity\": 123,\n  \"size\": \"XS\",\n  \"color\": \"sample_color\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "81582b6d-ed8b-486c-94a6-ba5e059e467c",
+          "name": "Delete Cart",
+          "request": {
+            "description": {
+              "content": "Controller: deleteCart\nSchema: deleteCartSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| id | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "delete-cart",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"60d21b4667d0d8992e610c85\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "1dc68153-ab58-496b-a8c0-8c34b2b0fed5",
+          "name": "Delete Clear-cart",
+          "request": {
+            "description": {
+              "content": "Controller: clearCart",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "clear-cart"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "aaec6e71-de1d-46ee-954a-c9354807e8b7",
+          "name": "Get Get-cart",
+          "request": {
+            "description": {
+              "content": "Controller: getCart",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "get-cart"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "ca07113c-986b-4811-8645-6b543567a9ae",
+          "name": "Increase Quantity",
+          "request": {
+            "description": {
+              "content": "Controller: increaseQuantity\nSchema: increaseQuantitySchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| id | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "increase-quantity",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"60d21b4667d0d8992e610c85\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "aac01ffd-fec5-463a-8873-55017d171fe3",
+          "name": "Decrease Quantity",
+          "request": {
+            "description": {
+              "content": "Controller: decreaseQuantity\nSchema: decreaseQuantitySchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| id | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "decrease-quantity",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"60d21b4667d0d8992e610c85\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "5503865e-51d1-4ade-acf4-b3268680f2a5",
+          "name": "Apply Cupon Code",
+          "request": {
+            "description": {
+              "content": "Controller: applyCuponCode\nSchema: applyCuponCodeSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| id | string | Required |\n| coupon | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "apply-coupon-code"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"60d21b4667d0d8992e610c85\",\n  \"coupon\": \"sample_coupon\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "event": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "TOKEN",
+            "value": "{{TOKEN}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4523181b-6ba6-4e31-aae5-f0cc18b16d69",
+      "name": "CATEGORY",
+      "description": {
+        "content": "Routes for category",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3f3984c8-30dc-421e-82a5-7d3720fe4075",
+          "name": "Create Category",
+          "request": {
+            "description": {
+              "content": "Controller: createCategory\nSchema: createCategorySchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| name | string | Required |\n| slug | string | Required |\n| description | string | Required |\n| banner | string | Optional |\n| parentCategory | any | Optional |\n| sortOrder | number | Optional |\n| seoTitle | string | Optional |\n| seoDescription | string | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "createCategory"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "slug",
+                  "value": "sample-slug-name",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                },
+                {
+                  "key": "banner",
+                  "value": "sample_banner",
+                  "type": "text"
+                },
+                {
+                  "key": "parentCategory",
+                  "value": "sample_any",
+                  "type": "text"
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "123",
+                  "type": "text"
+                },
+                {
+                  "key": "seoTitle",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "seoDescription",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "61c2ec0a-14df-4f1a-b077-a86711041252",
+          "name": "Update Category",
+          "request": {
+            "description": {
+              "content": "Controller: updateCategory\nSchema: updateCategorySchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| name | string | Optional |\n| slug | string | Optional |\n| description | string | Optional |\n| banner | string | Optional |\n| parentCategory | any | Optional |\n| sortOrder | number | Optional |\n| seoTitle | string | Optional |\n| seoDescription | string | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "updateCategory",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "method": "PUT",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "slug",
+                  "value": "sample-slug-name",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                },
+                {
+                  "key": "banner",
+                  "value": "sample_banner",
+                  "type": "text"
+                },
+                {
+                  "key": "parentCategory",
+                  "value": "sample_any",
+                  "type": "text"
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "123",
+                  "type": "text"
+                },
+                {
+                  "key": "seoTitle",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "seoDescription",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "87f2fe7e-a9f8-4dbe-bcd4-56f3e38a338c",
+          "name": "Delete Category",
+          "request": {
+            "description": {
+              "content": "Controller: deleteCategory\nSchema: deleteCategorySchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| id | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "deleteCategory",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"60d21b4667d0d8992e610c85\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "8f3b8e99-94ee-4343-a38f-5657025fa1dd",
+          "name": "Get GetAllCategory",
+          "request": {
+            "description": {
+              "content": "Controller: getAllCategory",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "getAllCategory"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "e11ccf25-13f5-482d-89af-56d408bef6fd",
+          "name": "Get GetParentCategory",
+          "request": {
+            "description": {
+              "content": "Controller: getParentCategory",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "getParentCategory"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "64a11088-d6a8-4e2b-965b-9554cf15b2aa",
+          "name": "Get :slug",
+          "request": {
+            "description": {
+              "content": "Controller: shopBySlug",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "shopBySlug",
+                ":slug"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_slug",
+                  "key": "slug"
+                }
+              ]
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "a77f6a0e-b9ed-47e6-ab67-2db24c3e0930",
+          "name": "Get :id",
+          "request": {
+            "description": {
+              "content": "Controller: getChildCategory",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "getChildCategory",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "ef06b1a6-15b9-47f3-b38c-da828d3a0b20",
+          "name": "Get :slug",
+          "request": {
+            "description": {
+              "content": "Controller: getChildCategoriesBySlug",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "getChildCategoriesBySlug",
+                ":slug"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_slug",
+                  "key": "slug"
+                }
+              ]
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "event": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "TOKEN",
+            "value": "{{TOKEN}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "id": "6169efe2-f531-40c9-bc39-73abf11b2eba",
+      "name": "ORDER",
+      "description": {
+        "content": "Routes for order",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ee2f45f-c7f8-45be-983a-5aa7410dfb81",
+          "name": "Create Order",
+          "request": {
+            "description": {
+              "content": "Controller: createOrder\nSchema: createOrderSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| items | array | Required |\n| items[].productId | string | Required |\n| items[].title | string | Required |\n| items[].color | string | Required |\n| items[].size | string | Required |\n| items[].quantity | number | Required |\n| items[].discountPrice | number | Required |\n| shippingAddress | object | Required |\n| shippingAddress.fullName | string | Required |\n| shippingAddress.email | string | Required |\n| shippingAddress.phone | number | Required |\n| shippingAddress.addressLine1 | string | Required |\n| shippingAddress.addressLine2 | string | Optional |\n| shippingAddress.city | string | Required |\n| shippingAddress.state | string | Required |\n| shippingAddress.country | string | Required |\n| shippingAddress.pincode | number | Required |\n| paymentMethod | string | Required |\n| subtotal | number | Required |\n| shippingFee | number | Required |\n| totalAmount | number | Required |\n| totalItems | number | Required |\n| discount | number | Optional |\n| gst | number | Optional |\n| gstAmount | number | Optional |\n| isAgree | boolean | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "create-order"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"sample_productId\",\n      \"color\": \"sample_color\",\n      \"size\": \"sample_size\",\n      \"quantity\": 123,\n      \"price\": 123\n    }\n  ],\n  \"shippingAddress\": {\n    \"fullName\": \"sample_fullName\",\n    \"email\": \"test@example.com\",\n    \"phone\": 123,\n    \"addressLine1\": \"sample_addressLine1\",\n    \"addressLine2\": \"sample_addressLine2\",\n    \"city\": \"sample_city\",\n    \"state\": \"sample_state\",\n    \"country\": \"sample_country\",\n    \"pincode\": 123\n  },\n  \"paymentMethod\": \"cod\",\n  \"subtotal\": 123,\n  \"shippingFee\": 123,\n  \"totalAmount\": 123,\n  \"totalItems\": 123,\n  \"discount\": 123,\n  \"gst\": 123,\n  \"gstAmount\": 123,\n  \"isAgree\": true\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "f0c289a7-ffad-4d79-af87-68e551ba224b",
+          "name": "Get Orders",
+          "request": {
+            "description": {
+              "content": "Controller: getMyOrders",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "93452552-135f-4113-93f1-d9c0066cd3da",
+          "name": "Cancel Order",
+          "request": {
+            "description": {
+              "content": "Controller: cancelOrder\nSchema: cancelOrderSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| orderId | string | Required |\n| reason | string | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "cancel-order",
+                ":orderId"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_orderId",
+                  "key": "orderId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"60d21b4667d0d8992e610c85\",\n  \"reason\": \"sample_reason\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "4bec069a-afb8-4e54-8152-162ed87f2408",
+          "name": "Get Orders",
+          "request": {
+            "description": {
+              "content": "Controller: fetchAllOrders",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "orders"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "e1f897a4-f071-431a-9c6d-bc020539ab0c",
+          "name": "Update Order",
+          "request": {
+            "description": {
+              "content": "Controller: updateOrder\nSchema: updateOrderSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| orderId | string | Required |\n| orderStatus | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "update-order",
+                ":orderId"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_orderId",
+                  "key": "orderId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"60d21b4667d0d8992e610c85\",\n  \"orderStatus\": \"pending\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "e66de3cb-e478-4c01-ac5b-22423c4d6420",
+          "name": "Update Payment Status",
+          "request": {
+            "description": {
+              "content": "Controller: updatePaymentStatus\nSchema: updatePaymentStatusSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| orderId | string | Required |\n| paymentStatus | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "update-payment-status",
+                ":orderId"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_orderId",
+                  "key": "orderId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"60d21b4667d0d8992e610c85\",\n  \"paymentStatus\": \"paid\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "0e829273-e122-4e0f-ba44-8dcab3294a3e",
+          "name": "Cancel Order",
+          "request": {
+            "description": {
+              "content": "Controller: addReason\nSchema: cancelOrderSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| orderId | string | Required |\n| reason | string | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "add-reason",
+                ":orderId"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_orderId",
+                  "key": "orderId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"60d21b4667d0d8992e610c85\",\n  \"reason\": \"sample_reason\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "event": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "TOKEN",
+            "value": "{{TOKEN}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "id": "15222162-6575-40b2-b82d-51db354716d2",
+      "name": "PAYMENT",
+      "description": {
+        "content": "Routes for payment",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "73509cd5-fe59-40e1-a406-5549f1ce7b78",
+          "name": "Create Payment Order",
+          "request": {
+            "description": {
+              "content": "Controller: createPaymentOrder\nSchema: createPaymentOrderSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| orderId | string | Required |\n| amount | number | Required |\n| currency | string | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "create-payment-order"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"60d21b4667d0d8992e610c85\",\n  \"amount\": 123,\n  \"currency\": \"INR\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "7c6e1735-d7be-4844-91e4-11d392726706",
+          "name": "Verify Payment",
+          "request": {
+            "description": {
+              "content": "Controller: verifyPayment\nSchema: verifyPaymentSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| orderId | string | Required |\n| razorpayOrderId | string | Required |\n| razorpayPaymentId | string | Required |\n| razorpaySignature | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "verify-payment"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"60d21b4667d0d8992e610c85\",\n  \"razorpayOrderId\": \"60d21b4667d0d8992e610c85\",\n  \"razorpayPaymentId\": \"60d21b4667d0d8992e610c85\",\n  \"razorpaySignature\": \"sample_razorpaySignature\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "c433cd04-90d3-484c-93db-21b4154e075e",
+          "name": "Create Refund",
+          "request": {
+            "description": {
+              "content": "Controller: createRefund\nSchema: createRefundSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| orderId | string | Required |\n| failureReason | string | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "create-refund"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"60d21b4667d0d8992e610c85\",\n  \"failureReason\": \"sample_failureReason\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "27f0d987-c892-4f29-bf1e-a6b2af0f8630",
+          "name": "Get Payment By Id",
+          "request": {
+            "description": {
+              "content": "Controller: getPaymentById\nSchema: getPaymentByIdSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| paymentId | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "get-payment-by-id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "paymentId",
+                  "value": "sample_paymentId"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "2cc11606-23fb-4e04-96fc-ac454b3551e1",
+          "name": "Fail Payment",
+          "request": {
+            "description": {
+              "content": "Controller: failPayment\nSchema: failPaymentSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| failureReason | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "fail-payment"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"failureReason\": \"sample_failureReason\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "event": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "TOKEN",
+            "value": "{{TOKEN}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a27af4f2-1bde-42e0-a128-54b39f7d666e",
+      "name": "PRODUCT",
+      "description": {
+        "content": "Routes for product",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b7035fd6-0fe1-48d5-aa69-3f950150a59c",
+          "name": "Create Product",
+          "request": {
+            "description": {
+              "content": "Controller: createProduct\nSchema: createProductSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| title | string | Required |\n| description | string | Required |\n| brand | string | Optional |\n| category | string | Required |\n| basePrice | number | Required |\n| discountPrice | number | Optional |\n| gender | string | Required |\n| fit | string | Required |\n| material | string | Required |\n| images | array | Optional |\n| variants | array | Required |\n| variants[].color | string | Required |\n| variants[].size | string | Required |\n| variants[].price | number | Required |\n| variants[].sku | string | Required |\n| variants[].discountPrice | number | Optional |\n| variants[].stock | number | Required |\n| tags | array | Optional |\n| isFeatured | boolean | Optional |\n| isPublished | boolean | Optional |\n| isBestSeller | boolean | Optional |\n| isNewArrival | boolean | Optional |\n| seoTitle | string | Optional |\n| seoDescription | string | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "product",
+                "create"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                },
+                {
+                  "key": "brand",
+                  "value": "sample_brand",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "sample_category",
+                  "type": "text"
+                },
+                {
+                  "key": "basePrice",
+                  "value": "123",
+                  "type": "text"
+                },
+                {
+                  "key": "discountPrice",
+                  "value": "123",
+                  "type": "text"
+                },
+                {
+                  "key": "gender",
+                  "value": "kids",
+                  "type": "text"
+                },
+                {
+                  "key": "fit",
+                  "value": "regular",
+                  "type": "text"
+                },
+                {
+                  "key": "material",
+                  "value": "sample_material",
+                  "type": "text"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "variants",
+                  "value": "[{\"color\":\"sample_color\",\"size\":\"sample_size\",\"price\":123,\"discountPrice\":123,\"stock\":123}]",
+                  "type": "text"
+                },
+                {
+                  "key": "tags",
+                  "value": "[\"sample_string\"]",
+                  "type": "text"
+                },
+                {
+                  "key": "isFeatured",
+                  "value": "true",
+                  "type": "text"
+                },
+                {
+                  "key": "isPublished",
+                  "value": "true",
+                  "type": "text"
+                },
+                {
+                  "key": "isBestSeller",
+                  "value": "true",
+                  "type": "text"
+                },
+                {
+                  "key": "isNewArrival",
+                  "value": "true",
+                  "type": "text"
+                },
+                {
+                  "key": "seoTitle",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "seoDescription",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "924677cf-f3e5-4fa1-aa20-1bca795ee8bf",
+          "name": "Update Product",
+          "request": {
+            "description": {
+              "content": "Controller: updateProduct\nSchema: updateProductSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| _id | any | Required |\n| title | string | Optional |\n| description | string | Optional |\n| category | any | Optional |\n| basePrice | number | Optional |\n| discountPrice | number | Optional |\n| discountPercentage | number | Optional |\n| gender | string | Optional |\n| fit | string | Optional |\n| material | string | Optional |\n| images | array | Optional |\n| variants | array | Optional |\n| variants[].color | string | Required |\n| variants[].size | string | Required |\n| variants[].price | number | Required |\n| variants[].sku | string | Required |\n| variants[].discountPrice | number | Required |\n| variants[].stock | number | Required |\n| tags | array | Optional |\n| isFeatured | boolean | Optional |\n| isPublished | boolean | Optional |\n| isBestSeller | boolean | Optional |\n| isNewArrival | boolean | Optional |\n| seoTitle | string | Optional |\n| seoDescription | string | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "product",
+                "update",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "method": "PUT",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "_id",
+                  "value": "sample_any",
+                  "type": "text"
+                },
+                {
+                  "key": "title",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "sample_any",
+                  "type": "text"
+                },
+                {
+                  "key": "basePrice",
+                  "value": "123",
+                  "type": "text"
+                },
+                {
+                  "key": "discountPrice",
+                  "value": "123",
+                  "type": "text"
+                },
+                {
+                  "key": "discountPercentage",
+                  "value": "123",
+                  "type": "text"
+                },
+                {
+                  "key": "gender",
+                  "value": "kids",
+                  "type": "text"
+                },
+                {
+                  "key": "fit",
+                  "value": "regular",
+                  "type": "text"
+                },
+                {
+                  "key": "material",
+                  "value": "sample_material",
+                  "type": "text"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "variants",
+                  "value": "[{\"color\":\"sample_color\",\"size\":\"sample_size\",\"price\":123,\"discountPrice\":123,\"stock\":123}]",
+                  "type": "text"
+                },
+                {
+                  "key": "tags",
+                  "value": "[\"sample_string\"]",
+                  "type": "text"
+                },
+                {
+                  "key": "isFeatured",
+                  "value": "true",
+                  "type": "text"
+                },
+                {
+                  "key": "isPublished",
+                  "value": "true",
+                  "type": "text"
+                },
+                {
+                  "key": "isBestSeller",
+                  "value": "true",
+                  "type": "text"
+                },
+                {
+                  "key": "isNewArrival",
+                  "value": "true",
+                  "type": "text"
+                },
+                {
+                  "key": "seoTitle",
+                  "value": "Sample Title Name",
+                  "type": "text"
+                },
+                {
+                  "key": "seoDescription",
+                  "value": "This is a detailed description or content sample generated automatically.",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "8b49646e-b490-480c-89b4-6528659a51c5",
+          "name": "Delete Product",
+          "request": {
+            "description": {
+              "content": "Controller: deleteProduct\nSchema: deleteProductSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| id | any | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "product",
+                "delete",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"sample_any\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "effa774c-bbd7-4c0e-abb4-68d448c03dda",
+          "name": "Get Get",
+          "request": {
+            "description": {
+              "content": "Controller: getProducts",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "product",
+                "get"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "078a0086-5a26-48b0-8a0d-af6d5e3459c5",
+          "name": "Get Get-published",
+          "request": {
+            "description": {
+              "content": "Controller: getPublishedProducts",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "product",
+                "get-published"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "2e0728f1-5dff-46a9-8713-feca1b8f57bf",
+          "name": "Get Product By Id",
+          "request": {
+            "description": {
+              "content": "Controller: getProductByCategory\nSchema: getProductByIdSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| id | any | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "product",
+                "get",
+                ":id"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "sample_id",
+                  "key": "id"
+                }
+              ]
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "c0e58a5b-bf21-4627-b80e-c9c30fe762e1",
+          "name": "Filter Product",
+          "request": {
+            "description": {
+              "content": "Controller: filterProducts\nSchema: filterProductSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| category | any | Optional |\n| gender | string | Optional |\n| fit | string | Optional |\n| minPrice | number | Optional |\n| maxPrice | number | Optional |\n| isFeatured | boolean | Optional |\n| isPublished | boolean | Optional |\n| isBestSeller | boolean | Optional |\n| isNewArrival | boolean | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "product",
+                "filter"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "sample_any"
+                },
+                {
+                  "key": "gender",
+                  "value": "sample_gender"
+                },
+                {
+                  "key": "fit",
+                  "value": "sample_fit"
+                },
+                {
+                  "key": "minPrice",
+                  "value": "123"
+                },
+                {
+                  "key": "maxPrice",
+                  "value": "123"
+                },
+                {
+                  "key": "isFeatured",
+                  "value": "true"
+                },
+                {
+                  "key": "isPublished",
+                  "value": "true"
+                },
+                {
+                  "key": "isBestSeller",
+                  "value": "true"
+                },
+                {
+                  "key": "isNewArrival",
+                  "value": "true"
+                },
+                {
+                  "key": "priceMin",
+                  "value": "123"
+                },
+                {
+                  "key": "priceMax",
+                  "value": "123"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "event": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "TOKEN",
+            "value": "{{TOKEN}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "id": "5db8206e-d729-41db-9fd3-203065690c30",
+      "name": "USER",
+      "description": {
+        "content": "Routes for user",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "7c5f0fe2-e014-4adb-8095-3bb2b659edb6",
+      "name": "WISHLIST",
+      "description": {
+        "content": "Routes for wishlist",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e6c846b-dd5d-468c-8cba-27cb89c4a438",
+          "name": "Add Wishlist",
+          "request": {
+            "description": {
+              "content": "Controller: addToWishlist\nSchema: addWishlistSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| productId | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "wishlist",
+                "add"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"60d21b4667d0d8992e610c85\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "50b4cc14-c570-419b-90ff-571f7acc9c02",
+          "name": "Remove Wishlist",
+          "request": {
+            "description": {
+              "content": "Controller: removeFromWishlist\nSchema: removeWishlistSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| productId | string | Required |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "wishlist",
+                "remove"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "sample_productId"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"60d21b4667d0d8992e610c85\"\n}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "3cba1a94-67a7-4245-8991-1977c9954e76",
+          "name": "Get Wishlist",
+          "request": {
+            "description": {
+              "content": "Controller: getWishlistForCheck\nSchema: getWishlistSchema\n\n### Validation Rules\n| Field | Type | Requirement |\n|---|---|---|\n| page | number | Optional |\n| limit | number | Optional |\n",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "wishlist",
+                "get"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "2ca10b3a-fc94-4f20-93d3-92f887d56e5a",
+          "name": "Get Get-products",
+          "request": {
+            "description": {
+              "content": "Controller: getWishlistShowProducts",
+              "type": "text/markdown"
+            },
+            "url": {
+              "path": [
+                "wishlist",
+                "get-products"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "event": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "TOKEN",
+            "value": "{{TOKEN}}",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "any",
+      "value": "http://localhost:8200",
+      "key": "BASE_URL"
+    },
+    {
+      "type": "any",
+      "value": "",
+      "key": "TOKEN"
+    }
+  ],
+  "info": {
+    "_postman_id": "82462a99-3b77-4870-b771-1d5374f0cefe",
+    "name": "Delvoura API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Auto generated API collection",
+      "type": "text/plain"
+    }
+  }
+}
