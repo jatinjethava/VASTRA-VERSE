@@ -213,8 +213,6 @@ npm run dev -- --port 5174
 | Admin | http://localhost:5174 |
 | Server API | http://localhost:8200 |
 
----
-
 # 📁 Main Modules
 
 - Authentication
