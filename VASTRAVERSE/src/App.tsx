@@ -25,6 +25,7 @@ import { SaveForLater } from './Pages/SaveForLater';
 import { Security } from './Pages/Security/Security';
 import { HelpCenter } from './Pages/HelpCenter';
 import { Wallet } from './Pages/Wallet';
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
     return (
         <>
             <Toaster position="top-right" richColors className='z-99999' />
+            <Analytics />
             <Routes>
                 <Route path='/' element={<UserLayout />}>
                     <Route index element={<Home />} />
