@@ -163,7 +163,7 @@ ADMIN_URL=http://localhost:5174
 ## Client (.env)
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:8200/api
 VITE_RAZORPAY_KEY=
 ```
 
@@ -172,7 +172,7 @@ VITE_RAZORPAY_KEY=
 ## Admin (.env)
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:8200/api
 ```
 
 ---
@@ -183,7 +183,7 @@ VITE_API_URL=http://localhost:5000/api
 
 ```bash
 cd server
-npm run dev
+npm run server
 ```
 
 ---
@@ -191,7 +191,7 @@ npm run dev
 ## Start Client
 
 ```bash
-cd client
+cd vastraverse
 npm run dev
 ```
 
@@ -201,7 +201,7 @@ npm run dev
 
 ```bash
 cd admin
-npm run dev
+npm run dev -- --port 5174
 ```
 
 ---
@@ -212,7 +212,7 @@ npm run dev
 |-------------|-------------------------|
 | Client | http://localhost:5173 |
 | Admin | http://localhost:5174 |
-| Server API | http://localhost:5000 |
+| Server API | http://localhost:8200 |
 
 ---
 
@@ -252,7 +252,7 @@ Order History
 - Inventory Management
 - Reports & Analytics
 - Reviews & Ratings
-- Socket.IO Notifications
+- Socket.IO chatting
 
 ---
 
@@ -273,12 +273,7 @@ Order History
 - Email Verification
 - Forgot Password
 - Google Login
-- Multi Vendor Support
-- AI Product Recommendations
-- PWA Support
 - Invoice PDF Generation
-- Multi-language Support
-- SMS Notifications
 
 ---
 
@@ -319,7 +314,7 @@ This project is licensed under the MIT License.
 
 Full Stack MERN Developer
 
-GitHub: https://github.com/YOUR_USERNAME
+GitHub: https://github.com/jatinjethava
 
 ---
 
