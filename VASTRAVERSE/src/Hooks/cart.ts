@@ -160,6 +160,7 @@ export const useGetSavedCart = () => {
     return useQuery({
         queryKey: ['savedCart'],
         queryFn: () => getSavedCart(),
+        enabled: !!localStorage.getItem("token")
     });
 }
 

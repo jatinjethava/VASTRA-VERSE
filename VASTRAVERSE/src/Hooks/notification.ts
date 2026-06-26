@@ -17,6 +17,7 @@ export const getAllUserNotifications = () => {
         refetchOnMount: true,
         refetchOnWindowFocus: true,
         refetchOnReconnect: true,
+        enabled: !!localStorage.getItem("token"),
     })
 }
 

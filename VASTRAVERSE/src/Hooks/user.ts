@@ -7,6 +7,7 @@ export const useGetCurrentUser = () => {
     return useQuery({
         queryKey: ["currentUser"],
         queryFn: () => getCurrentUser(),
+        enabled: !!localStorage.getItem("token"),
     });
 }
 

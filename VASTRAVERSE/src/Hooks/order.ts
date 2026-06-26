@@ -34,7 +34,8 @@ export const useGetUserOrder = () => {
         queryFn: () => getUserOrder(),
         refetchOnMount: true,
         refetchOnReconnect: true,
-        refetchOnWindowFocus: true
+        refetchOnWindowFocus: true,
+        enabled: !!localStorage.getItem("token")
     });
 }
 

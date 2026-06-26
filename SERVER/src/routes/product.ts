@@ -11,9 +11,9 @@ router.get("/product/get", adminJWT, getProducts);
 router.put("/product/inc-stock/:id", adminJWT, increaseStock);
 
 router.get("/product/get-published", getPublishedProducts);
-router.get("/product/get/:id", userJWT, getProductByCategory);
-router.get("/product/filter", userJWT, filterProducts);
-router.get("/product/all", userJWT, getProductsForUser);
-router.post("/product/viewed/:id", userJWT, viewProduct);
+router.get("/product/get/:id", getProductByCategory);
+router.get("/product/filter", filterProducts);
+router.get("/product/all", getProductsForUser);
+router.post("/product/viewed/:id", viewProduct);
 
 export { router }

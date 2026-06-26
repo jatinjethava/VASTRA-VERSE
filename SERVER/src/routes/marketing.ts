@@ -10,7 +10,7 @@ router.put("/delete-campaign/:id", adminJWT, deleteCampaign);
 router.put("/toggle-campaign/:id", adminJWT, toggleCampaign);
 router.get("/get-campaign/:id", adminJWT, getCampaign);
 router.get("/get-all-campaigns", adminJWT, getAllCampaigns);
-router.get("/get-active-campaigns", userJWT, getUserCampaigns);
+router.get("/get-active-campaigns", getUserCampaigns);
 
 // for flash sales
 router.post("/create-flash-sales", adminJWT, upload.array("image"), createFlashSales);
@@ -18,7 +18,7 @@ router.put("/update-flash-sales/:id", adminJWT, upload.array("image"), updateFla
 router.put("/delete-flash-sales/:id", adminJWT, deleteFlashSales);
 router.put("/toggle-flash-sales/:id", adminJWT, toggleFlashSales);
 router.get("/get-all-flash-sales", adminJWT, getAllFlashSales);
-router.get("/get-active-flash-sales", userJWT, getForUserFlashSales);
+router.get("/get-active-flash-sales", getForUserFlashSales);
 
 // for banner
 router.post("/create-banner", adminJWT, upload.fields([{ name: "bgImage", maxCount: 1 }]), createBanner);
@@ -26,6 +26,6 @@ router.put("/update-banner/:id", adminJWT, upload.fields([{ name: "bgImage", max
 router.put("/delete-banner/:id", adminJWT, deleteBanner);
 router.get("/get-all-banners-for-admin", adminJWT, getAllBanners);
 router.get("/get-banner/:id", adminJWT, getBannerById);
-router.get("/get-all-banners-for-user", userJWT, getAllBanners);
+router.get("/get-all-banners-for-user", getAllBanners);
 
 export { router };

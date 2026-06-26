@@ -48,6 +48,7 @@ export const useGetWishList = () => {
         queryFn: () => getProductInWishList(),
         refetchOnMount: "always",
         refetchOnWindowFocus: true,
+        enabled: !!localStorage.getItem("token"),
     });
 }
 
@@ -57,5 +58,6 @@ export const useGetWishlistProducts = () => {
         queryFn: () => getWishlistShowProducts(),
         refetchOnMount: "always",
         refetchOnWindowFocus: true,
+        enabled: !!localStorage.getItem("token"),
     });
 }
