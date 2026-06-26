@@ -16,7 +16,7 @@ app.set('trust proxy', true);
 app.use(
     cors({
         origin: [
-            "*"
+            "https://vastra-verse.onrender.com"
         ],
         credentials: true,
     })
