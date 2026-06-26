@@ -74,8 +74,22 @@ export const useDownloadInvoice = () => {
                 duration: 1500
             });
         },
-        onError: (error: any) => {
-            toast.error(error.response.data.message, {
+        onError: async (error: any) => {
+            let errorMsg = "Failed to download invoice";
+            if (error.response?.data instanceof Blob) {
+                try {
+                    const text = await error.response.data.text();
+                    const json = JSON.parse(text);
+                    errorMsg = json.message || errorMsg;
+                } catch (e) {
+                    errorMsg = error.message;
+                }
+            } else if (error.response?.data?.message) {
+                errorMsg = error.response.data.message;
+            } else {
+                errorMsg = error.message;
+            }
+            toast.error(errorMsg, {
                 duration: 1500
             });
         }
