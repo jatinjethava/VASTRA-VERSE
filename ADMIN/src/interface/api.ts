@@ -12,7 +12,11 @@ api.interceptors.request.use(
                 token = token.slice(1, -1);
             }
 
-            config.headers.Authorization = `Bearer ${token}`;
+            if (config.headers && typeof config.headers.set === 'function') {
+                config.headers.set('Authorization', `Bearer ${token}`);
+            } else {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
         }
         return config;
     },
