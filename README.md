@@ -215,16 +215,6 @@ npm run dev -- --port 5174
 
 ---
 
-# 📸 Screenshots
-
-You can add screenshots here after deployment.
-
-```
-
-```
-
----
-
 # 📁 Main Modules
 
 - Authentication
