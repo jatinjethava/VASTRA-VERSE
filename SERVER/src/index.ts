@@ -16,7 +16,10 @@ app.set('trust proxy', true);
 app.use(
     cors({
         origin: [
-            "https://vastra-verse.onrender.com"
+            "https://vastra-verse.onrender.com",
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "http://localhost:3000"
         ],
         credentials: true,
     })
