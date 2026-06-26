@@ -11,7 +11,7 @@ export const Men = () => {
     const [filter, setFilter] = useState({
         category: "",
         fit: "",
-        maxPrice: null,
+        maxPrice: undefined as number | undefined,
         isFeatured: false,
         isBestSeller: false,
         isNewArrival: false,
@@ -29,7 +29,7 @@ export const Men = () => {
         setFilter({
             category: "",
             fit: "",
-            maxPrice: null,
+            maxPrice: undefined,
             isFeatured: false,
             isBestSeller: false,
             isNewArrival: false,
@@ -63,7 +63,7 @@ export const Men = () => {
                 <div className="hidden md:flex items-center gap-2">
                     {filter.category && (
                         <span className="text-[8px] sm:text-[10px] md:text-sm font-bold bg-gray-100 text-gray-800 px-3 py-1.5 rounded-lg flex items-center gap-1">
-                            {categoriesData.find((cat: any) => cat._id === filter.category)?.name}
+                            {categoriesData?.find((cat: any) => cat._id === filter.category)?.name}
                             <button onClick={() => setFilter({ ...filter, category: "" })} className="hover:text-red-500 font-extrabold cursor-pointer">✕</button>
                         </span>
                     )}
@@ -76,7 +76,7 @@ export const Men = () => {
                     {filter.maxPrice && (
                         <span className="text-[8px] sm:text-[10px] md:text-sm font-bold bg-gray-100 text-gray-800 px-3 py-1.5 rounded-lg flex items-center gap-1">
                             {`Under ₹${filter.maxPrice}`}
-                            <button onClick={() => setFilter({ ...filter, maxPrice: null })} className="hover:text-red-500 font-extrabold cursor-pointer">✕</button>
+                            <button onClick={() => setFilter({ ...filter, maxPrice: undefined })} className="hover:text-red-500 font-extrabold cursor-pointer">✕</button>
                         </span>
                     )}
                 </div>
@@ -137,8 +137,8 @@ export const Men = () => {
 
                                         <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 md:gap-10 lg:grid-cols-4 gap-6 sm:gap-6 lg:gap-10 place-content-center place-items-center'>
                                             {
-                                                data.length > 0 ? (
-                                                    data.map((product: Product) => (
+                                                (data?.length ?? 0) > 0 ? (
+                                                    data?.map((product: Product) => (
                                                         <Card key={product._id} product={product} />
                                                     ))
                                                 ) : (
@@ -187,7 +187,7 @@ export const Men = () => {
                             <div className="flex items-center gap-3 sm:gap-4">
                                 <button
                                     onClick={handleClearFilters}
-                                    disabled={!filter.category && !filter.fit && filter.maxPrice === null && !filter.isFeatured && !filter.isBestSeller && !filter.isNewArrival && !filter.limitedEdition}
+                                    disabled={!filter.category && !filter.fit && filter.maxPrice === undefined && !filter.isFeatured && !filter.isBestSeller && !filter.isNewArrival && !filter.limitedEdition}
                                     className="text-[10px] sm:text-xs font-bold text-red-500 hover:text-red-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors uppercase tracking-wider cursor-pointer"
                                 >
                                     Clear All

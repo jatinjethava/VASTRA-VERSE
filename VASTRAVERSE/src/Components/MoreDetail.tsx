@@ -37,7 +37,7 @@ export const MoreDetails = () => {
     const { mutateAsync: addToWishList, isPending: wishListPending } = useAddToWishList();
     const { mutateAsync: removeFromWishList, isPending: removeFromWishListPending } = useRemoveFromWishList();
     const { data: wishListData } = useGetWishList();
-    const { data: productReviews } = useGetProductAllReview(product?._id);
+    const { data: productReviews } = useGetProductAllReview(product?._id as string);
     const isPending = cartPending || wishListPending || removeFromWishListPending;
 
     const [count, setCount] = useState<number>(1);
@@ -59,7 +59,7 @@ export const MoreDetails = () => {
                 label: product?.title,
             });
 
-            const data = await addToCart({ productId: product?._id, quantity: count, size: selectedSize, color: selectedColor })
+            const data = await addToCart({ productId: product?._id as string, quantity: count, size: selectedSize, color: selectedColor })
 
             if (data) {
                 setAdded(true);
@@ -72,8 +72,8 @@ export const MoreDetails = () => {
     };
 
     const totalStock = product?.variants?.reduce((acc: number, variant: any) => acc + variant.stock, 0);
-    const totalRating = productReviews?.reduce((acc, review) => acc + review.rating, 0);
-    const averageRating = totalRating / productReviews?.length;
+    const totalRating = productReviews?.reduce((acc: any, review: any) => acc + review.rating, 0);
+    const averageRating = (totalRating ?? 0) / (productReviews?.length || 1);
 
     const StarRating = ({ rating = 0 }) => {
         return (
@@ -329,7 +329,7 @@ export const MoreDetails = () => {
                                         className="h-full bg-gray-900 rounded-full transition-all duration-300 ease-out"
                                         style={{
                                             width: `${Math.min(
-                                                (product?.soldCount / (totalStock || 1)) * 100,
+                                                ((product?.soldCount ?? 0) / (totalStock || 1)) * 100,
                                                 100
                                             )}%`
                                         }}
@@ -384,13 +384,13 @@ export const MoreDetails = () => {
 
                             {isWishlisted ? (
                                 <button
-                                    onClick={() => { removeFromWishList(product?._id) }}
+                                    onClick={() => { removeFromWishList(product?._id as string) }}
                                     className="shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl border border-red-200 bg-white flex items-center justify-center text-red-500 hover:border-red-200 transition-all duration-200 cursor-pointer">
                                     <FaHeart className="text-lg sm:text-xl" />
                                 </button>
                             ) : (
                                 <button
-                                    onClick={() => { addToWishList(product?._id) }}
+                                    onClick={() => { addToWishList(product?._id as string) }}
                                     className="shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl border border-gray-200 bg-white flex items-center justify-center text-gray-400 hover:text-red-500 hover:border-red-200 transition-all duration-200 cursor-pointer">
                                     <FaRegHeart className="text-lg sm:text-xl" />
                                 </button>

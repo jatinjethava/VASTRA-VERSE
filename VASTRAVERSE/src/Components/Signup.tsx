@@ -8,7 +8,7 @@ import { register, verifyOtp, resendOtp } from '../Hooks/Auth'
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../Redux/store';
 import { setUser } from '../Redux/authSlice';
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { useGoogleLogin } from '../Hooks/user';
 import { getCart } from '../Api/cartApi';
 import { setCart } from '../Redux/cartSlice';
@@ -302,9 +302,9 @@ export const SignUp = () => {
         }
     }
 
-    const handleGoogleLogin = async (response: { credential?: string;[key: string]: unknown }) => {
+    const handleGoogleLogin = async (response: CredentialResponse) => {
         try {
-            const res = await googleLoginUser(response.credential);
+            const res = await googleLoginUser(response.credential as string);
             if (res.success) {
 
                 dispatch(

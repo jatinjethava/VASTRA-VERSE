@@ -25,7 +25,7 @@ export const Detail = ({
     const { mutateAsync: addToWishList, isPending: wishListPending } = useAddToWishList();
     const { mutateAsync: removeFromWishList, isPending: removeFromWishListPending } = useRemoveFromWishList();
     const { data: wishListData } = useGetWishList();
-    const { data: productReviews } = useGetProductAllReview(curruntProduct?._id);
+    const { data: productReviews } = useGetProductAllReview(curruntProduct?._id as string);
     const isPending = cartPending || wishListPending || removeFromWishListPending;
 
     const navigate = useNavigate();
@@ -82,7 +82,7 @@ export const Detail = ({
             label: curruntProduct.title,
         });
 
-        const data = await addToCart({ productId: curruntProduct?._id, quantity: count, size: selectedSize, color: selectedColor })
+        const data = await addToCart({ productId: curruntProduct?._id as string, quantity: count, size: selectedSize, color: selectedColor })
 
         if (data) {
             setAdded(true);
@@ -97,8 +97,8 @@ export const Detail = ({
 
     const inStock = curruntProduct?.variants.reduce((acc, variant) => acc + variant.stock, 0) > 0;
     const isWishlisted = wishListData?.data?.wishlist?.includes(curruntProduct?._id as string);
-    const totalRating = productReviews?.reduce((acc, review) => acc + review.rating, 0);
-    const averageRating = totalRating / productReviews?.length;
+    const totalRating = productReviews?.reduce((acc: any, review: any) => acc + review.rating, 0);
+    const averageRating = (totalRating ?? 0) / (productReviews?.length || 1);
 
     const StarRating = ({ rating = 0 }) => {
         return (
@@ -403,13 +403,13 @@ export const Detail = ({
 
                         {isWishlisted ? (
                             <button
-                                onClick={() => { removeFromWishList(curruntProduct?._id) }}
+                                onClick={() => { removeFromWishList(curruntProduct?._id as string) }}
                                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl border border-red-200 bg-white flex items-center justify-center text-red-500 hover:border-red-200 transition-all duration-200 cursor-pointer shrink-0">
                                 <FaHeart className="text-[14px] sm:text-[16px] md:text-[18px]" />
                             </button>
                         ) : (
                             <button
-                                onClick={() => { addToWishList(curruntProduct?._id) }}
+                                onClick={() => { addToWishList(curruntProduct?._id as string) }}
                                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl border border-gray-200 bg-white flex items-center justify-center text-gray-400 hover:text-red-500 hover:border-red-200 transition-all duration-200 cursor-pointer shrink-0">
                                 <FaRegHeart className="text-[14px] sm:text-[16px] md:text-[18px]" />
                             </button>

@@ -23,7 +23,7 @@ export const Cart = () => {
         const itemDetail = item.items?.[0] || {};
         const price = itemDetail.discountPrice || itemDetail.basePrice || 0;
         return acc + (price * item.quantity);
-    }, 0);
+    }, 0) ?? 0;
 
     const shipping = subtotal > 1000 ? 0 : 99;
     const total = subtotal + shipping;
@@ -98,7 +98,7 @@ export const Cart = () => {
                         <h2 className="text-sm sm:text-base font-bold text-gray-900 uppercase tracking-wide">
                             {cartData?.length} {cartData?.length === 1 ? 'Item' : 'Items'}
                         </h2>
-                        {cartData?.length > 0 && (
+                        {(cartData?.length ?? 0) > 0 && (
                             <button
                                 onClick={ClearCart}
                                 className="text-[10px] sm:text-xs md:text-sm font-bold text-gray-400 hover:text-red-500 uppercase tracking-wider transition-colors cursor-pointer">

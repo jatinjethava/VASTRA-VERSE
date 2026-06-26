@@ -111,7 +111,7 @@ export const HelpCenter = () => {
                                             </div>
                                         </div>
                                     ))}
-                                    {faqList?.page_limit > 1 && (
+                                    {(faqList?.page_limit ?? 0) > 1 && (
                                         <div className="flex justify-between items-center gap-2 sm:gap-4 px-3 sm:px-6 py-3 sm:py-5 border-t border-slate-100 bg-gray-50/50">
                                             <button
                                                 disabled={page === 1}

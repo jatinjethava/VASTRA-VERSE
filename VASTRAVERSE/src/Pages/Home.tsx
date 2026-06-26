@@ -188,7 +188,7 @@ export const Home = () => {
                                             )}
                                         </div>
 
-                                        <button onClick={() => { showProduct(item._id), view(item._id), AddRecentlyViewed(item._id) }} className="w-full mt-3 sm:mt-4 py-1.5 sm:py-2.5 rounded-xl text-[10px] sm:text-sm font-semibold tracking-wider cursor-pointer text-gray-500 hover:text-gray-600 hover:underline hover:underline-offset-4 transition-all duration-300 flex items-center gap-1 sm:gap-2 justify-start">
+                                        <button onClick={() => { showProduct(item._id as string), view(item._id as string), AddRecentlyViewed(item._id as string) }} className="w-full mt-3 sm:mt-4 py-1.5 sm:py-2.5 rounded-xl text-[10px] sm:text-sm font-semibold tracking-wider cursor-pointer text-gray-500 hover:text-gray-600 hover:underline hover:underline-offset-4 transition-all duration-300 flex items-center gap-1 sm:gap-2 justify-start">
                                             View Product
                                             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -250,7 +250,7 @@ export const Home = () => {
                                     ) : (
 
                                         <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 md:gap-10 lg:grid-cols-4 gap-6 sm:gap-6 lg:gap-10 place-content-center place-items-center'>
-                                            {data.map((product: Product) => {
+                                            {data?.map((product: Product) => {
                                                 if (product.isBestSeller || product.isNewArrival) {
                                                     return <Card key={product._id} product={product} />;
                                                 }
@@ -315,14 +315,14 @@ export const Home = () => {
                 <div className="absolute top-1/3 right-0 -translate-y-1/3 w-80 h-80 bg-gray-500/10 rounded-full blur-3xl pointer-events-none" />
 
                 <div className="glass-card rounded-lg p-6 sm:p-10 lg:p-16 relative overflow-hidden border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
-                    {LimitedEditionProduct?.length > 0 && LimitedEditionProduct?.map((item: Product, index: number) => (
+                    {(LimitedEditionProduct?.length ?? 0) > 0 && LimitedEditionProduct?.map((item: Product, index: number) => (
                         <div key={item._id || index} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
                             <div className="lg:col-span-5 flex justify-center order-first relative">
                                 <div className="relative group">
                                     <img
                                         src={item.images?.[0] || "/placeholder.jpg"}
-                                        className="w-full max-w-70 sm:max-w-md lg:max-w-full h-auto aspect-[4/5] object-cover rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] border border-white/5 group-hover:scale-[1.02] transition-transform duration-300"
+                                        className="w-full max-w-70 sm:max-w-md lg:max-w-full h-auto aspect-4/5 object-cover rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] border border-white/5 group-hover:scale-[1.02] transition-transform duration-300"
                                         alt={item.title}
                                     />
                                     <div className="absolute -top-3 -left-3 sm:-top-4 sm:-left-4 text-gray-900 bg-white/90 backdrop-blur-sm font-extrabold text-[9px] sm:text-xs uppercase tracking-widest px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl shadow-lg">

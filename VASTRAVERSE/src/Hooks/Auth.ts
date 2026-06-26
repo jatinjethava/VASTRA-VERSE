@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { LoginAPI, SignUpAPI, OtpAPI, resendOtpAPI } from "../Api/Auth";
 
 export const register = () => {

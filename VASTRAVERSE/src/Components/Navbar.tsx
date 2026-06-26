@@ -47,9 +47,6 @@ export const Navbar = () => {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState<boolean>(false);
-    const [isMenDropDown, setIsMenDropDown] = useState<boolean>(false);
-    const [isWomenDropDown, setIsWomenDropDown] = useState<boolean>(false);
-    const [isKidsDropDown, setIsKidsDropDown] = useState<boolean>(false);
 
     return (
         <nav className="sticky top-0 z-[999] w-full bg-white backdrop-blur-md transition-all duration-300">
@@ -76,8 +73,6 @@ export const Navbar = () => {
 
                                 <li
                                     className="relative"
-                                    onMouseEnter={() => setIsMenDropDown(true)}
-                                    onMouseLeave={() => setIsMenDropDown(false)}
                                 >
                                     <Link to="men" onClick={() => dispatch(setNavActive("men"))}
                                         className={`relative overflow-hidden group transition-all duration-300 py-1.5 px-3 rounded-md flex items-center gap-1.5 font-medium ${navActive === "men" ? "text-gray-900 bg-gray-100" : "text-gray-500 hover:text-gray-900"}`}>
@@ -118,8 +113,6 @@ export const Navbar = () => {
                                 </li>
                                 <li
                                     className="relative"
-                                    onMouseEnter={() => setIsWomenDropDown(true)}
-                                    onMouseLeave={() => setIsWomenDropDown(false)}
                                 >
                                     <Link to="women" onClick={() => dispatch(setNavActive("women"))}
                                         className={`relative overflow-hidden group transition-all duration-300 py-1.5 px-3 rounded-md flex items-center gap-1.5 font-medium ${navActive === "women" ? "text-gray-900 bg-gray-100" : "text-gray-500 hover:text-gray-900"}`}>
@@ -160,8 +153,6 @@ export const Navbar = () => {
                                 </li>
                                 <li
                                     className="relative"
-                                    onMouseEnter={() => setIsKidsDropDown(true)}
-                                    onMouseLeave={() => setIsKidsDropDown(false)}
                                 >
                                     <Link to="kids" onClick={() => dispatch(setNavActive("kids"))}
                                         className={`relative overflow-hidden group transition-all duration-300 py-1.5 px-3 rounded-md flex items-center gap-1.5 font-medium ${navActive === "kids" ? "text-gray-900 bg-gray-100" : "text-gray-500 hover:text-gray-900"}`}>
@@ -224,7 +215,7 @@ export const Navbar = () => {
                                 <div className="flex items-center gap-4 md:gap-7 ml-1 sm:ml-2">
                                     <Link to="/notification" className="relative hidden sm:block text-gray-700 hover:text-gray-900 transition-colors duration-300 cursor-pointer">
                                         <FaRegBell size={20} className="cursor-pointer hover:scale-105" />
-                                        {allnotification?.notifications?.filter((notifi: any) => notifi?.isRead == false).length > 0 && <span className="absolute -top-1 -right-1 bg-red-600 font-bold min-w-3 h-3 rounded-full flex items-center justify-center px-1 border-2 border-white shadow-sm animate-pulse"></span>}
+                                        {(allnotification?.notifications?.filter((notifi: any) => notifi?.isRead == false)?.length ?? 0) > 0 && <span className="absolute -top-1 -right-1 bg-red-600 font-bold min-w-3 h-3 rounded-full flex items-center justify-center px-1 border-2 border-white shadow-sm animate-pulse"></span>}
                                     </Link>
 
                                     <div className="relative hidden md:block">

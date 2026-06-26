@@ -34,7 +34,7 @@ export const Card = ({ product }: { product: Product }
     const { data: wishListData } = useGetWishList();
     const { mutate: recentlyViewed } = useRecentlyViewed();
     const { mutateAsync: view } = useViewProduct();
-    const { data: productReviews } = useGetProductAllReview(product?._id);
+    const { data: productReviews } = useGetProductAllReview(product?._id as string);
 
     const [isFlipped, setIsFlipped] = useState<boolean>(false);
     const [showDetail, setShowDetail] = useState<boolean>(false);
@@ -44,7 +44,7 @@ export const Card = ({ product }: { product: Product }
 
     const isWishlisted = wishListData?.data?.wishlist?.some((item: any) => item.productId === curruntProduct?._id);
     const totalRating = productReviews?.reduce((acc, review) => acc + review.rating, 0);
-    const averageRating = totalRating / productReviews?.length;
+    const averageRating = (totalRating ?? 0) / (productReviews?.length || 1);
 
     return (
         <>
@@ -130,13 +130,13 @@ export const Card = ({ product }: { product: Product }
                             >
                                 {isWishlisted ? (
                                     <button
-                                        onClick={() => removeFromWishList(product._id)}
+                                        onClick={() => removeFromWishList(product._id as string)}
                                         className={`cursor-pointer animate-scale-in duration-500 ease-in-out text-red-600`}>
                                         <FaHeart />
                                     </button>
                                 ) : (
                                     <button
-                                        onClick={() => addToWishList(product._id)}
+                                        onClick={() => addToWishList(product._id as string)}
                                         className={`cursor-pointer animate-scale-in duration-500 ease-in-out`}>
                                         <CiHeart size={20} />
                                     </button>
@@ -186,8 +186,8 @@ export const Card = ({ product }: { product: Product }
                                         setCurrentProduct(product);
                                         setShowDetail(true);
                                         setIsFlipped(false);
-                                        recentlyViewed(product._id);
-                                        view(product._id)
+                                        recentlyViewed(product._id as string);
+                                        view(product._id as string)
                                     }}
                                 >
                                     {showDetail ? "✓ Show Details!" : "Show Details"}

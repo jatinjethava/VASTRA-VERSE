@@ -101,7 +101,7 @@ export const Checkout = () => {
         try {
 
             const orderPayload = {
-                items: userCart.map((cart: any) => {
+                items: (userCart || []).map((cart: any) => {
                     const product = cart.items?.[0] || {};
                     return {
                         productId: cart.productId,
@@ -236,7 +236,7 @@ export const Checkout = () => {
     const [coupon, setCoupon] = useState<string>("");
     const applyCoupon = () => {
         try {
-            applyCouponMutation({ id: userCart[0]._id, coupon: coupon });
+            applyCouponMutation({ id: userCart?.[0]?._id as string, coupon: coupon });
             refetchCart();
         } catch (error: any) {
             toast.error(error.message || "Something went wrong", {

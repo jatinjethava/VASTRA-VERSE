@@ -19,7 +19,7 @@ export const AddReview = ({ setAddReview, productId }: { setAddReview: (addRevie
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            setReviewData((prev) => ({ ...prev, images: Array.from(e.target.files) }));
+            setReviewData((prev) => ({ ...prev, images: Array.from(e.target.files || []) }));
         }
     };
 

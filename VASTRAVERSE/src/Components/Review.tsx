@@ -33,7 +33,7 @@ export const Reviews = ({ productId }: { productId: string }) => {
 
     const [addReview, setAddReview] = useState<boolean>(false);
     const [activeFilter, setActiveFilter] = useState<number>(0);
-    const [hoveredReview, setHoveredReview] = useState(null);
+    const [hoveredReview, setHoveredReview] = useState<string | null>(null);
 
     const totalReviews = reviewsData?.length;
 
