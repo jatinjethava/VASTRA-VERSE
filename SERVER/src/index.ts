@@ -13,7 +13,14 @@ import { registerChatHandlers } from './services/chatSocket';
 const app = express();
 
 app.set('trust proxy', true);
-app.use(cors());
+app.use(
+    cors({
+        origin: [
+            "*"
+        ],
+        credentials: true,
+    })
+);
 mongooseConnection();
 app.use(bodyParser.json({ limit: '200mb' }));
 app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
