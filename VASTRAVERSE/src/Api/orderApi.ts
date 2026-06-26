@@ -107,8 +107,18 @@ export const cancelOrder = async ({ reason, orderId }: { reason?: string, orderI
 
 export const DownloadInvoice = async (orderId: string): Promise<Blob> => {
     try {
+        let token = localStorage.getItem("token");
+        if (token) {
+            if (token.startsWith('"') && token.endsWith('"')) {
+                token = token.slice(1, -1);
+            }
+        }
+
         const response = await api.get(`/download-invoice/${orderId}`, {
-            responseType: "blob"
+            responseType: "blob",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         });
 
         if (response.status !== 200) {
