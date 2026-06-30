@@ -28,18 +28,7 @@ app.use(
     })
 );
 
-app.options('*', cors({
-    origin: [
-        "https://vastra-verse.onrender.com",
-        "https://vastra-verse.vercel.app",
-        "https://vastra-verse-admin.vercel.app",
-        "http://localhost:5174",
-        "http://localhost:5173"
-    ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-    credentials: true,
-}));
+
 mongooseConnection();
 app.use(bodyParser.json({ limit: '200mb' }));
 app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
@@ -70,7 +59,7 @@ app.get('/isServerUp', (req: Request, res: Response) => {
 
 app.use(router);
 
-app.all('*', not_found);
+app.all('(.*)', not_found);
 
 const server = new http.Server(app);
 
