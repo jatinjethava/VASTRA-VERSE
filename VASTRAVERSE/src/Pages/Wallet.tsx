@@ -3,12 +3,12 @@ import { useGetWalletInfo, useAddMoneyToWallet, useVerifyRazorpaySignature, useW
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import { Wallet as WalletIcon, Plus, ShieldCheck, CreditCard, ArrowRight, ArrowDownLeft, ArrowUpRight, History, Clock } from "lucide-react";
-import { useRazorpay } from "react-razorpay";
+
 
 const QUICK_AMOUNTS = [500, 1000, 2000, 5000];
 
 export const Wallet = () => {
-    const { Razorpay } = useRazorpay();
+
     const { data: walletInfo, refetch: refetchWallet } = useGetWalletInfo();
     const { mutateAsync: addMoneyToWallet, isPending: addMoneyPending } = useAddMoneyToWallet();
     const { mutateAsync: verifyPaymentMutation } = useVerifyRazorpaySignature();
@@ -66,7 +66,7 @@ export const Wallet = () => {
                     }
                 }
             };
-            const rzp = new Razorpay(options);
+            const rzp = new window.Razorpay(options);
             rzp.on('payment.failed', async (response: any) => {
                 toast.error(response.error.description || "Payment failed", { duration: 2000 });
             });
