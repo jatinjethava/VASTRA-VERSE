@@ -27,6 +27,19 @@ app.use(
         credentials: true,
     })
 );
+
+app.options('*', cors({
+    origin: [
+        "https://vastra-verse.onrender.com",
+        "https://vastra-verse.vercel.app",
+        "https://vastra-verse-admin.vercel.app",
+        "http://localhost:5174",
+        "http://localhost:5173"
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    credentials: true,
+}));
 mongooseConnection();
 app.use(bodyParser.json({ limit: '200mb' }));
 app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
@@ -42,7 +55,12 @@ const health = (req: Request, res: Response) => {
     })
 }
 
-const bad_gateway = (req: Request, res: Response) => { return res.status(502).json({ status: 502, message: "Payment Exchange Backend API Bad Gate  way" }) }
+const not_found = (req: Request, res: Response) => {
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+    return res.status(404).json({ status: 404, message: "Route not found" });
+}
 
 app.get('/', health);
 app.get('/health', health);
@@ -52,7 +70,7 @@ app.get('/isServerUp', (req: Request, res: Response) => {
 
 app.use(router);
 
-app.all(/.*/, bad_gateway);
+app.all('*', not_found);
 
 const server = new http.Server(app);
 
