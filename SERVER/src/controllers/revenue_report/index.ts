@@ -87,7 +87,7 @@ export const getRevenueCharts = async (req: Request, res: Response) => {
                 $group: {
                     _id: { $dateToString: { format: "%Y-%m", date: "$createdAt", timezone: "Asia/Kolkata" } },
                     revenue: { $sum: "$totalAmount" },
-                    expenses: { $sum: "$costPrice" }
+                    expenses: { $sum: "$totalCost" }
                 }
             },
             { $sort: { _id: 1 } }
