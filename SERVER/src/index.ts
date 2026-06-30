@@ -19,7 +19,8 @@ app.use(
             "https://vastra-verse.onrender.com",
             "https://vastra-verse.vercel.app",
             "https://vastra-verse-admin.vercel.app",
-            "http://localhost:5174"
+            "http://localhost:5174",
+            "http://localhost:5173"
         ],
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
