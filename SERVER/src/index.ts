@@ -59,7 +59,7 @@ app.get('/isServerUp', (req: Request, res: Response) => {
 
 app.use(router);
 
-app.all('(.*)', not_found);
+app.use(not_found);
 
 const server = new http.Server(app);
 
