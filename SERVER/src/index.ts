@@ -19,6 +19,7 @@ app.use(
             "https://vastra-verse.onrender.com",
             "https://vastra-verse.vercel.app",
             "https://vastra-verse-admin.vercel.app",
+            "https://vastra-verse-admin-git-main-jatinjethava3125-4565s-projects.vercel.app",
             "http://localhost:5174",
             "http://localhost:5173"
         ],
