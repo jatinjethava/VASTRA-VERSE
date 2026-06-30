@@ -18,7 +18,7 @@ app.use(
         origin: [
             "https://vastra-verse.onrender.com",
             "https://vastra-verse.vercel.app",
-            "http://localhost:5173",
+            "https://vastra-verse-admin.vercel.app",
             "http://localhost:5174"
         ],
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
