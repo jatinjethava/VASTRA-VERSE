@@ -1,5 +1,14 @@
 {
+  "functions": {
+    "api/invoice.js": {
+      "runtime": "nodejs16.x"
+    }
+  },
   "rewrites": [
+    {
+      "source": "/api/invoice",
+      "destination": "/api/invoice.js"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"

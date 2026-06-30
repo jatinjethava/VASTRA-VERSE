@@ -9,8 +9,10 @@ import { useNavigate } from "react-router";
 import { useCreatePaymentOrder, useFailReason, useVerifyPayment } from "../Hooks/payment";
 import ReactGA from "react-ga4";
 import { useGetDefaultAddress, useGetAllAddresses } from "../Hooks/user"
+import { useRazorpay } from "react-razorpay";
 
 export const Checkout = () => {
+    const { Razorpay } = useRazorpay();
     useEffect(() => {
         document.title = "Checkout | Vastra Verse";
     }, []);
@@ -161,7 +163,7 @@ export const Checkout = () => {
                 return;
             }
 
-            const options = {
+            const options: any = {
                 key: rzpKey,
                 amount: rzpOrder.amount,
                 currency: rzpOrder.currency || "INR",
@@ -207,7 +209,7 @@ export const Checkout = () => {
                 }
             };
 
-            const rzp = new (window as any).Razorpay(options);
+            const rzp = new Razorpay(options);
             rzp.on('payment.failed', async (response: any) => {
                 toast.error(response.error.description || "Payment failed", { duration: 2000 });
                 await paymentFaildReason(response.error.description);
