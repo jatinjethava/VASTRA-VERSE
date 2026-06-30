@@ -87,7 +87,7 @@ export const SalesReport = () => {
                 const categoryId = (prodCategory && typeof prodCategory === 'object') ? String(prodCategory._id || "") : String(prodCategory || "");
                 const categoryFallback = (prodCategory && typeof prodCategory === 'object') ? prodCategory.name : "Others";
                 const category = allCategories?.find((c: any) => String(c._id) === categoryId)?.name || categoryFallback || "Others";
-                const revenue = item.total ? (item.total * item.quantity) : (item.discountPrice * item.quantity || 0);
+                const revenue = item.total;
 
                 categoryRevenue[category] = (categoryRevenue[category] || 0) + revenue;
                 totalCalculatedRevenue += revenue;

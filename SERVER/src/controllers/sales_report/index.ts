@@ -162,10 +162,7 @@ export const salesByCategory = async (req: Request, res: Response) => {
                     _id: { $ifNull: ["$category.name", "Others"] },
                     totalSales: {
                         $sum: {
-                            $multiply: [
-                                { $ifNull: ["$items.discountPrice", 0] },
-                                { $ifNull: ["$items.quantity", 1] }
-                            ]
+                            $sum: { $ifNull: ["$items.total", 0] }
                         }
                     },
                     uniqueOrders: { $addToSet: "$_id" }
@@ -197,12 +194,7 @@ export const salesByProduct = async (req: Request, res: Response) => {
                     productId: { $first: "$items.productId" },
                     quantitySold: { $sum: { $ifNull: ["$items.quantity", 0] } },
                     sales: {
-                        $sum: {
-                            $multiply: [
-                                { $ifNull: ["$items.discountPrice", 0] },
-                                { $ifNull: ["$items.quantity", 0] }
-                            ]
-                        }
+                        $sum: { $ifNull: ["$items.total", 0] }
                     }
                 }
             },
