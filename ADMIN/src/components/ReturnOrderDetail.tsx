@@ -6,7 +6,7 @@ export const ReturnOrderDetails = ({ showReturn, returnOrderDetails }: { showRet
     console.log(returnOrderDetails)
     return (
         <>
-            <div className={`animate-fade-in-up-delay-1 fixed ${showReturn ? "flex" : "hidden"} inset-0 z-50 items-center justify-center h-full w-full bg-black/20 backdrop-blur-sm`}>
+            <div className={`animate-fade-in-up-delay-1 fixed flex inset-0 z-50 items-center justify-center h-full w-full bg-black/20 backdrop-blur-sm`}>
                 <div className="bg-white p-4 sm:p-8 rounded-lg shadow-lg w-[95%] sm:w-[80%] max-w-4xl max-h-[90vh] overflow-y-auto">
                     <div className="flex justify-between items-center mb-4">
                         <div className="flex flex-col justify-start items-start gap-1">
@@ -67,7 +67,7 @@ export const ReturnOrderDetails = ({ showReturn, returnOrderDetails }: { showRet
                             </div>
                             <div className="flex justify-between items-center mb-2">
                                 <span className="font-semibold text-gray-600">Return Date</span>
-                                <span className="text-gray-500">{new Date(returnOrderDetails?.createdAt).toLocaleDateString()}</span>
+                                <span className="text-gray-500">{new Date(returnOrderDetails?.createdAt || "").toLocaleDateString()}</span>
                             </div>
                             <div className="flex justify-between items-center mb-2">
                                 <span className="font-semibold text-gray-600">Return Status</span>

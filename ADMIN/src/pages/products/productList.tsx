@@ -19,12 +19,12 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
     const [idUpdate, setIdUpdate] = useState<boolean>(false);
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
-    const [product, setProduct] = useState<Product>({
+    const [product, setProduct] = useState<any>({
         title: "",
         description: "",
-        basePrice: null,
-        discountPrice: null,
-        costPrice: null,
+        basePrice: null as any,
+        discountPrice: null as any,
+        costPrice: null as any,
         category: "",
         gender: "men",
         material: "",
@@ -41,10 +41,10 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
             {
                 size: "",
                 color: "",
-                stock: null,
+                stock: null as any,
                 sku: "",
-                price: null,
-                discountPrice: null,
+                price: null as any,
+                discountPrice: null as any,
             }
         ]
     });
@@ -53,21 +53,21 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
         if (files.length > 0) {
             const newPreviews = files.map(file => URL.createObjectURL(file));
             setImagePreviews(prev => [...prev, ...newPreviews]);
-            setProduct(prev => ({ ...prev, images: [...prev.images, ...(files as any)] }));
+            setProduct((prev: any) => ({ ...prev, images: [...prev.images, ...(files as any)] }));
         }
         e.target.value = '';
     };
 
     const removeImage = (index: number) => {
-        setImagePreviews(prev => prev.filter((_, i) => i !== index));
-        setProduct(prev => ({ ...prev, images: prev.images.filter((_, i) => i !== index) }));
+        setImagePreviews(prev => prev.filter((_: any, i: number) => i !== index));
+        setProduct((prev: any) => ({ ...prev, images: prev.images.filter((_: any, i: number) => i !== index) }));
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
         const checked = (e.target as HTMLInputElement).checked;
 
-        setProduct(prev => ({
+        setProduct((prev: any) => ({
             ...prev,
             [name]: type === "checkbox" ? checked : value
         }));
@@ -81,10 +81,10 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
                 {
                     size: "",
                     color: "",
-                    stock: null,
+                    stock: null as any,
                     sku: "",
-                    price: null,
-                    discountPrice: null,
+                    price: null as any,
+                    discountPrice: null as any,
                 }
             ]
         });
@@ -98,16 +98,16 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
     };
 
     const removeVariant = (index: number) => {
-        const filtered = product.variants.filter((_, i) => i !== index);
+        const filtered = product.variants.filter((_: any, i: number) => i !== index);
 
-        setProduct((prev) => ({
+        setProduct((prev: any) => ({
             ...prev,
             variants: filtered,
         }));
     };
 
     const removeTag = (index: number) => {
-        const filtered = product.tags.filter((_, i) => i !== index);
+        const filtered = product.tags.filter((_: any, i: number) => i !== index);
         setProduct({ ...product, tags: filtered });
     }
 
@@ -140,9 +140,9 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
         setProduct({
             title: "",
             description: "",
-            basePrice: null,
-            discountPrice: null,
-            costPrice: null,
+            basePrice: null as any,
+            discountPrice: null as any,
+            costPrice: null as any,
             category: "",
             gender: "men",
             material: "",

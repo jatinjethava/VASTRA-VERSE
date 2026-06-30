@@ -836,7 +836,7 @@ export default function DashboardHome() {
         </div>
       </div>
 
-      {stockLowProdcut?.length > 0 && (
+      {(stockLowProdcut || []).length > 0 && (
         <div className="shadow-md rounded-sm bg-gray-100 py-3">
           <div className="overflow-x-auto">
             <table className="w-full text-sm min-w-[600px]">

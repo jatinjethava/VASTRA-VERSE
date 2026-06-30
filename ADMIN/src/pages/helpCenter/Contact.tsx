@@ -14,7 +14,7 @@ export const Contact = () => {
 
     const allIds = (checked: boolean) => {
         if (checked) {
-            setSelectedIds(contact?.map((c: any) => c._id));
+            setSelectedIds(contact?.map((c: any) => c._id) || []);
         } else {
             setSelectedIds([]);
         }

@@ -350,7 +350,7 @@ export const ProductForm = ({
 
                                 <div className="space-y-4">
 
-                                    {product.variants.map((variant, index) => (
+                                    {product.variants.map((variant: any, index: number) => (
 
                                         <div
                                             key={index}
@@ -452,7 +452,7 @@ export const ProductForm = ({
                                         onChange={(e) => {
                                             const newTag = e.target.value;
                                             if (newTag && !product.tags.includes(newTag as never)) {
-                                                setProduct(prev => ({
+                                                setProduct((prev: any) => ({
                                                     ...prev,
                                                     tags: [...prev.tags, newTag] as never[]
                                                 }));
@@ -472,7 +472,7 @@ export const ProductForm = ({
 
                                     {product.tags.length > 0 && (
                                         <div className="flex flex-wrap gap-3">
-                                            {product.tags.map((tag, i) => (
+                                            {product.tags.map((tag: any, i: number) => (
                                                 <div
                                                     key={i}
                                                     className="flex items-center gap-2 bg-gray-100 border border-gray-300 rounded-full pl-4 pr-1 py-1 w-fit shadow-sm hover:bg-gray-200 transition-colors"

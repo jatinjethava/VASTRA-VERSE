@@ -13,7 +13,7 @@ export const Product = () => {
     const { mutate, isPending } = useAddProduct();
     const { data: allProducts } = useGetProducts();
 
-    const [product, setProduct] = useState({
+    const [product, setProduct] = useState<any>({
         title: "",
         description: "",
         basePrice: null,
@@ -53,21 +53,21 @@ export const Product = () => {
         if (files.length > 0) {
             const newPreviews = files.map(file => URL.createObjectURL(file));
             setImagePreviews(prev => [...prev, ...newPreviews]);
-            setProduct(prev => ({ ...prev, images: [...prev.images, ...(files as any)] }));
+            setProduct((prev: any) => ({ ...prev, images: [...prev.images, ...(files as any)] }));
         }
         e.target.value = '';
     };
 
     const removeImage = (index: number) => {
-        setImagePreviews(prev => prev.filter((_, i) => i !== index));
-        setProduct(prev => ({ ...prev, images: prev.images.filter((_, i) => i !== index) }));
+        setImagePreviews(prev => prev.filter((_: any, i: number) => i !== index));
+        setProduct((prev: any) => ({ ...prev, images: prev.images.filter((_: any, i: number) => i !== index) }));
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
         const checked = (e.target as HTMLInputElement).checked;
 
-        setProduct(prev => ({
+        setProduct((prev: any) => ({
             ...prev,
             [name]: type === "checkbox" ? checked : value
         }));
@@ -98,9 +98,9 @@ export const Product = () => {
     };
 
     const removeVariant = (index: number) => {
-        const filtered = product.variants.filter((_, i) => i !== index);
+        const filtered = product.variants.filter((_: any, i: number) => i !== index);
 
-        setProduct((prev) => ({
+        setProduct((prev: any) => ({
             ...prev,
             variants: filtered,
         }));
@@ -129,14 +129,14 @@ export const Product = () => {
 
             return;
         }
-        mutate(product, {
+        mutate(product as any, {
             onSuccess: () => {
                 setProduct({
                     title: "",
                     description: "",
-                    basePrice: "",
-                    discountPrice: "",
-                    costPrice: "",
+                    basePrice: "" as any,
+                    discountPrice: "" as any,
+                    costPrice: "" as any,
                     category: "",
                     gender: "men",
                     material: "",
@@ -154,10 +154,10 @@ export const Product = () => {
                         {
                             size: "",
                             color: "",
-                            stock: "",
+                            stock: "" as any,
                             sku: "",
-                            price: "",
-                            discountPrice: "",
+                            price: "" as any,
+                            discountPrice: "" as any,
                         }
                     ]
                 });
@@ -168,7 +168,7 @@ export const Product = () => {
     };
 
     const removeTag = (index: number) => {
-        const filtered = product.tags.filter((_, i) => i !== index);
+        const filtered = product.tags.filter((_: any, i: number) => i !== index);
         setProduct({ ...product, tags: filtered });
     }
 
@@ -192,7 +192,7 @@ export const Product = () => {
                 </div>
             </div>
 
-            {lowProduct?.length > 0 && (
+            {(lowProduct || []).length > 0 && (
                 <div
                     onClick={() => setShowLowProduct(true)}
                     className="animate-fade-in-up hover:animate-zoom-in cursor-pointer mt-5 ml-auto flex items-center gap-3 bg-yellow-50 border border-yellow-200 rounded-xl px-4 py-3 shadow-sm hover:shadow-md transition"
@@ -237,7 +237,7 @@ export const Product = () => {
             </div>
 
             {showLowProduct && (
-                <LowProduct lowProduct={lowProduct} setShowLowProduct={setShowLowProduct} />
+                <LowProduct lowProduct={lowProduct || []} setShowLowProduct={setShowLowProduct} />
             )}
 
             {showProductForm && (

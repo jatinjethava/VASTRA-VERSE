@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PlusCircle, Edit, X, Image as ImageIcon, Trash2, ArrowUpRight } from "lucide-react";
+import { PlusCircle, Edit, X, Image as ImageIcon, Trash2 } from "lucide-react";
 import { useFetchAllBanner, useCreateBanner, useUpdateBanner, useDeleteBanner } from "../../Hooks/marketing";
 import { toast } from "sonner";
 

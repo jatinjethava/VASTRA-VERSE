@@ -12,8 +12,8 @@ export const Return = () => {
     const { mutate: updateReturn } = useReturnUpdate();
 
     const [showReturn, setShowReturn] = useState<boolean>(false);
-    const [returnOrderDetails, setReturnOrderDetails] = useState<ReturnType>(null);
-    const [selectedId, setSelectedId] = useState(null);
+    const [returnOrderDetails, setReturnOrderDetails] = useState<ReturnType | null>(null);
+    const [selectedId, setSelectedId] = useState<string[]>([]);
 
     return (
         <>
@@ -96,7 +96,7 @@ export const Return = () => {
 
                             <tbody>
                                 {returns?.map((ret) => {
-                                    const isHighlighted = ret?.status === "pending" && !selectedId?.includes(ret?._id);
+                                    const isHighlighted = ret?.status === "pending" && !selectedId.includes(ret?._id as string);
                                     return (
                                         <tr key={ret?._id} className={`shadow-sm cursor-pointer transition-colors duration-300 border-l-4 ${isHighlighted ? "bg-blue-50/60 border-blue-500" : "bg-white border-transparent hover:bg-gray-50"}`}>
                                             <td className="p-3 font-medium text-gray-700">{ret?._id ? ret?._id.slice(0, 10) + "..." : "N/A"}</td>
@@ -111,7 +111,7 @@ export const Return = () => {
                                                     {ret?.status}
                                                 </span>
                                             </td>
-                                            <td className="p-3 text-gray-500">{new Date(ret?.createdAt).toLocaleDateString()}</td>
+                                            <td className="p-3 text-gray-500">{new Date(ret?.createdAt || "").toLocaleDateString()}</td>
                                             <td className="p-3">
                                                 <div className="flex flex-wrap justify-start items-center gap-2">
                                                     <button
@@ -168,7 +168,7 @@ export const Return = () => {
             </div>
 
             {showReturn && (
-                <ReturnOrderDetails showReturn={setShowReturn} returnOrderDetails={returnOrderDetails} />
+                <ReturnOrderDetails showReturn={setShowReturn} returnOrderDetails={returnOrderDetails as ReturnType} />
             )}
         </>
     )

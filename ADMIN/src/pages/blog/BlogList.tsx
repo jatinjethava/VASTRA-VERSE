@@ -14,7 +14,7 @@ export const BlogList = () => {
     const { mutateAsync: deleteBlog } = useDeleteBlog();
 
     const navigate = useNavigate();
-    const [thisBlog, setThisBlog] = useState<Blogs>(null);
+    const [thisBlog, setThisBlog] = useState<Blogs | null>(null);
     const [showBlog, setShowBlog] = useState(false);
 
     const updateBlog = (blog: Blogs) => {
@@ -255,7 +255,7 @@ export const BlogList = () => {
                     </table>
                 </div>
 
-                {showBlog && <ShowBlog blog={thisBlog} setShowBlog={setShowBlog} />}
+                {showBlog && <ShowBlog blog={thisBlog as Blogs} setShowBlog={setShowBlog} />}
 
             </div>
         </>

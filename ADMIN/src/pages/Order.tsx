@@ -68,7 +68,7 @@ export const Order = () => {
         let matches = true;
 
         if (searchOrderId !== "") {
-            matches = order._id.toLowerCase().includes(searchOrderId.toLowerCase()) || order.orderNumber?.toString().toLowerCase().includes(searchOrderId.toLowerCase());
+            matches = (order._id || "").toLowerCase().includes(searchOrderId.toLowerCase()) || order.orderNumber?.toString().toLowerCase().includes(searchOrderId.toLowerCase());
         }
 
 
@@ -93,7 +93,7 @@ export const Order = () => {
         }
 
         if (sortBy !== "") {
-            const date = new Date(order.createdAt);
+            const date = new Date(order.createdAt || "");
             const today = new Date();
             const thisWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
             const thisMonth = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);

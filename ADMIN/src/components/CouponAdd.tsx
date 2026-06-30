@@ -78,8 +78,8 @@ export const AddCoupon = ({ coupon, isUpdate, isModalOpen, setIsModalOpen }: { c
 
         try {
             let res: any;
-            if (isUpdate) {
-                res = await updateCoupon({ id: coupon._id, coupon: formData })
+            if (isUpdate && coupon) {
+                res = await updateCoupon({ id: coupon._id as string, coupon: formData })
             }
             else {
                 res = await createCoupon(formData)

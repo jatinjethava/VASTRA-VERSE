@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { getChatRoomsAPI, getAdminChatMessagesAPI, closeChatRoomAPI } from "../../Api/chatApi";
+import { getChatRoomsAPI, getAdminChatMessagesAPI } from "../../Api/chatApi";
 import { io, Socket } from "socket.io-client";
 import { toast } from "sonner";
 import { Send, CheckCheck, User as UserIcon, Lock, Search } from "lucide-react";
@@ -84,7 +84,7 @@ export const Chat = () => {
     useEffect(() => {
         if (!socket) return;
 
-        const handleNewRoom = (data: any) => {
+        const handleNewRoom = (_data: any) => {
             fetchRooms();
         };
 
