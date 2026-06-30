@@ -29,11 +29,12 @@ import { Campaign } from './pages/marketing/Campaign'
 import { FlashSales } from './pages/marketing/FlashSales'
 import { Chat } from './pages/chat/Chat'
 import { Banner } from './pages/marketing/Banner'
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   return (
     <>
-
+      <Analytics />
       <Toaster position='top-right' duration={1500} richColors />
 
       <Routes>
