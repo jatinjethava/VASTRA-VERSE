@@ -84,7 +84,8 @@ export const updateProduct = async (req: Request, res: Response) => {
 
         if (typeof req.body.variants === "string") req.body.variants = JSON.parse(req.body.variants);
         if (typeof req.body.tags === "string") req.body.tags = JSON.parse(req.body.tags);
-        if (typeof req.body.images === "string") req.body.images = [req.body.images];
+        if (!req.body.images) req.body.images = [];
+        else if (typeof req.body.images === "string") req.body.images = [req.body.images];
 
         const { error, value } = updateProductSchema.validate(req.body);
         if (error) {
@@ -101,11 +102,6 @@ export const updateProduct = async (req: Request, res: Response) => {
         const keptImages = value.images || [];
         const newImages = req.files && (req.files as any).length > 0 ? (req.files as any).map((image: any) => image.path) : [];
         value.images = [...keptImages, ...newImages];
-
-        if (value.images.length === 0) {
-            await deleteUploadedFiles(req.files);
-            return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, "At least one image is required", {}, {}));
-        }
 
         const imagesToDelete = product.images.filter((img: string) => !keptImages.includes(img));
 
