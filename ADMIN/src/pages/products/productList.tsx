@@ -159,10 +159,10 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
                 {
                     size: "",
                     color: "",
-                    stock: null,
+                    stock: null as any,
                     sku: "",
-                    price: null,
-                    discountPrice: null,
+                    price: null as any,
+                    discountPrice: null as any,
                 }
             ]
         });
@@ -354,7 +354,7 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {filterProducts.map((product: Product) => {
+                                {(filterProducts || []).map((product: Product) => {
                                     const totalStock = product.variants?.reduce((acc, v) => acc + (Number(v.stock) || 0), 0) || 0;
                                     const firstImage = product.images && product.images.length > 0 ? product.images[0] : null;
                                     console.log(firstImage)

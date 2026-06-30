@@ -38,8 +38,8 @@ export const CustomerAnalysis = () => {
         return userDate >= weekAgo;
     })
 
-    const avgOrder = orders?.orders?.length / users?.length;
-    const CLV = orders?.orders.map((order: any) => order.totalAmount).reduce((acc: any, amount: any) => acc + amount, 0) / users?.length;
+    const avgOrder = (orders?.orders?.length || 0) / (users?.length || 1);
+    const CLV = (orders?.orders || []).map((order: any) => order.totalAmount).reduce((acc: any, amount: any) => acc + amount, 0) / (users?.length || 1);
 
     if (isLoading) {
         return (
