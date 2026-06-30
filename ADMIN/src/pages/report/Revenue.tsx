@@ -35,7 +35,6 @@ export const RevenueReport = () => {
 
     const { data: overview, isLoading: overviewLoading } = useRevenueOverview();
     const { data: chartsData, isLoading: chartsLoading } = useRevenueCharts();
-    console.log("chartsData", chartsData)
     const { data: regionData } = useRevenueByRegion();
     const { data: paymentData } = useRevenueByPaymentMethod();
     const { data: categoryData } = useSalesByCategory();

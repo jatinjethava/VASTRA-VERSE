@@ -93,8 +93,6 @@ export const getRevenueCharts = async (req: Request, res: Response) => {
             { $sort: { _id: 1 } }
         ]);
 
-        console.log("Data from monthlyData:", monthlyData);
-
         const chartData = monthlyData.map(item => {
             const revenue = item.revenue;
             const expenses = item.expenses;
