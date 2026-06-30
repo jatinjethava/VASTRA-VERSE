@@ -5,7 +5,6 @@ import { useFilteredCoupons, useDeleteCoupon, useToggleCoupon } from "../Hooks/c
 import { Edit, PlusCircle, Trash2 } from "lucide-react";
 import type { Coupon as CouponType } from "../Api/couponApi";
 import { useGetAllUsers } from "../Hooks/user";
-import type { User } from "../Api/userApi";
 
 export const Coupon = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -185,7 +184,7 @@ export const Coupon = () => {
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap text-sm">
                                                             <button onClick={() => {
-                                                                toggleCoupon(coupon._id);
+                                                                toggleCoupon(coupon._id as string);
                                                             }} className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full cursor-pointer ${coupon.isActive
                                                                 ? 'bg-green-100 text-green-800'
                                                                 : 'bg-red-100 text-red-800'
@@ -206,7 +205,7 @@ export const Coupon = () => {
                                                             <button
                                                                 onClick={() => {
                                                                     if (confirm("Are you sure you want to delete this coupon?")) {
-                                                                        deleteCoupon(coupon._id)
+                                                                        deleteCoupon(coupon._id as string)
                                                                     }
                                                                 }}
                                                                 disabled={isPending}

@@ -7,7 +7,6 @@ import {
     Users,
     Truck,
     BarChart3,
-    Settings,
     Bell,
     Search,
     ChevronLeft,
@@ -193,9 +192,9 @@ export const AdminDashboard = () => {
                             onClick={() => navigate("/admin/notifications")}
                             className="relative p-2.5 rounded-lg transition-colors cursor-pointer border-none bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-800">
                             <Bell size={20} className="text-gray-700" />
-                            {notifications?.filter((notifi: any) => notifi?.isRead == false).length > 0 && (
+                            {(notifications || []).filter((notifi: any) => notifi?.isRead == false).length > 0 && (
                                 <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center min-w-6 h-6 bg-red-500 rounded-full border-2 border-white text-white text-[10px] font-bold">
-                                    {notifications?.filter((notifi: any) => notifi?.isRead == false).length}
+                                    {(notifications || []).filter((notifi: any) => notifi?.isRead == false).length}
                                 </span>
                             )}
                         </button>

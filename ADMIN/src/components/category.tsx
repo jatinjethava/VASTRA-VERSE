@@ -60,7 +60,7 @@ export const Category = () => {
             name: "",
             slug: "",
             description: "",
-            banner: null,
+            banner: null as any,
             parentCategory: "",
             sortOrder: 0,
             seoTitle: "",
@@ -75,7 +75,7 @@ export const Category = () => {
             name: item.name || "",
             slug: item.slug || "",
             description: item.description || "",
-            banner: null, // Don't set the file, keeping it null means we don't change the image unless a new one is selected
+            banner: null as any,
             parentCategory: item.parentCategory || "",
             sortOrder: item.sortOrder || 0,
             seoTitle: item.seoTitle || "",

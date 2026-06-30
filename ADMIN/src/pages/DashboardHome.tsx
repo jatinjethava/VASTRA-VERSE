@@ -243,9 +243,9 @@ export default function DashboardHome() {
   const metrics = deleveryMatrics();
   const totalOrders = filteredOrders?.length || 1;
 
-  const avgReview = reviews?.data?.reviews?.reduce((acc: number, review: any) => {
+  const avgReview = (reviews?.data?.reviews || []).reduce((acc: number, review: any) => {
     return acc + review.rating;
-  }, 0) / (reviews?.data?.reviews?.length || 1);
+  }, 0) / ((reviews?.data?.reviews || []).length || 1);
 
   return (
     <div className="space-y-6">
@@ -703,7 +703,7 @@ export default function DashboardHome() {
               </thead>
               <tbody>
                 {orders?.orders?.slice(0, 7).map((order) => {
-                  const statusStyle = getStatusStyles(order.orderStatus);
+                  const statusStyle = getStatusStyles(order.orderStatus as string);
                   const StatusIcon = statusStyle.Icon;
 
                   return (
