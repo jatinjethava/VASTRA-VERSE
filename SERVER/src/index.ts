@@ -21,7 +21,8 @@ app.use(
             "https://vastra-verse-admin.vercel.app",
             "https://vastra-verse-admin-git-main-jatinjethava3125-4565s-projects.vercel.app",
             "http://localhost:5174",
-            "http://localhost:5173"
+            "http://localhost:5173",
+            "http://localhost:8200"
         ],
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],

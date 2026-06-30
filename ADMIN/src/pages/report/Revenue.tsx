@@ -98,6 +98,7 @@ export const RevenueReport = () => {
                         <div className="flex items-center gap-2 text-mist mb-2">
                             {stat.icon}
                             <span className="text-xs font-medium uppercase tracking-wider">{stat.label}</span>
+                            {stat.label === 'Profit' && <span className='text-[10px] font-medium bg-green-50 text-green-700 px-1.5 py-0 rounded-full'>{overview?.profitMargin}%</span>}
                         </div>
                         <p className="text-lg font-bold text-ink">{formatCurrency(stat.value || 0)}</p>
                     </div>

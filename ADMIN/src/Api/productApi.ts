@@ -122,7 +122,7 @@ export const updateProduct = async (id: string, product: Product): Promise<ApiRe
     try {
         const formData = new FormData();
 
-        const ignoreKeys = ['slug', 'createdAt', 'updatedAt', '__v', 'isDeleted', 'ratingsAverage', 'ratingsQuantity', 'soldCount', 'reviews'];
+        const ignoreKeys = ['slug', 'createdAt', 'updatedAt', '__v', 'isDeleted', 'ratingsAverage', 'ratingsQuantity', 'soldCount', 'reviews', 'salesApplied'];
 
         Object.keys(product).forEach((key) => {
             if (ignoreKeys.includes(key)) return;

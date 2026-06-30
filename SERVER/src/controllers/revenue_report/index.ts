@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { apiResponse, HTTP_STATUS, responseMessage, ORDER_STATUS, RETURN_STATUS } from '../../common';
-import { orderModel, ReturnOrderModel } from '../../models';
+import { orderModel, ReturnOrderModel, TShirtModel } from '../../models';
 import { Parser } from "json2csv";
 import ExcelJS from "exceljs";
 import PDFDocument from "pdfkit";
+import { getData } from "../../helpers";
 const parser = new Parser();
 
 export const getRevenueOverview = async (req: Request, res: Response) => {
@@ -16,6 +17,11 @@ export const getRevenueOverview = async (req: Request, res: Response) => {
         let taxCollected = 0;
         let totalCOGS = 0;
 
+        const products = await getData(TShirtModel, { isDeleted: false }, { _id: 1, costPrice: 1 });
+        const costPriceMap = new Map(
+            products.map((p: any) => [p._id.toString(), p.costPrice || 0])
+        );
+
         orders.forEach(order => {
             grossRevenue += (order.totalAmount || 0);
             totalDiscounts += (order.discount || 0);
@@ -23,12 +29,14 @@ export const getRevenueOverview = async (req: Request, res: Response) => {
             taxCollected += (order.gstAmount || 0);
             if (order.items && Array.isArray(order.items)) {
                 order.items.forEach((item: any) => {
-                    totalCOGS += (item.costPrice || 0) * (item.quantity || 0);
+                    const cost = costPriceMap.get(item.productId?.toString()) || item.costPrice || 0;
+                    totalCOGS += cost * (item.quantity || 0);
                 });
             }
         });
 
-        const approvedReturns = await ReturnOrderModel.find({ isDeleted: false, status: RETURN_STATUS.APPROVED });
+
+        const approvedReturns = await getData(ReturnOrderModel, { isDeleted: false, status: RETURN_STATUS.APPROVED }, { orderId: 1 });
         const approvedOrderIds = approvedReturns.map((r: any) => r.orderId.toString());
 
         let refunds = 0;
@@ -38,7 +46,8 @@ export const getRevenueOverview = async (req: Request, res: Response) => {
                 refunds += (order.totalAmount || 0);
                 if (order.items && Array.isArray(order.items)) {
                     order.items.forEach((item: any) => {
-                        refundedCOGS += (item.costPrice || 0) * (item.quantity || 0);
+                        const cost = costPriceMap.get(item.productId?.toString()) || item.costPrice || 0;
+                        refundedCOGS += cost * (item.quantity || 0);
                     });
                 }
             }
@@ -72,13 +81,29 @@ export const getRevenueCharts = async (req: Request, res: Response) => {
 
         const monthlyData = await orderModel.aggregate([
             { $match: { isDeleted: false, orderStatus: ORDER_STATUS.DELIVERED } },
+            { $unwind: "$items" },
             {
-                $addFields: {
+                $lookup: {
+                    from: "tshirts",
+                    localField: "items.productId",
+                    foreignField: "_id",
+                    as: "productDetails"
+                }
+            },
+            {
+                $unwind: { path: "$productDetails", preserveNullAndEmptyArrays: true }
+            },
+            {
+                $group: {
+                    _id: "$_id",
+                    createdAt: { $first: "$createdAt" },
+                    totalAmount: { $first: "$totalAmount" },
                     totalCost: {
-                        $reduce: {
-                            input: "$items",
-                            initialValue: 0,
-                            in: { $add: ["$$value", { $multiply: [{ $ifNull: ["$$this.costPrice", 0] }, { $ifNull: ["$$this.quantity", 0] }] }] }
+                        $sum: {
+                            $multiply: [
+                                { $ifNull: ["$productDetails.costPrice", 0] },
+                                { $ifNull: ["$items.quantity", 0] }
+                            ]
                         }
                     }
                 }
@@ -93,7 +118,7 @@ export const getRevenueCharts = async (req: Request, res: Response) => {
             { $sort: { _id: 1 } }
         ]);
 
-        const chartData = monthlyData.map(item => {
+        const chartData = monthlyData.map((item: any) => {
             const revenue = item.revenue;
             const expenses = item.expenses;
             const profit = revenue - expenses;
