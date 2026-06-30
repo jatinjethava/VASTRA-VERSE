@@ -1,12 +1,23 @@
 import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium";
 
 export const generateInvoicePdf = async (
     html: string
 ) => {
-    const browser = await puppeteer.launch({
+    const isProduction = process.env.NODE_ENV === "production" || process.env.RENDER;
+
+    const options: any = {
         headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+        args: isProduction
+            ? [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+            : ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--single-process'],
+    };
+
+    if (isProduction) {
+        options.executablePath = await chromium.executablePath();
+    }
+
+    const browser = await puppeteer.launch(options);
 
     const page = await browser.newPage();
 
