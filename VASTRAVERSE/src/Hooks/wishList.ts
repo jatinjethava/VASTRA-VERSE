@@ -46,8 +46,8 @@ export const useGetWishList = () => {
     return useQuery({
         queryKey: ["wishlist"],
         queryFn: () => getProductInWishList(),
-        refetchOnMount: "always",
-        refetchOnWindowFocus: true,
+        staleTime: 5000 * 60 * 1,
+        gcTime: 5000 * 60 * 1,
         enabled: !!localStorage.getItem("token"),
     });
 }
@@ -56,8 +56,8 @@ export const useGetWishlistProducts = () => {
     return useQuery({
         queryKey: ["wishlist-products"],
         queryFn: () => getWishlistShowProducts(),
-        refetchOnMount: "always",
-        refetchOnWindowFocus: true,
+        staleTime: 5000 * 60 * 1,
+        gcTime: 5000 * 60 * 1,
         enabled: !!localStorage.getItem("token"),
     });
 }

@@ -6,7 +6,7 @@ export const useGetAllProducts = () => {
         queryKey: ["products"],
         queryFn: getAllProducts,
         staleTime: 0,
-        gcTime: 1000 * 60 * 60,
+        gcTime: 5000 * 60 * 60,
         refetchInterval: 5000
     });
 }
@@ -16,7 +16,7 @@ export const useGetCategoryBasedProducts = (category: string) => {
         queryKey: ["categoryBasedProducts", category],
         queryFn: () => getRelatedProducts(category),
         staleTime: 0,
-        gcTime: 1000 * 60 * 60
+        gcTime: 5000 * 60 * 60
     });
 }
 
@@ -24,6 +24,7 @@ export const useGetProductByCategory = (id: string) => {
     return useQuery({
         queryKey: ["product", id],
         queryFn: () => getProductByCategory(id),
+        staleTime: 5000 * 60 * 60,
         enabled: !!id,
     });
 }
@@ -41,8 +42,8 @@ export const useShopBySlug = (
     return useQuery({
         queryKey: ["shopBySlug", slug, category, fit, maxPrice, isFeatured, isBestSeller, isNewArrival, limitedEdition],
         queryFn: () => shopBySlug(slug, category, fit, maxPrice, isFeatured, isBestSeller, isNewArrival, limitedEdition),
-        refetchOnMount: true,
-        refetchOnWindowFocus: true,
+        staleTime: 5000 * 60 * 60,
+        gcTime: 5000 * 60 * 60,
     });
 }
 
@@ -50,7 +51,7 @@ export const useGetChildCategoriesBySlug = (slug: string) => {
     return useQuery({
         queryKey: ["childCategoriesBySlug", slug],
         queryFn: () => getChildCategoriesBySlug(slug),
-        staleTime: 1000 * 60 * 60
+        staleTime: 5000 * 60 * 60
     });
 }
 

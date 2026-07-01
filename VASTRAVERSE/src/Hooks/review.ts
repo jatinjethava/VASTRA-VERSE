@@ -23,7 +23,7 @@ export const useGetProductAllReview = (productId: string) => {
         queryKey: ["review", productId],
         queryFn: () => getProductAllReview(productId),
         enabled: !!productId,
-        staleTime: 0,
+        staleTime: 5000 * 60 * 1,
     });
 }
 
@@ -31,7 +31,7 @@ export const useAllreviews = () => {
     return useQuery({
         queryKey: ["reviews"],
         queryFn: () => getallReviews(),
-        staleTime: 0,
+        staleTime: 5000 * 60 * 1,
     });
 }
 
@@ -39,7 +39,7 @@ export const useGetMyReviews = () => {
     return useQuery({
         queryKey: ["myReviews"],
         queryFn: () => getMyReviews(),
-        staleTime: 0,
+        staleTime: 5000 * 60 * 1,
     });
 }
 

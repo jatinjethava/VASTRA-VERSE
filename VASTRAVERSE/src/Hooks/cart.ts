@@ -30,8 +30,8 @@ export const useGetCart = () => {
     return useQuery({
         queryKey: ["cart"],
         queryFn: () => getCart(),
-        refetchOnMount: true,
-        refetchOnWindowFocus: true,
+        staleTime: 5000 * 60 * 1,
+        gcTime: 5000 * 60 * 1,
         enabled: !!localStorage.getItem("token")
     })
 }

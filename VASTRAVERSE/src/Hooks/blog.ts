@@ -7,9 +7,8 @@ export const useFetchBlogs = () => {
     return useQuery({
         queryKey: ["blogs"],
         queryFn: getBlogs,
-        refetchOnMount: true,
-        refetchOnWindowFocus: true,
-        refetchIntervalInBackground: true,
+        staleTime: 5000 * 60 * 1,
+        gcTime: 5000 * 60 * 1,
     });
 };
 
@@ -17,9 +16,8 @@ export const useFetchUserBlog = () => {
     return useQuery({
         queryKey: ["user-blogs"],
         queryFn: getUserBlog,
-        refetchOnMount: true,
-        refetchOnWindowFocus: true,
-        refetchIntervalInBackground: true,
+        staleTime: 5000 * 60 * 1,
+        gcTime: 5000 * 60 * 1,
     });
 };
 
