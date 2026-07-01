@@ -166,7 +166,7 @@ export const Detail = ({
             >
 
                 {isPending && (
-                    <div className="absolute top-0 bottom-0 h-full z-50 left-0 right-0 flex items-center justify-center bg-black/30">
+                    <div className="absolute top-0 bottom-0 h-full z-50 left-0 right-0 flex items-center justify-center bg-white/60">
                         <div className="dot-spinner">
                             <div className="dot-spinner__dot"></div>
                             <div className="dot-spinner__dot"></div>
