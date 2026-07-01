@@ -1,12 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LoginAPI, SignUpAPI, OtpAPI, resendOtpAPI } from "../Api/Auth";
 
 export const register = () => {
+    const queryClient = useQueryClient();
     return useMutation({
         mutationFn: SignUpAPI,
         onSuccess: (data) => {
             if (!data || !data.success) return;
             localStorage.setItem("token", data.data.token);
+            queryClient.invalidateQueries({ queryKey: ["currentUser"] });
         }
     });
 }

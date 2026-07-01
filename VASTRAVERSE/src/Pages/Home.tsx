@@ -488,9 +488,9 @@ export const Home = () => {
                     <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-500 tracking-tight">For Exclusive Offers</h3>
                 </div>
 
-                <div className="from-red-950/30 to-orange-950/30 border border-red-500/10 rounded-xl p-6 sm:p-10 lg:p-16 relative overflow-hidden backdrop-blur-md shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-12">
+                <div className="from-indigo-950/30 to-purple-950/30 border border-indigo-500/10 rounded-xl p-6 sm:p-10 lg:p-16 relative overflow-hidden backdrop-blur-md shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-12">
 
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-600/5 rounded-full blur-3xl pointer-events-none" />
 
                     <div className="space-y-5 sm:space-y-6 text-center lg:text-left lg:max-w-xl z-10 w-full">
                         <span className="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-widest">Exclusive Mobile Rewards</span>
@@ -499,7 +499,7 @@ export const Home = () => {
                             First Order on Mobile!
                         </h2>
                         <p className="text-base sm:text-lg text-gray-700">
-                            Download the new Jat Burger App today to unlock direct kitchen order-tracking, fast checkouts, special mobile-only burgers, and earn flame loyalty points.
+                            Download the new Vastraverse App today to unlock direct order-tracking, fast checkouts, special mobile-only collections, and earn fashion loyalty points.
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-4 w-full">
@@ -518,14 +518,64 @@ export const Home = () => {
                         </div>
                     </div>
 
-                    <div className="w-full sm:max-w-sm lg:max-w-xs relative z-10 flex flex-col items-center">
-                        <div className="glass-card p-6 border border-white/10 text-center w-full shadow-2xl shadow-red-500/5">
-                            <span className="text-xs text-gray-400 font-bold uppercase tracking-widest">Promo Coupon Code</span>
-                            <div className="border border-dashed border-gray-500/30 bg-gray-500/10 rounded-2xl py-4 mt-3 text-xl sm:text-2xl font-mono font-extrabold text-gray-600 tracking-widest select-all">
-                                {coupons?.map((c: any) => c.code).join(", ")}
+                    <div className='flex justify-center w-full lg:w-auto z-10 my-4 lg:my-0'>
+                        <div className='relative w-[280px] sm:w-72 h-[500px] sm:h-[550px] bg-slate-900 rounded-[30px] sm:rounded-[40px] border-[6px] sm:border-[8px] border-slate-800 shadow-2xl overflow-hidden flex flex-col shrink-0'>
+
+                            <div className='absolute top-0 left-1/2 -translate-x-1/2 w-28 sm:w-32 h-5 sm:h-6 bg-slate-800 rounded-b-xl sm:rounded-b-2xl z-20 flex items-center justify-center gap-1.5'>
+                                <div className='w-10 sm:w-12 h-1 bg-slate-900 rounded-full' />
+                                <div className='w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-900 rounded-full' />
                             </div>
-                            <p className="text-[10px] sm:text-[11px] text-gray-600 mt-3 leading-relaxed tracking-wider">
-                                Enter coupon code at checkout on our mobile app to redeem your first delivery gift.
+
+                            <div className='flex-1 bg-gray-50 p-3 sm:p-4 pt-8 sm:pt-10 flex flex-col justify-between relative z-10'>
+                                <div className='space-y-3 sm:space-y-4'>
+                                    <div className='flex justify-between items-center'>
+                                        <span className='text-[9px] sm:text-[10px] text-slate-400 font-semibold uppercase tracking-wider'>VASTRAVERSE App</span>
+                                        <span className='text-[10px] sm:text-xs bg-indigo-100 text-indigo-600 rounded-full px-2 py-0.5 sm:px-2.5 font-bold'>OFFERS</span>
+                                    </div>
+                                    <div className='h-28 sm:h-32 rounded-xl sm:rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 p-3 sm:p-4 text-white flex flex-col justify-between shadow-lg shadow-indigo-200'>
+                                        <p className='text-xs sm:text-sm font-bold uppercase tracking-wider'>Mega Wardrobe Deal</p>
+                                        <div>
+                                            <p className='text-xl sm:text-2xl font-black'>50% OFF</p>
+                                            <p className='text-[9px] sm:text-[10px] text-indigo-50 font-medium'>Use Code: BUNDLE50</p>
+                                        </div>
+                                    </div>
+                                    <div className='space-y-2 sm:space-y-2.5'>
+                                        <p className='text-[10px] sm:text-xs font-bold text-slate-800 uppercase tracking-wider'>Popular Collections</p>
+                                        <div className='flex items-center gap-2 sm:gap-3 p-1.5 sm:p-2 bg-white rounded-lg sm:rounded-xl shadow-sm border border-slate-100'>
+                                            <img src='https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=100&q=80' alt='tshirt' className='w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg object-cover' />
+                                            <div className='flex-1 min-w-0'>
+                                                <p className='text-[10px] sm:text-xs font-bold text-slate-800 truncate'>Classic Cotton T-Shirt</p>
+                                                <p className='text-[9px] sm:text-[10px] text-emerald-600 font-bold'>₹ 499</p>
+                                            </div>
+                                            <button className='bg-indigo-500 text-white rounded-md sm:rounded-lg px-2 sm:px-2.5 py-1 text-[9px] sm:text-[10px] font-bold'>Add</button>
+                                        </div>
+                                        <div className='flex items-center gap-2 sm:gap-3 p-1.5 sm:p-2 bg-white rounded-lg sm:rounded-xl shadow-sm border border-slate-100'>
+                                            <img src='https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=100&q=80' alt='jacket' className='w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg object-cover' />
+                                            <div className='flex-1 min-w-0'>
+                                                <p className='text-[10px] sm:text-xs font-bold text-slate-800 truncate'>Premium Denim Jacket</p>
+                                                <p className='text-[9px] sm:text-[10px] text-emerald-600 font-bold'>₹ 1299</p>
+                                            </div>
+                                            <button className='bg-indigo-500 text-white rounded-md sm:rounded-lg px-2 sm:px-2.5 py-1 text-[9px] sm:text-[10px] font-bold'>Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='pt-3 sm:pt-4 border-t border-slate-200 flex justify-between items-center text-[9px] sm:text-[10px] text-slate-400 font-medium'>
+                                    <span>Home</span>
+                                    <span className='text-indigo-500 font-bold'>Cart (2)</span>
+                                    <span>Profile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="w-full sm:max-w-sm lg:max-w-xs relative z-10 flex flex-col items-center">
+                        <div className="glass-card p-5 sm:p-6 border border-white/10 text-center w-full shadow-2xl shadow-indigo-500/5 rounded-2xl bg-white/5 backdrop-blur-xl">
+                            <span className="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-widest">Promo Coupon Code</span>
+                            <div className="border border-dashed border-gray-500/30 bg-gray-500/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 mt-2 sm:mt-3 text-lg sm:text-2xl font-mono font-extrabold text-gray-600 tracking-widest select-all break-all">
+                                {coupons?.map((c: any) => c.code).join(", ") || "VASTRA20"}
+                            </div>
+                            <p className="text-[9px] sm:text-[11px] text-gray-600 mt-2 sm:mt-3 leading-relaxed tracking-wider">
+                                Enter coupon code at checkout on our mobile app to redeem your first fashion gift.
                             </p>
                         </div>
                     </div>

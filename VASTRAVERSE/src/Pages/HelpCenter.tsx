@@ -106,7 +106,7 @@ export const HelpCenter = () => {
                                             </div>
                                             <div className={`grid transition-all duration-300 ease-in-out ${activeFaq === index ? "grid-rows-[1fr] opacity-100 mt-2 sm:mt-3" : "grid-rows-[0fr] opacity-0 mt-0"}`}>
                                                 <div className="overflow-hidden">
-                                                    <p className="text-sm text-slate-600 leading-relaxed">{faq?.answer}</p>
+                                                    <p className="text-sm text-slate-600 bg-gray-100 border border-slate-200/50 px-4 py-2 rounded-lg leading-relaxed">{faq?.answer}</p>
                                                 </div>
                                             </div>
                                         </div>
