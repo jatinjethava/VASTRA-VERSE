@@ -217,7 +217,9 @@ export const Login = () => {
                             <p className="text-xs sm:text-sm text-zinc-400 mt-1">Welcome back. Enter your credentials to access your account.</p>
                         </div>
 
-                        <GoogleLogin onSuccess={handleGoogleLogin} onError={() => { toast.error("Google Login failed"); }} />
+                        <div className='w-full'>
+                            <GoogleLogin onSuccess={handleGoogleLogin} size='large' onError={() => { toast.error("Google Login failed"); }} />
+                        </div>
 
                         <div className="flex items-center gap-3">
                             <div className="flex-1 h-px bg-zinc-200" />
