@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from "sonner";
 import { LeftBar } from './Leftbar';
@@ -18,6 +18,21 @@ export const Login = () => {
     const token = useSelector((state: RootState) => state.auth.token);
     const { mutateAsync: login, isPending } = LoginHook();
     const { mutateAsync: googleLogin } = useGoogleLogin();
+
+    const googleBtnRef = useRef<HTMLDivElement>(null);
+    const [btnWidth, setBtnWidth] = useState(400);
+
+    useEffect(() => {
+        const updateWidth = () => {
+            if (googleBtnRef.current) {
+                setBtnWidth(googleBtnRef.current.offsetWidth);
+            }
+        };
+        updateWidth();
+        const observer = new ResizeObserver(updateWidth);
+        if (googleBtnRef.current) observer.observe(googleBtnRef.current);
+        return () => observer.disconnect();
+    }, []);
 
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -217,8 +232,8 @@ export const Login = () => {
                             <p className="text-xs sm:text-sm text-zinc-400 mt-1">Welcome back. Enter your credentials to access your account.</p>
                         </div>
 
-                        <div className='w-full'>
-                            <GoogleLogin onSuccess={handleGoogleLogin} size='large' onError={() => { toast.error("Google Login failed"); }} />
+                        <div ref={googleBtnRef} className='w-full'>
+                            <GoogleLogin onSuccess={handleGoogleLogin} size='large' width={btnWidth} onError={() => { toast.error("Google Login failed"); }} />
                         </div>
 
                         <div className="flex items-center gap-3">
