@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAllBanner } from "../../Hooks/marketing";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -9,6 +10,9 @@ import 'swiper/css/pagination';
 export const HomeSlider = () => {
 
     const { data: Banner, isPending: bannerLoading } = useAllBanner();
+
+    const hasVideo = true;
+    const [videoError, setVideoError] = useState(false);
 
     if (!bannerLoading && (!Banner || Banner.length === 0)) {
         return null;
@@ -23,58 +27,102 @@ export const HomeSlider = () => {
                     </div>
                 </section>
             ) : (
+                <div className="relative w-full h-[62vh] sm:h-[70vh] md:h-[80vh] lg:h-[85vh] xl:h-[90vh] overflow-hidden">
 
-                <Swiper
-                    modules={[Navigation, Pagination, Autoplay]}
-                    pagination={{ clickable: true }}
-                    autoplay={{
-                        delay: 4000,
-                    }}
-                    loop={Banner && Banner.length > 1}
-                    className="w-full h-[55vh] sm:h-[70vh] md:h-[80vh] xl:h-[80vh]"
-                >
-                    {Banner?.map((banner, index) => (
-                        <SwiperSlide
-                            key={banner._id || index}
-                            id={index === 0 ? "hero" : `hero-${index}`}
-                            className="relative w-full h-full flex justify-center items-center bg-cover bg-[center_top] bg-no-repeat overflow-hidden group"
-                            style={{ backgroundImage: `url(${banner?.bgImage?.replace(/\\/g, '/')})` }}
-                        >
+                    {hasVideo && !videoError ? (
+                        <>
+                            <video
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                className="absolute inset-0 w-full h-full object-cover z-0"
+                                poster={Banner?.[0]?.bgImage?.replace(/\\/g, '/')}
+                                onError={() => setVideoError(true)}
+                            >
+                                <source src="/home.mp4" type="video/mp4" onError={() => setVideoError(true)} />
+                                Your browser does not support the video tag.
+                            </video>
 
-                            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-0 transition-opacity duration-700"></div>
+                            <div className="absolute inset-y-0 left-0 w-full md:w-3/4 lg:w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent z-10 pointer-events-none"></div>
 
-                            <div className="home-slider flex relative z-10 w-full max-w-[90%] sm:max-w-[90%] lg:max-w-[80%] mx-auto justify-start items-center h-full py-12">
-
-                                <div className="home-slider-content max-w-2xl flex flex-col justify-center text-left space-y-4 sm:space-y-6 lg:space-y-8 p-0 sm:p-4 opacity-0 animate-fade-in-up-delay-1" style={{ animationFillMode: 'forwards' }}>
+                            <div className="relative z-20 flex w-full max-w-[92%] sm:max-w-[90%] lg:max-w-[80%] mx-auto justify-start items-center h-full py-10 sm:py-12">
+                                <div className="max-w-2xl flex flex-col justify-center text-left space-y-3 sm:space-y-5 lg:space-y-7 p-0 sm:p-4 opacity-0 animate-fade-in-up-delay-1" style={{ animationFillMode: 'forwards' }}>
 
                                     <div className="inline-flex items-center self-start gap-2 sm:gap-3 px-1">
                                         <span className="w-6 sm:w-8 h-[1px] bg-white/60"></span>
-                                        <span className="uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[9px] sm:text-[10px] md:text-[10px] font-medium text-white/90">
+                                        <span className="uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[9px] sm:text-[10px] md:text-[11px] font-medium text-white/90">
                                             Exclusive Collection
                                         </span>
                                     </div>
 
-                                    <h1 className="text-[24px] sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-white leading-[1.1] sm:leading-[1.1] tracking-tight drop-shadow-2xl font-serif">
-                                        {banner?.title}
+                                    <h1 className="text-[26px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] sm:leading-[1.1] tracking-tight drop-shadow-2xl font-serif">
+                                        {Banner?.[0]?.title || 'Discover Your Style'}
                                     </h1>
 
-                                    <p className="text-[10px] tracking-wider w-full sm:text-[14px] lg:text-[16px] text-white/80 leading-relaxed font-light max-w-xl drop-shadow-md">
-                                        {banner?.description}
+                                    <p className="w-full max-w-xl text-[12px] sm:text-sm lg:text-base tracking-wide text-white/80 leading-relaxed font-light drop-shadow-md line-clamp-3 sm:line-clamp-none">
+                                        {Banner?.[0]?.description || 'Explore our latest collection of premium fashion.'}
                                     </p>
 
-                                    <div className="flex sm:flex-row gap-4 sm:gap-6 pt-4 sm:pt-6 w-full sm:w-auto">
-                                        <a href="#menu" className="relative w-fit text-[10px] overflow-hidden group/btn inline-flex items-center justify-center px-8 sm:px-10 py-3.5 sm:py-4 border border-white bg-white text-black text-xs sm:text-[10px] md:text-[12px] lg:text-[14px] uppercase tracking-[0.15em] font-semibold transition-all duration-500 hover:bg-transparent hover:text-white cursor-pointer sm:w-max">
+                                    <div className="flex flex-wrap gap-4 sm:gap-6 pt-3 sm:pt-6 w-full sm:w-auto">
+                                        <a href="#menu" className="relative w-fit whitespace-nowrap overflow-hidden group/btn inline-flex items-center justify-center px-7 sm:px-10 py-3 sm:py-4 border border-white bg-white text-black text-[11px] sm:text-xs md:text-[13px] lg:text-sm uppercase tracking-[0.15em] font-semibold transition-all duration-500 hover:bg-transparent hover:text-white cursor-pointer">
                                             <span className="relative z-10">Discover Now</span>
-                                        </a>
-                                        <a href="#collection" className="relative w-fit text-[10px] overflow-hidden group/btn inline-flex items-center justify-center px-8 sm:px-10 py-3.5 sm:py-4 border border-white/30 bg-black/20 backdrop-blur-sm text-white text-xs sm:text-[10px] md:text-[12px] lg:text-[14px] uppercase tracking-[0.15em] font-semibold transition-all duration-500 hover:bg-white hover:text-black cursor-pointer sm:w-max">
-                                            <span className="relative z-10">View Gallery</span>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+                        </>
+                    ) : (
+
+                        <div className="relative z-30 w-full h-full">
+                            <Swiper
+                                modules={[Navigation, Pagination, Autoplay]}
+                                pagination={{ clickable: true }}
+                                autoplay={{
+                                    delay: 4000,
+                                }}
+                                loop={Banner && Banner.length > 1}
+                                className="w-full h-full !pb-8 sm:!pb-0 [&_.swiper-pagination-bullet]:!bg-white/60 [&_.swiper-pagination-bullet-active]:!bg-white [&_.swiper-pagination]:!bottom-4 sm:[&_.swiper-pagination]:!bottom-6"
+                            >
+                                {Banner?.map((banner, index) => (
+                                    <SwiperSlide
+                                        key={banner._id || index}
+                                        id={index === 0 ? "hero" : `hero-${index}`}
+                                        className="relative w-full h-full flex justify-center items-center group bg-cover bg-center bg-no-repeat"
+                                        style={{ backgroundImage: `url(${banner?.bgImage?.replace(/\\/g, '/')})` }}
+                                    >
+                                        <div className="absolute inset-y-0 left-0 w-full md:w-3/4 lg:w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent z-0 pointer-events-none transition-opacity duration-700"></div>
+                                        <div className="home-slider flex relative z-10 w-full max-w-[92%] sm:max-w-[90%] lg:max-w-[80%] mx-auto justify-start items-center h-full py-10 sm:py-12">
+                                            <div className="home-slider-content max-w-2xl flex flex-col justify-center text-left space-y-3 sm:space-y-5 lg:space-y-7 p-0 sm:p-4 opacity-0 animate-fade-in-up-delay-1" style={{ animationFillMode: 'forwards' }}>
+
+                                                <div className="inline-flex items-center self-start gap-2 sm:gap-3 px-1">
+                                                    <span className="w-6 sm:w-8 h-[1px] bg-white/60"></span>
+                                                    <span className="uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[9px] sm:text-[10px] md:text-[11px] font-medium text-white/90">
+                                                        Exclusive Collection
+                                                    </span>
+                                                </div>
+
+                                                <h1 className="text-[26px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] sm:leading-[1.1] tracking-tight drop-shadow-2xl font-serif">
+                                                    {banner?.title}
+                                                </h1>
+
+                                                <p className="w-full max-w-xl text-[12px] sm:text-sm lg:text-base tracking-wide text-white/80 leading-relaxed font-light drop-shadow-md line-clamp-3 sm:line-clamp-none">
+                                                    {banner?.description}
+                                                </p>
+
+                                                <div className="flex flex-wrap gap-4 sm:gap-6 pt-3 sm:pt-6 w-full sm:w-auto">
+                                                    <a href="#menu" className="relative w-fit whitespace-nowrap overflow-hidden group/btn inline-flex items-center justify-center px-7 sm:px-10 py-3 sm:py-4 border border-white bg-white text-black text-[11px] sm:text-xs md:text-[13px] lg:text-sm uppercase tracking-[0.15em] font-semibold transition-all duration-500 hover:bg-transparent hover:text-white cursor-pointer">
+                                                        <span className="relative z-10">Discover Now</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                        </div>
+                    )}
+                </div>
             )}
         </>
     )
