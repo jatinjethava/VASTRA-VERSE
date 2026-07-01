@@ -11,6 +11,39 @@ import { toast } from "sonner";
 import ReactGA from "react-ga4";
 import { useGetProductAllReview } from "../Hooks/review";
 
+export const colorMap: Record<string, string> = {
+    "Black": "#000000",
+    "White": "#FFFFFF",
+    "Gray": "#808080",
+    "Charcoal": "#36454F",
+    "Navy Blue": "#000080",
+    "Royal Blue": "#4169E1",
+    "Sky Blue": "#87CEEB",
+    "Red": "#FF0000",
+    "Maroon": "#800000",
+    "Burgundy": "#800020",
+    "Green": "#008000",
+    "Olive": "#808000",
+    "Mint": "#98FF98",
+    "Yellow": "#FFFF00",
+    "Mustard": "#FFDB58",
+    "Orange": "#FFA500",
+    "Coral": "#FF7F50",
+    "Pink": "#FFC0CB",
+    "Hot Pink": "#FF69B4",
+    "Purple": "#800080",
+    "Lavender": "#E6E6FA",
+    "Brown": "#A52A2A",
+    "Tan": "#D2B48C",
+    "Beige": "#F5F5DC",
+    "Cream": "#FFFDD0",
+    "Khaki": "#F0E68C",
+    "Teal": "#008080",
+    "Cyan": "#00FFFF",
+    "Gold": "#FFD700",
+    "Silver": "#C0C0C0"
+};
+
 export const Detail = ({
     curruntProduct,
     showDetail,
@@ -292,10 +325,10 @@ export const Detail = ({
                                                     ? "ring-2 ring-offset-2 ring-gray-900 scale-110"
                                                     : "hover:scale-105 ring-1 ring-gray-200"
                                                     }`}
-                                                style={{ backgroundColor: color }}
+                                                style={{ backgroundColor: colorMap[color] || color }}
                                             >
                                                 {selectedColor === color && (
-                                                    <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes(color.toLowerCase()) ? '#111' : '#fff'} strokeWidth="3" viewBox="0 0 24 24">
+                                                    <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes((colorMap[color] || color).toLowerCase()) ? '#111' : '#fff'} strokeWidth="3" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                                     </svg>
                                                 )}

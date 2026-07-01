@@ -2,11 +2,14 @@ import { useState } from "react";
 import { X, Star, UploadCloud } from "lucide-react";
 import '../index.css'
 import { useCreateReview } from "../Hooks/review";
+import { useGetCurrentUser } from "../Hooks/user";
 
 export const AddReview = ({ setAddReview, productId }: { setAddReview: (addReview: boolean) => void, productId: string }) => {
 
 
     const { mutateAsync: createReview, isPending: isLoadingReview } = useCreateReview();
+    const { data: user } = useGetCurrentUser();
+    const userData = user?.data?.user;
 
     const [reviewData, setReviewData] = useState({
         rating: 0,
@@ -37,6 +40,8 @@ export const AddReview = ({ setAddReview, productId }: { setAddReview: (addRevie
             reviewData.images.forEach((img) => {
                 formData.append("images", img);
             });
+        } else if (userData?.profileImage) {
+            formData.append("images", userData.profileImage);
         }
 
         try {

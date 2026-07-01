@@ -48,7 +48,7 @@ export const MyReview = () => {
                         </div>
                         <h3 className="text-lg font-bold text-gray-900">No reviews yet</h3>
                         <p className="text-gray-500 mt-2 mb-6">You haven't written any reviews for products yet.</p>
-                        <button onClick={() => navigate('/products')} className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2.5 rounded-xl font-medium transition-colors">
+                        <button onClick={() => navigate('/')} className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2.5 rounded-xl font-medium transition-colors">
                             Explore Products
                         </button>
                     </div>

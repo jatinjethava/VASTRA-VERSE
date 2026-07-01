@@ -6,7 +6,7 @@ export const Footer = () => {
 
     const { data: user } = useGetCurrentUser();
     const { mutate: subscribeMail } = useSubscribeMail();
-    const userData = user?.data;
+    const userData = (user?.data as any)?.user;
 
     const shareProduct = () => {
         try {

@@ -14,7 +14,7 @@ export const createReviewSchema = Joi.object({
     rating: Joi.number().required().min(1).max(5).positive(),
     title: Joi.string().required(),
     comment: Joi.string().required(),
-    images: Joi.array().optional(),
+    images: Joi.alternatives().try(Joi.array(), Joi.string()).optional(),
     user: Joi.object({
         name: Joi.string().required(),
         email: Joi.string().required(),
@@ -34,7 +34,7 @@ export const updateReviewSchema = Joi.object({
     rating: Joi.number().min(1).max(5).optional(),
     title: Joi.string().optional(),
     comment: Joi.string().optional(),
-    images: Joi.array().optional(),
+    images: Joi.alternatives().try(Joi.array(), Joi.string()).optional(),
     user: Joi.object({
         name: Joi.string().optional(),
         email: Joi.string().optional(),

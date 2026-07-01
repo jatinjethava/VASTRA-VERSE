@@ -33,7 +33,9 @@ export const Home = () => {
         navigate(`/more-details`, { state: { product: product } })
     }
 
-    const LimitedEditionProduct = data?.filter((p: Product) => p.limitedEdition)
+    const LimitedEditionProduct = data?.filter((p: Product) => p.limitedEdition);
+
+    const fiveStartReview = allreviews?.filter((r: Review) => r.rating === 5).slice(0, 10)
 
     return (
         <div className="min-h-screen overflow-x-hidden">
@@ -434,7 +436,7 @@ export const Home = () => {
                     )}
 
                     <div className="flex w-max animate-scroll hover:[animation-play-state:paused] gap-4 sm:gap-6 md:gap-8 py-4">
-                        {[...(allreviews || []), ...(allreviews || [])]?.map((item: Review, index: number) => (
+                        {...(fiveStartReview || [])?.map((item: Review, index: number) => (
                             <div key={`${item._id}-${index}`} className="w-[280px] sm:w-[320px] md:w-[400px] lg:w-[450px] shrink-0 glass-card glow-card-orange p-5 sm:p-6 md:p-8 rounded-lg flex flex-col justify-between space-y-3 sm:space-y-4">
 
                                 <div className="flex justify-between items-center">

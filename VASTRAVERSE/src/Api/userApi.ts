@@ -6,6 +6,7 @@ export interface User {
     email: string;
     fullName?: string;
     mobileNumber?: string;
+    profileImage?: string;
     role: string;
     isEmailVerified?: boolean;
     isActive?: boolean;
@@ -90,7 +91,7 @@ export const googleLogin = async (token: string): Promise<ApiResponse<User>> => 
     }
 }
 
-export const getCurrentUser = async (): Promise<ApiResponse<User>> => {
+export const getCurrentUser = async (): Promise<ApiResponse<{ user: User }>> => {
     try {
         const { data } = await api.get("/get-user");
 

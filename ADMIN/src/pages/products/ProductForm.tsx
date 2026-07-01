@@ -378,12 +378,36 @@ export const ProductForm = ({
                                                 className="border border-gray-400 rounded-lg px-2 py-2 outline-none focus:ring focus:ring-gray-500"
                                             >
                                                 <option value="">Select color</option>
-                                                <option value="White">White</option>
-                                                <option value="Red">Red</option>
                                                 <option value="Black">Black</option>
-                                                <option value="Yellow">Yellow</option>
-                                                <option value="Blue">Blue</option>
+                                                <option value="White">White</option>
+                                                <option value="Gray">Gray</option>
+                                                <option value="Charcoal">Charcoal</option>
+                                                <option value="Navy">Navy Blue</option>
+                                                <option value="Royal Blue">Royal Blue</option>
+                                                <option value="Sky Blue">Sky Blue</option>
+                                                <option value="Red">Red</option>
+                                                <option value="Maroon">Maroon</option>
+                                                <option value="Burgundy">Burgundy</option>
                                                 <option value="Green">Green</option>
+                                                <option value="Olive">Olive</option>
+                                                <option value="Mint">Mint</option>
+                                                <option value="Yellow">Yellow</option>
+                                                <option value="Mustard">Mustard</option>
+                                                <option value="Orange">Orange</option>
+                                                <option value="Coral">Coral</option>
+                                                <option value="Pink">Pink</option>
+                                                <option value="Hot Pink">Hot Pink</option>
+                                                <option value="Purple">Purple</option>
+                                                <option value="Lavender">Lavender</option>
+                                                <option value="Brown">Brown</option>
+                                                <option value="Tan">Tan</option>
+                                                <option value="Beige">Beige</option>
+                                                <option value="Cream">Cream</option>
+                                                <option value="Khaki">Khaki</option>
+                                                <option value="Teal">Teal</option>
+                                                <option value="Cyan">Cyan</option>
+                                                <option value="Gold">Gold</option>
+                                                <option value="Silver">Silver</option>
                                             </select>
 
                                             <input

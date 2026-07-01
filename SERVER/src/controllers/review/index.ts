@@ -31,6 +31,8 @@ export const createReview = async (req: Request, res: Response) => {
             value.images = [file.path];
         } else if (files && files.length > 0) {
             value.images = files.map((f: any) => f.path);
+        } else if (typeof value.images === 'string') {
+            value.images = [value.images];
         }
 
         const reviewData = {
@@ -109,6 +111,8 @@ export const updateReview = async (req: Request, res: Response) => {
             value.images = [file.path];
         } else if (files && files.length > 0) {
             value.images = files.map((f: any) => f.path);
+        } else if (typeof value.images === 'string') {
+            value.images = [value.images];
         }
 
         const review = await updateData(ReviewModel, { _id: isValidObjectId(req.params.id) }, { $set: value }, { returnDocument: "after" })
