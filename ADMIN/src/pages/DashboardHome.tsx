@@ -87,7 +87,7 @@ export default function DashboardHome() {
   const navigate = useNavigate();
   const [dateFilter, setDateFilter] = useState<string>("all");
 
-  const topProducts = product?.filter((p: any) => p.soldCount > 0)?.sort((a: any, b: any) => b.soldCount - a.soldCount)?.slice(0, 10);
+  const topProducts = product?.products?.filter((p: any) => p.soldCount > 0)?.sort((a: any, b: any) => b.soldCount - a.soldCount)?.slice(0, 10);
   const avgOrderValue = (orders?.orders?.reduce((acc: any, order: any) => acc + order.totalAmount, 0) || 0) / (orders?.orders?.length || 1);
   const bestUser = orders?.orders?.reduce((best: any, order: any) => {
     if (best[order.userId]) {
@@ -99,7 +99,7 @@ export default function DashboardHome() {
   }, {}) || {};
 
   const topUser = users?.find((user: any) => user._id === Object.keys(bestUser).sort((a: any, b: any) => bestUser[b] - bestUser[a])[0]);
-  const stockLowProdcut = product?.flatMap((p: any) =>
+  const stockLowProdcut = product?.products?.flatMap((p: any) =>
     (p.variants || [])
       .filter((v: any) => v.stock <= 5)
       .map((v: any) => ({ ...p, variant: v }))
@@ -418,7 +418,7 @@ export default function DashboardHome() {
                 Total Products Sold
               </p>
               <p className="text-2xl font-bold text-gray-800 mt-2">
-                {product?.reduce((acc: any, product: any) => acc + product.soldCount, 0)}
+                {product?.products?.reduce((acc: any, product: any) => acc + product.soldCount, 0)}
               </p>
               <div className="flex items-center gap-1.5 mt-2">
                 <TrendingUp size={14} style={{ color: "var(--color-success)" }} />

@@ -9,8 +9,13 @@ import { toast } from "sonner";
 import { useGetCategories } from "../../Hooks/category";
 
 export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
+    const [page, setPage] = useState(1);
+    const limit = 10;
 
-    const { data: products, isLoading, isError, error } = useGetProducts();
+    const { data: paginatedData, isLoading, isError, error } = useGetProducts(page, limit);
+    const products = paginatedData?.products || [];
+    const pagination = paginatedData?.pagination;
+
     const { mutateAsync: updateProduct, isPending: isUpdating } = useUpdateProduct();
     const { mutateAsync: deleteProduct, isPending: isDeleting } = useDeleteProduct();
     const { data: category } = useGetCategories();
@@ -445,7 +450,30 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
                                 })}
                             </tbody>
                         </table>
+                    )}
 
+                    {pagination && pagination.totalPages > 1 && (
+                        <div className="flex items-center justify-between px-5 py-3 border-t border-gray-200 bg-white rounded-b-lg">
+                            <span className="text-sm text-gray-600">
+                                Showing {(pagination.currentPage - 1) * pagination.limit + 1} to {Math.min(pagination.currentPage * pagination.limit, pagination.totalItems)} of {pagination.totalItems} entries
+                            </span>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={() => setPage(p => Math.max(1, p - 1))}
+                                    disabled={!pagination.hasPrev}
+                                    className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed bg-white text-gray-700 cursor-pointer"
+                                >
+                                    Previous
+                                </button>
+                                <button
+                                    onClick={() => setPage(p => p + 1)}
+                                    disabled={!pagination.hasNext}
+                                    className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed bg-white text-gray-700 cursor-pointer"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        </div>
                     )}
                     {isDeleting && (
                         <div className="absolute top-0 bottom-0 h-full z-50 left-0 right-0 flex items-center justify-center bg-white/50">

@@ -318,9 +318,9 @@ export const Home = () => {
 
                 <div className="glass-card rounded-lg p-6 sm:p-10 lg:p-16 relative overflow-hidden border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
                     {(LimitedEditionProduct?.length ?? 0) > 0 && LimitedEditionProduct?.map((item: Product, index: number) => (
-                        <div key={item._id || index} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                        <div key={item._id || index} className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${index !== LimitedEditionProduct.length - 1 ? 'mb-2 pb-10 lg:mb-10 lg:pb-20 border-b border-white/10' : ''}`}>
 
-                            <div className="lg:col-span-5 flex justify-center order-first relative">
+                            <div className={`lg:col-span-5 flex justify-center relative order-first ${index % 2 !== 0 ? 'lg:order-last' : 'lg:order-first'}`}>
                                 <div className="relative group">
                                     <img
                                         src={item.images?.[0] || "/placeholder.jpg"}

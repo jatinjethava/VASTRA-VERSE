@@ -24,12 +24,10 @@ export const useAddProduct = () => {
     });
 };
 
-export const useGetProducts = () => {
+export const useGetProducts = (page: number = 1, limit: number = 10) => {
     return useQuery({
-        queryKey: ["products"],
-        queryFn: getAllProducts,
-        staleTime: 1000 * 60 * 5,
-        gcTime: 1000 * 60 * 10,
+        queryKey: ["products", page, limit],
+        queryFn: () => getAllProducts(page, limit),
     });
 };
 

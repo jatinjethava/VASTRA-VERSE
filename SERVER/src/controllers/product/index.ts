@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { CampaignModel, CategoryModel, FlashSalesModel, productViewModel, TShirtModel } from "../../models";
 import { isValidObjectId, apiResponse, responseMessage, HTTP_STATUS, validateSlug, generateUniqueSlug, deleteUploadedFiles, applySales, getDateForSalesQuery } from "../../common";
 import { createProductSchema, updateProductSchema, deleteProductSchema, getProductByIdSchema, filterProductSchema, increaseStockSchema, viewProductSchema } from "../../validation";
-import { createOne, getData, getDataWithSorting, getFirstMatch, updateData } from "../../helpers";
+import { createOne, getData, getDataWithSorting, getFirstMatch, updateData, countData } from "../../helpers";
 import { v2 as cloudinary } from "cloudinary";
 
 export const createProduct = async (req: Request, res: Response) => {
@@ -197,10 +197,20 @@ export const getProductByCategory = async (req: Request, res: Response) => {
 
 export const getProducts = async (req: Request, res: Response) => {
     try {
-        const products = await getData(TShirtModel, {
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 10;
+        const skip = (page - 1) * limit;
+
+        const products = await getDataWithSorting(TShirtModel, {
             isDeleted: false,
-        });
+        }, {}, { skip, limit, sort: { createdAt: -1 } });
+
         if (!products) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Products"), {}, {}));
+
+        const totalItems = await countData(TShirtModel, { isDeleted: false });
+        const totalPages = Math.ceil(totalItems / limit);
+        const hasNext = page < totalPages;
+        const hasPrev = page > 1;
 
         const currentDate = getDateForSalesQuery();
         const campaign = await getFirstMatch(CampaignModel, { isActive: true, isDeleted: false, startDate: { $lte: currentDate }, endDate: { $gte: currentDate } }, {}, {});
@@ -209,7 +219,17 @@ export const getProducts = async (req: Request, res: Response) => {
         const Apply = applySales(applySales(products, campaign), flashSales);
         const finalProducts = Apply;
 
-        return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, responseMessage.getDataSuccess("Products"), { products: finalProducts }, {}));
+        return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, responseMessage.getDataSuccess("Products"), {
+            products: finalProducts,
+            pagination: {
+                totalItems,
+                totalPages,
+                currentPage: page,
+                limit,
+                hasNext,
+                hasPrev
+            }
+        }, {}));
     } catch (error) {
         console.log("Error in getProducts:", error);
         return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json(new apiResponse(HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage.internalServerError, {}, {}));

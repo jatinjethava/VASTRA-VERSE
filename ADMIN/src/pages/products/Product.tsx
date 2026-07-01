@@ -172,7 +172,7 @@ export const Product = () => {
         setProduct({ ...product, tags: filtered });
     }
 
-    const lowProduct = allProducts?.filter((product: any) =>
+    const lowProduct = allProducts?.products?.filter((product: any) =>
         product.variants?.some(
             (variant: any) => variant.stock <= 5
         )
@@ -211,7 +211,7 @@ export const Product = () => {
             )}
 
             <div className="flex justify-end mt-5">
-                <div className="relative">
+                <div className="relative animate-fade-in-up-delay-2">
                     <label
                         htmlFor="category"
                         className="absolute -top-2 left-3 tracking-wider bg-white px-1 text-xs font-medium text-gray-500"

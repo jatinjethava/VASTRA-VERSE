@@ -40,8 +40,20 @@ export interface ApiResponse {
     status: number;
     success: boolean;
     message: string;
-    data: Product;
+    data: any;
     error: any;
+}
+
+export interface PaginatedProductsResponse {
+    products: Product[];
+    pagination: {
+        totalItems: number;
+        totalPages: number;
+        currentPage: number;
+        limit: number;
+        hasNext: boolean;
+        hasPrev: boolean;
+    };
 }
 
 export const addProduct = async (product: Product): Promise<ApiResponse> => {
@@ -82,15 +94,15 @@ export const addProduct = async (product: Product): Promise<ApiResponse> => {
     }
 }
 
-export const getAllProducts = async (): Promise<Product[]> => {
+export const getAllProducts = async (page: number = 1, limit: number = 10): Promise<PaginatedProductsResponse> => {
     try {
-        const { data } = await api.get("/product/get");
+        const { data } = await api.get(`/product/get?page=${page}&limit=${limit}`);
 
         if (data.success === false) {
             throw new Error(data.message || "Failed to fetch products");
         }
 
-        return data.data.products || [];
+        return data.data;
     } catch (error: any) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to fetch products");
