@@ -111,6 +111,7 @@ export const conversionRate = async (req: Request, res: Response) => {
 
 export const categoryAnalysis = async (req: Request, res: Response) => {
     try {
+
         const categoryAnalysis = await orderModel.aggregate([
             { $match: { isDeleted: false, orderStatus: ORDER_STATUS.DELIVERED } },
             { $unwind: "$items" },
@@ -120,7 +121,20 @@ export const categoryAnalysis = async (req: Request, res: Response) => {
                 $group: {
                     _id: "$product.category",
                     totalSold: { $sum: { $ifNull: ["$items.quantity", 0] } },
-                    revenue: { $sum: { $multiply: [{ $ifNull: ["$items.quantity", 0] }, { $ifNull: ["$items.discountPrice", 0] }] } }
+                    revenue: {
+                        $sum: {
+                            $multiply: [
+                                { $ifNull: ["$items.quantity", 0] },
+                                {
+                                    $cond: {
+                                        if: { $gt: [{ $ifNull: ["$items.discountPrice", 0] }, 0] },
+                                        then: "$items.discountPrice",
+                                        else: { $ifNull: ["$items.basePrice", 0] }
+                                    }
+                                }
+                            ]
+                        }
+                    }
                 }
             },
             { $sort: { totalSold: -1 } },

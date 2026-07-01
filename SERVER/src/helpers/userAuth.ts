@@ -7,7 +7,6 @@ import { userModel, sessionModel } from '../models';
 
 export const userJWT = async (req: Request, res: Response, next: NextFunction) => {
     let { authorization } = req.headers;
-    console.log("[DEBUG userJWT] called, auth:", authorization ? authorization.substring(0, 30) + "..." : "MISSING");
 
     if (authorization) {
         try {
