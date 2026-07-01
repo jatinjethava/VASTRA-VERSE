@@ -8,7 +8,7 @@ export const SessionActivity = ({ setOpenSessionActivity }: { setOpenSessionActi
 
     return (
         <>
-            <div className="animate-fade-in-up-delay-1 fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="animate-fade-in-up-delay-1 fixed inset-0 z-1000 flex items-center justify-center p-4">
                 <div
                     className="animate-fade-in-up-delay-1 fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
                     onClick={() => setOpenSessionActivity(false)}

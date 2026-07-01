@@ -344,9 +344,6 @@ export const Detail = ({
                         <div>
                             <div className="flex items-center justify-between mb-2 sm:mb-3">
                                 <p className="text-[10px] sm:text-xs font-bold text-gray-800 uppercase tracking-wider">Size</p>
-                                <button className="text-[10px] sm:text-xs text-gray-400 underline underline-offset-2 sm:underline-offset-3 hover:text-gray-600 transition-colors cursor-pointer">
-                                    Size Guide
-                                </button>
                             </div>
 
                             {!selectedColor && (

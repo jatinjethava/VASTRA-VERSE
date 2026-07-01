@@ -175,7 +175,9 @@ export const Contact = () => {
                 </div>
 
                 <div className="flex items-center justify-between">
-                    <div className="text-sm text-gray-600">Showing 1 - 10 of 50 messages</div>
+                    <div className="text-sm text-gray-600">
+                        Showing {contactFilter?.length || 0} of {contact?.length || 0} messages
+                    </div>
                 </div>
             </div>
         </div>
