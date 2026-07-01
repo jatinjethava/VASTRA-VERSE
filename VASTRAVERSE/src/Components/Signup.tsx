@@ -358,7 +358,7 @@ export const SignUp = () => {
     }
 
     return (
-        <div className="min-h-screen bg-white flex">
+        <div className="min-h-[80vh] sm:min-h-screen bg-white flex">
 
             <LeftBar />
 
