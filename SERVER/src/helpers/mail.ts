@@ -1,5 +1,8 @@
 "use strict"
 import nodemailer from 'nodemailer';
+import dns from 'dns';
+
+dns.setDefaultResultOrder('ipv4first');
 import { env } from '../config';
 import { subscribeModel } from '../models';
 
@@ -14,7 +17,7 @@ const isDev = (env.ENVIRONMENT || 'dev') === 'dev';
 let transPorter: nodemailer.Transporter;
 let etherealReady: Promise<void> = Promise.resolve();
 
-// If in dev and no Gmail credentials provided, use ethereal fake SMTP
+
 if (isDev && (!mailUser || !mailPass)) {
     etherealReady = nodemailer.createTestAccount().then((testAccount) => {
         transPorter = nodemailer.createTransport({
