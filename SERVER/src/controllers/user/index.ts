@@ -136,8 +136,8 @@ export const resedOtp = async (req: Request, res: Response) => {
         const updatedUser = await updateData(userModel, { email: value.email }, { otp, otpExpireTime }, { returnDocument: "after" });
         if (!updatedUser) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.updateDataError("OTP"), {}, {}));
 
-        // const isEmailSend = await email_verification_mail(isEmailExists, otp);
-        // if (!isEmailSend) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.addDataError("Email"), {}, {}));
+        const isEmailSend = await email_verification_mail(isEmailExists, otp);
+        if (!isEmailSend) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.addDataError("Email"), {}, {}));
 
         return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, responseMessage.otpResendSuccess, { user: updatedUser }, {}));
     } catch (error) {
