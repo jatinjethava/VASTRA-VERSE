@@ -214,7 +214,7 @@ export const Login = () => {
                     <div className="relative w-full max-w-sm space-y-6 sm:space-y-8">
 
                         {isPending && (
-                            <div className="absolute top-0 bottom-0 h-full z-50 left-0 right-0 flex items-center justify-center bg-white/50">
+                            <div className="absolute top-0 bottom-0 h-screen z-50 left-0 right-0 flex items-center justify-center bg-white/50">
                                 <div className="dot-spinner">
                                     <div className="dot-spinner__dot"></div>
                                     <div className="dot-spinner__dot"></div>
