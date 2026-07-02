@@ -65,9 +65,9 @@ export interface IPayment {
     updatedAt: Date;
 }
 
-export const fetchAllOrders = async (): Promise<{ orders: Order[] }> => {
+export const fetchAllOrders = async (page: number = 1, limit: number = 10): Promise<{ orders: Order[], pagination?: any }> => {
     try {
-        const { data } = await api.get<ApiResponse<{ orders: Order[] }>>("/admin/orders");
+        const { data } = await api.get<ApiResponse<{ orders: Order[], pagination?: any }>>(`/admin/orders?page=${page}&limit=${limit}`);
 
         if (!data.success) {
             throw new Error(data.message || "Failed to fetch orders");

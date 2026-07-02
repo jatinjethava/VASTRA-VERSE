@@ -297,9 +297,26 @@ export const cancelOrder = async (req: Request, res: Response) => {
 
 export const fetchAllOrders = async (req: Request, res: Response) => {
     try {
-        const orders = await getData(orderModel, { isDeleted: false }, {}, { sort: { createdAt: -1 } });
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 0; // 0 means fetch all if not specified
+        const skip = (page - 1) * limit;
+
+        const query = { isDeleted: false };
+        const totalOrders = await orderModel.countDocuments(query);
+        const totalPages = limit > 0 ? Math.ceil(totalOrders / limit) : 1;
+
+        let ordersQuery = orderModel.find(query).sort({ createdAt: -1 });
+        if (limit > 0) {
+            ordersQuery = ordersQuery.skip(skip).limit(limit);
+        }
+        const orders = await ordersQuery;
+
         if (!orders || orders.length === 0) return res.status(HTTP_STATUS.NOT_FOUND).json(new apiResponse(HTTP_STATUS.NOT_FOUND, responseMessage.getDataNotFound("Orders"), {}, {}));
-        return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, "Orders Fetched Successfully!", { orders }, {}));
+
+        return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, "Orders Fetched Successfully!", {
+            orders,
+            pagination: { totalOrders, totalPages, currentPage: page, limit }
+        }, {}));
     } catch (error) {
         console.error("Error in fetchAllOrders:", error);
         return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json(new apiResponse(HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage.internalServerError, {}, {}));

@@ -1,14 +1,16 @@
 import { Eye } from "lucide-react"
 import { useFetchAllOrders, useUpdateOrderStatus, useAddReason, useUpdateExpectedDeliveryDate, useRefundPayment } from "../Hooks/order";
 import { IoCloseSharp } from "react-icons/io5";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Order as OrderType } from "../Api/orderApi";
 import { getStatusStyles } from "../interface/function";
 import { Link } from "react-router-dom";
 
 export const Order = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
-    const { data: orders, isLoading, error } = useFetchAllOrders();
+    const { data: orders, isLoading, error } = useFetchAllOrders(currentPage, itemsPerPage);
     const { mutate: updateOrderStatus } = useUpdateOrderStatus();
     const { mutate: addReason } = useAddReason();
     const { mutate: updateExpectedDeliveryDate } = useUpdateExpectedDeliveryDate();
@@ -63,6 +65,10 @@ export const Order = () => {
     const [filterPayment, setFilterPayment] = useState<string>("all");
     const [sortBy, setSortBy] = useState<string>("createdAt");
     const [searchOrderId, setSearchOrderId] = useState<string>("");
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchCustomer, searchProduct, filterStatus, filterPayment, sortBy, searchOrderId]);
 
     const filteredOrders = orders?.orders?.filter((order: OrderType) => {
         let matches = true;
@@ -130,6 +136,19 @@ export const Order = () => {
 
         return matches;
     });
+
+    const totalPages = orders?.pagination?.totalPages || Math.ceil((filteredOrders?.length || 0) / itemsPerPage);
+    const totalOrders = orders?.pagination?.totalOrders || filteredOrders?.length || 0;
+    const indexOfLastOrder = Math.min(currentPage * itemsPerPage, totalOrders);
+    const indexOfFirstOrder = (currentPage - 1) * itemsPerPage;
+    const currentOrders = filteredOrders;
+
+    useEffect(() => {
+        if (currentPage > totalPages && totalPages > 0) {
+            setCurrentPage(totalPages);
+        }
+    }, [totalPages, currentPage]);
+
     return (
         <>
             <div className="relative">
@@ -245,7 +264,7 @@ export const Order = () => {
                             </thead>
 
                             <tbody className="divide-y divide-gray-200">
-                                {filteredOrders?.map((order: any) => {
+                                {currentOrders?.map((order: any) => {
 
                                     const statusStyle = getStatusStyles(order.orderStatus);
                                     const StatusIcon = statusStyle.Icon;
@@ -332,6 +351,62 @@ export const Order = () => {
                                 })}
                             </tbody>
                         </table>
+
+                        {totalPages > 1 && (
+                            <div className="flex items-center justify-between px-6 py-3 bg-white border-t border-gray-200 sm:px-6">
+                                <div className="flex justify-between flex-1 sm:hidden">
+                                    <button
+                                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                        disabled={currentPage === 1}
+                                        className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+                                    >
+                                        Previous
+                                    </button>
+                                    <button
+                                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                                        disabled={currentPage === totalPages}
+                                        className="relative ml-3 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                                <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                                    <div>
+                                        <p className="text-sm text-gray-700">
+                                            Showing <span className="font-medium">{indexOfFirstOrder + 1}</span> to <span className="font-medium">{indexOfLastOrder}</span> of{' '}
+                                            <span className="font-medium">{totalOrders}</span> results
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                            <button
+                                                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                                disabled={currentPage === 1}
+                                                className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 cursor-pointer"
+                                            >
+                                                Previous
+                                            </button>
+                                            {Array.from({ length: totalPages }).map((_, i) => (
+                                                <button
+                                                    key={i}
+                                                    onClick={() => setCurrentPage(i + 1)}
+                                                    className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium cursor-pointer ${currentPage === i + 1 ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'}`}
+                                                >
+                                                    {i + 1}
+                                                </button>
+                                            ))}
+                                            <button
+                                                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                                                disabled={currentPage === totalPages}
+                                                className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 cursor-pointer"
+                                            >
+                                                Next
+                                            </button>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div >

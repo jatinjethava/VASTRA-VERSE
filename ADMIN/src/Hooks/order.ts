@@ -2,10 +2,10 @@ import { addReason, fetchAllOrders, refundPayment, updateExpectedDeliveryDate, u
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export const useFetchAllOrders = () => {
+export const useFetchAllOrders = (page: number = 1, limit: number = 10) => {
     return useQuery({
-        queryKey: ["orders"],
-        queryFn: fetchAllOrders,
+        queryKey: ["orders", page, limit],
+        queryFn: () => fetchAllOrders(page, limit),
         staleTime: 1000 * 60 * 5,
         gcTime: 1000 * 60 * 10,
     });
