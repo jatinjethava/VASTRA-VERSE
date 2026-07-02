@@ -133,7 +133,7 @@ export const Home = () => {
 
 
             {
-                !recentlyViewedLoading && recentlyViewed?.length > 0 && (
+                !recentlyViewedLoading && (recentlyViewed?.length ?? 0) > 0 && (
                     <section className="w-full max-w-7xl mx-auto py-15 px-4 sm:px-6 lg:px-8">
                         <div className="mb-8">
                             <div className="flex items-center gap-3">
