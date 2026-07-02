@@ -373,8 +373,8 @@ export const SignUp = () => {
 
                 {otpOpen && (
                     <>
-                        <div className='absolute top-0 bottom-0 left-0 right-0 inset-0 z-30 bg-black/50'></div>
-                        <div className='absolute top-0 bottom-0 z-100 left-0 right-0 flex items-center justify-center p-4'>
+                        <div className='h-full absolute top-0 bottom-0 left-0 right-0 inset-0 z-30 bg-black/50'></div>
+                        <div className='h-full absolute top-0 bottom-0 z-100 left-0 right-0 flex items-center justify-center p-4'>
                             <div className='py-6 sm:py-7 border border-zinc-300 bg-white w-full sm:w-96 px-4 sm:px-6 rounded-lg shadow-lg flex flex-col items-center justify-center space-y-4'>
                                 <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight">Verify OTP</h1>
                                 <p className="text-xs sm:text-sm text-center text-zinc-400 mt-1">Enter the OTP sent to your email for verification that why we are enhance security of your account.</p>
