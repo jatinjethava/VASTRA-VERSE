@@ -44,6 +44,49 @@ if (isDev && (!mailUser || !mailPass)) {
 }
 
 const sendEmail = async (to: string, subject: string, html: string, logLabel: string): Promise<string> => {
+
+    if (mailHost.includes('brevo.com') || mailHost.includes('sendinblue.com')) {
+        let senderEmail = mailUser;
+        let senderName = "VASTRA VERSE";
+
+        const match = fromEmail.match(/(.*)<(.*)>/);
+        if (match) {
+            senderName = match[1]?.trim() || senderName;
+            senderEmail = match[2]?.trim() || senderEmail;
+        }
+
+        try {
+            const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+                method: 'POST',
+                headers: {
+                    'accept': 'application/json',
+                    'api-key': mailPass,
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sender: { name: senderName, email: senderEmail },
+                    to: [{ email: to }],
+                    subject: subject,
+                    htmlContent: html
+                })
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                console.log(`❌ [${logLabel}] Brevo API Failed:`, data);
+                throw new Error(data.message || 'Failed to send email via Brevo');
+            }
+
+            console.log("===========================================");
+            console.log(`📧 [${logLabel}] Email successfully sent to: ${to} via Brevo REST API`);
+            console.log("===========================================");
+            return `Email has been sent to ${to}`;
+        } catch (error: any) {
+            console.log(`❌ [${logLabel}] Failed:`, error.message);
+            throw error;
+        }
+    }
+
     await etherealReady;
 
     return new Promise((resolve, reject) => {
@@ -63,7 +106,7 @@ const sendEmail = async (to: string, subject: string, html: string, logLabel: st
                 console.log(`📧 [${logLabel}] Email sent to: ${to} (Ethereal Sandbox)`);
                 console.log(`🔗 Preview URL: ${previewUrl}`);
             } else {
-                console.log(`📧 [${logLabel}] Email successfully sent to: ${to} via Gmail`);
+                console.log(`📧 [${logLabel}] Email successfully sent to: ${to} via SMTP`);
             }
             console.log("===========================================");
 
