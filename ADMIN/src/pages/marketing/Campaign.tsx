@@ -14,7 +14,7 @@ export const Campaign = () => {
     const categories = categoriesData || [];
 
     const { data: productsData } = useGetProducts();
-    const products = productsData || [];
+    const products = productsData?.products || [];
 
     const { mutateAsync: createCampaign, isPending: isCreating } = useCreateCampaign();
     const { mutateAsync: updateCampaign, isPending: isUpdating } = useUpdateCampaign();

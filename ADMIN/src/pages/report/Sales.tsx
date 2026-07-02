@@ -27,7 +27,8 @@ export const SalesReport = () => {
     const { data: salesByCustomerData } = useSalesByCustomer();
     const { data: ordersData, isLoading: ordersLoading } = useFetchAllOrders();
     const { data: users, isLoading: usersLoading } = useGetAllUsers();
-    const { data: products } = useGetProducts();
+    const { data: productsData } = useGetProducts();
+    const products = productsData?.products || [];
     const { data: allCategories, isLoading: categoriesLoading } = useGetCategories();
 
 

@@ -13,7 +13,7 @@ export const FlashSales = () => {
     const categories = categoriesData || [];
 
     const { data: productsData } = useGetProducts();
-    const products = productsData || [];
+    const products = productsData?.products || [];
 
     const { mutateAsync: createFlashSales, isPending: isCreating } = useCreateFlashSales();
     const { mutateAsync: updateFlashSales, isPending: isUpdating } = useUpdateFlashSales();

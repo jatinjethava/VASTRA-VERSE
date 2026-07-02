@@ -7,7 +7,8 @@ import { FaReply } from "react-icons/fa6";
 export const Review = () => {
 
     const { data: reviews, isLoading, error } = useFetchAllReviewsByAdmin();
-    const { data: products, isLoading: productsLoading } = useGetProducts();
+    const { data: productsData, isLoading: productsLoading } = useGetProducts();
+    const products = productsData?.products || [];
     const { mutateAsync: verifyReview } = useVerifyReview();
     const { mutateAsync: deleteReview } = useDeleteReview();
     const { mutateAsync: reply } = useAdminReply();
@@ -20,7 +21,7 @@ export const Review = () => {
 
         const grouped: Record<string, { product: any, reviews: any[] }> = {};
 
-        products.forEach(product => {
+        products.forEach((product: any) => {
             if (product._id) {
                 grouped[product._id] = { product, reviews: [] };
             }
