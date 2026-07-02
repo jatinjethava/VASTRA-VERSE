@@ -28,6 +28,8 @@ export const SignUp = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
     const [otpOpen, setOtpOpen] = useState<boolean>(false);
     const [registeredEmail, setRegisteredEmail] = useState<string>("");
+    const [pendingToken, setPendingToken] = useState<string>("");
+    const [pendingUser, setPendingUser] = useState<any>(null);
 
     const googleBtnRef = useRef<HTMLDivElement>(null);
     const [btnWidth, setBtnWidth] = useState(400);
@@ -54,7 +56,7 @@ export const SignUp = () => {
     })
 
     useEffect(() => {
-        if (token) {
+        if (token && !otpOpen && !pendingToken) {
             toast.success("User already logged in", {
                 duration: 1500,
             });
@@ -62,7 +64,7 @@ export const SignUp = () => {
                 navigate("/");
             }, 1500);
         }
-    }, [navigate, token]);
+    }, [navigate, token, otpOpen, pendingToken]);
 
     const HandleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -182,6 +184,12 @@ export const SignUp = () => {
 
             setRegisteredEmail(formData.email);
 
+            setPendingToken(userData.data.token);
+            setPendingUser({
+                name: userData.data.user.name,
+                email: userData.data.user.email,
+            });
+
             setFormData({
                 name: "",
                 email: "",
@@ -189,17 +197,6 @@ export const SignUp = () => {
                 mobileNumber: "",
                 confirmPassword: ""
             });
-
-            dispatch(
-                setUser({
-                    token: userData.data.token,
-                    user: {
-                        name: userData.data.user.name,
-                        email: userData.data.user.email,
-                    },
-                    activeNav: ''
-                })
-            )
 
             setTimeout(() => {
                 setOtpOpen(true);
@@ -275,6 +272,16 @@ export const SignUp = () => {
             toast.success(response.message || "OTP Verified Successfully!", {
                 duration: 1500,
             });
+
+            if (pendingToken && pendingUser) {
+                dispatch(
+                    setUser({
+                        token: pendingToken,
+                        user: pendingUser,
+                        activeNav: ''
+                    })
+                );
+            }
 
             setTimeout(() => {
                 setOtpOpen(false);

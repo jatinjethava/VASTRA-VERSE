@@ -11,6 +11,7 @@ export const env = {
     EMAIL_HOST_USER: process.env.EMAIL_HOST_USER,
     EMAIL_HOST_PASSWORD: process.env.EMAIL_HOST_PASSWORD,
     EMAIL_FROM: process.env.EMAIL_FROM,
+    RENDER_API_KEY: process.env.RENDER_API_KEY,
 
     CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
     CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,

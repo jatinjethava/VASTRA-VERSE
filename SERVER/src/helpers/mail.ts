@@ -3,18 +3,19 @@ import nodemailer from 'nodemailer';
 import { env } from '../config';
 import { subscribeModel } from '../models';
 
-const mailHost = env.EMAIL_HOST || "";
-const mailPort = Number(env.EMAIL_PORT || 0);
+const mailHost = env.EMAIL_HOST || "smtp.gmail.com";
+const mailPort = Number(env.EMAIL_PORT || 465);
 const mailUser = env.EMAIL_HOST_USER || "";
 const mailPass = env.EMAIL_HOST_PASSWORD || "";
-const from = env.EMAIL_FROM || "";
+const fromEmail = env.EMAIL_FROM || mailUser || "VASTRA VERSE <noreply@vastraverse.com>";
 
 const isDev = (env.ENVIRONMENT || 'dev') === 'dev';
 
 let transPorter: nodemailer.Transporter;
-let etherealReady: Promise<void>;
+let etherealReady: Promise<void> = Promise.resolve();
 
-if (isDev) {
+// If in dev and no Gmail credentials provided, use ethereal fake SMTP
+if (isDev && (!mailUser || !mailPass)) {
     etherealReady = nodemailer.createTestAccount().then((testAccount) => {
         transPorter = nodemailer.createTransport({
             host: 'smtp.ethereal.email',
@@ -26,39 +27,51 @@ if (isDev) {
             },
         });
     }).catch((err) => {
-        transPorter = nodemailer.createTransport({
-            host: mailHost,
-            port: mailPort,
-            secure: mailPort === 465,
-            tls: { rejectUnauthorized: false },
-            auth: { user: mailUser, pass: mailPass },
-        });
+        console.log("Ethereal test account creation failed:", err.message);
     });
 } else {
-    const option: any = {
+    // Otherwise (Production or Dev with Gmail creds), use the real SMTP (Gmail)
+    transPorter = nodemailer.createTransport({
         host: mailHost,
         port: mailPort,
-        secure: mailPort === 465,
+        secure: mailPort === 465, // true for 465, false for other ports
         tls: { rejectUnauthorized: false },
         auth: { user: mailUser, pass: mailPass },
-    };
-    if (mailHost.includes('gmail.com')) {
-        option.service = 'gmail';
-    }
-    transPorter = nodemailer.createTransport(option);
-    etherealReady = Promise.resolve();
+    });
 }
+
+const sendEmail = async (to: string, subject: string, html: string, logLabel: string): Promise<string> => {
+    await etherealReady;
+
+    return new Promise((resolve, reject) => {
+        if (!transPorter) {
+            return reject(new Error("Mail transporter is not initialized."));
+        }
+
+        transPorter.sendMail({ from: fromEmail, to, subject, html }, (err: any, data: any) => {
+            if (err) {
+                console.log(`❌ [${logLabel}] Failed:`, err.message);
+                return reject(err);
+            }
+
+            const previewUrl = nodemailer.getTestMessageUrl(data);
+            console.log("===========================================");
+            if (previewUrl) {
+                console.log(`📧 [${logLabel}] Email sent to: ${to} (Ethereal Sandbox)`);
+                console.log(`🔗 Preview URL: ${previewUrl}`);
+            } else {
+                console.log(`📧 [${logLabel}] Email successfully sent to: ${to} via Gmail`);
+            }
+            console.log("===========================================");
+
+            resolve(`Email has been sent to ${to}`);
+        });
+    });
+};
 
 
 export const email_verification_mail = async (user: any, otp: any) => {
-    await etherealReady;
-    return new Promise((resolve, reject) => {
-        try {
-            const mailOptions = {
-                from: from,
-                to: user.email,
-                subject: "Email verification",
-                html: `<!DOCTYPE html>
+    const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -71,7 +84,6 @@ export const email_verification_mail = async (user: any, otp: any) => {
             <td align="center" style="padding:40px 20px;">
                 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%;">
 
-                    <!-- Logo Header -->
                     <tr>
                         <td align="center" style="padding:30px 0;">
                             <table role="presentation" cellpadding="0" cellspacing="0">
@@ -85,12 +97,10 @@ export const email_verification_mail = async (user: any, otp: any) => {
                         </td>
                     </tr>
 
-                    <!-- Main Card -->
                     <tr>
                         <td>
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.06);">
 
-                                <!-- Dark Header Bar -->
                                 <tr>
                                     <td style="background:linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding:32px 40px; text-align:center;">
                                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -110,7 +120,6 @@ export const email_verification_mail = async (user: any, otp: any) => {
                                     </td>
                                 </tr>
 
-                                <!-- Body Content -->
                                 <tr>
                                     <td style="padding:40px 40px 20px;">
                                         <p style="margin:0 0 20px; color:#333333; font-size:16px; line-height:1.6;">
@@ -122,7 +131,6 @@ export const email_verification_mail = async (user: any, otp: any) => {
                                     </td>
                                 </tr>
 
-                                <!-- OTP Box -->
                                 <tr>
                                     <td align="center" style="padding:0 40px 30px;">
                                         <table role="presentation" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg, #faf8f5 0%, #f5f0e8 100%); border:2px solid #c8a96e; border-radius:12px; width:100%; max-width:320px;">
@@ -140,7 +148,6 @@ export const email_verification_mail = async (user: any, otp: any) => {
                                     </td>
                                 </tr>
 
-                                <!-- Timer Warning -->
                                 <tr>
                                     <td align="center" style="padding:0 40px 30px;">
                                         <table role="presentation" cellpadding="0" cellspacing="0">
@@ -154,15 +161,12 @@ export const email_verification_mail = async (user: any, otp: any) => {
                                         </table>
                                     </td>
                                 </tr>
-
-                                <!-- Divider -->
                                 <tr>
                                     <td style="padding:0 40px;">
                                         <hr style="border:none; border-top:1px solid #eeeeee; margin:0;">
                                     </td>
                                 </tr>
 
-                                <!-- Footer Note -->
                                 <tr>
                                     <td style="padding:24px 40px 36px;">
                                         <p style="margin:0; color:#999999; font-size:13px; line-height:1.6;">
@@ -174,7 +178,6 @@ export const email_verification_mail = async (user: any, otp: any) => {
                         </td>
                     </tr>
 
-                    <!-- Footer -->
                     <tr>
                         <td align="center" style="padding:30px 0;">
                             <p style="margin:0 0 8px; font-size:12px; color:#999999;">© ${new Date().getFullYear()} VASTRA VERSE. All rights reserved.</p>
@@ -187,39 +190,13 @@ export const email_verification_mail = async (user: any, otp: any) => {
         </tr>
     </table>
 </body>
-</html>`,
-            };
-            transPorter.sendMail(mailOptions, function (err: any, data: any) {
-                if (err) {
-                    console.log(err)
-                    reject(err)
-                } else {
-                    const previewUrl = nodemailer.getTestMessageUrl(data);
-                    if (previewUrl) {
-                        console.log("===========================================");
-                        console.log(`📧 OTP Verification Email sent to: ${user.email}`);
-                        console.log(`🔗 Preview URL: ${previewUrl}`);
-                        console.log("===========================================");
-                    }
-                    resolve(`Email has been sent to ${user.email}, kindly follow the instructions`)
-                }
-            })
-        } catch (error) {
-            console.log(error)
-            reject(error)
-        }
-    });
+</html>`;
+
+    return sendEmail(user.email, "Email verification", html, "OTP Verification");
 }
 
 export const confirmAccount = async (user: any) => {
-    await etherealReady;
-    return new Promise((resolve, reject) => {
-        try {
-            const mailOptions = {
-                from: from,
-                to: user.email,
-                subject: "Account Confirmation",
-                html: `<!DOCTYPE html>
+    const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -232,7 +209,6 @@ export const confirmAccount = async (user: any) => {
             <td align="center" style="padding:40px 20px;">
                 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%;">
 
-                    <!-- Logo Header -->
                     <tr>
                         <td align="center" style="padding:30px 0;">
                             <table role="presentation" cellpadding="0" cellspacing="0">
@@ -246,12 +222,10 @@ export const confirmAccount = async (user: any) => {
                         </td>
                     </tr>
 
-                    <!-- Main Card -->
                     <tr>
                         <td>
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.06);">
 
-                                <!-- Dark Header Bar -->
                                 <tr>
                                     <td style="background:linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding:32px 40px; text-align:center;">
                                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -271,7 +245,6 @@ export const confirmAccount = async (user: any) => {
                                     </td>
                                 </tr>
 
-                                <!-- Body Content -->
                                 <tr>
                                     <td style="padding:40px 40px 20px;">
                                         <p style="margin:0 0 20px; color:#333333; font-size:16px; line-height:1.6;">
@@ -283,7 +256,6 @@ export const confirmAccount = async (user: any) => {
                                     </td>
                                 </tr>
 
-                                <!-- Success Box -->
                                 <tr>
                                     <td align="center" style="padding:0 40px 30px;">
                                         <table role="presentation" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg, #f0faf0 0%, #e8f5e9 100%); border:2px solid #4caf50; border-radius:12px; width:100%;">
@@ -299,14 +271,12 @@ export const confirmAccount = async (user: any) => {
                                     </td>
                                 </tr>
 
-                                <!-- Divider -->
                                 <tr>
                                     <td style="padding:0 40px;">
                                         <hr style="border:none; border-top:1px solid #eeeeee; margin:0;">
                                     </td>
                                 </tr>
 
-                                <!-- Footer Note -->
                                 <tr>
                                     <td style="padding:24px 40px 36px;">
                                         <p style="margin:0; color:#999999; font-size:13px; line-height:1.6;">
@@ -318,7 +288,6 @@ export const confirmAccount = async (user: any) => {
                         </td>
                     </tr>
 
-                    <!-- Footer -->
                     <tr>
                         <td align="center" style="padding:30px 0;">
                             <p style="margin:0 0 8px; font-size:12px; color:#999999;">© ${new Date().getFullYear()} VASTRA VERSE. All rights reserved.</p>
@@ -331,39 +300,13 @@ export const confirmAccount = async (user: any) => {
         </tr>
     </table>
 </body>
-</html>`,
-            }
-            transPorter.sendMail(mailOptions, function (err: any, data: any) {
-                if (err) {
-                    console.log(err)
-                    reject(err)
-                } else {
-                    const previewUrl = nodemailer.getTestMessageUrl(data);
-                    if (previewUrl) {
-                        console.log("===========================================");
-                        console.log(`📧 Account Confirmation Email sent to: ${user.email}`);
-                        console.log(`🔗 Preview URL: ${previewUrl}`);
-                        console.log("===========================================");
-                    }
-                    resolve(`Account confirmation email has been sent to ${user.email}, kindly follow the instructions`)
-                }
-            })
-        } catch (error) {
-            console.log(error)
-            reject(error)
-        }
-    });
+</html>`;
+
+    return sendEmail(user.email, "Account Confirmation", html, "Account Confirmation");
 }
 
 export const sendMarketingMail = async (user: any, campaign: any) => {
-    await etherealReady;
-    return new Promise((resolve, reject) => {
-        try {
-            const mailOptions = {
-                from: from,
-                to: user.email,
-                subject: `${campaign.name || 'Exclusive Offer'} - VASTRA VERSE`,
-                html: `<!DOCTYPE html>
+    const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -376,7 +319,6 @@ export const sendMarketingMail = async (user: any, campaign: any) => {
             <td align="center" style="padding:40px 20px;">
                 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%;">
 
-                    <!-- Logo Header -->
                     <tr>
                         <td align="center" style="padding:30px 0;">
                             <table role="presentation" cellpadding="0" cellspacing="0">
@@ -390,12 +332,10 @@ export const sendMarketingMail = async (user: any, campaign: any) => {
                         </td>
                     </tr>
 
-                    <!-- Main Card -->
                     <tr>
                         <td>
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.06);">
 
-                                <!-- Dark Header Bar -->
                                 <tr>
                                     <td style="background:linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding:32px 40px; text-align:center;">
                                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -415,7 +355,6 @@ export const sendMarketingMail = async (user: any, campaign: any) => {
                                     </td>
                                 </tr>
 
-                                <!-- Body Content -->
                                 <tr>
                                     <td style="padding:40px 40px 20px;">
                                         <p style="margin:0 0 20px; color:#333333; font-size:16px; line-height:1.6;">
@@ -427,7 +366,6 @@ export const sendMarketingMail = async (user: any, campaign: any) => {
                                     </td>
                                 </tr>
 
-                                <!-- Offer Box -->
                                 <tr>
                                     <td align="center" style="padding:0 40px 30px;">
                                         <table role="presentation" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg, #faf8f5 0%, #f5f0e8 100%); border:2px solid #c8a96e; border-radius:12px; width:100%;">
@@ -444,7 +382,6 @@ export const sendMarketingMail = async (user: any, campaign: any) => {
                                     </td>
                                 </tr>
 
-                                <!-- CTA Button -->
                                 <tr>
                                     <td align="center" style="padding:0 40px 30px;">
                                         <table role="presentation" cellpadding="0" cellspacing="0">
@@ -457,14 +394,12 @@ export const sendMarketingMail = async (user: any, campaign: any) => {
                                     </td>
                                 </tr>
 
-                                <!-- Divider -->
                                 <tr>
                                     <td style="padding:0 40px;">
                                         <hr style="border:none; border-top:1px solid #eeeeee; margin:0;">
                                     </td>
                                 </tr>
 
-                                <!-- Footer Note -->
                                 <tr>
                                     <td style="padding:24px 40px 36px;">
                                         <p style="margin:0; color:#999999; font-size:13px; line-height:1.6;">
@@ -476,7 +411,6 @@ export const sendMarketingMail = async (user: any, campaign: any) => {
                         </td>
                     </tr>
 
-                    <!-- Footer -->
                     <tr>
                         <td align="center" style="padding:30px 0;">
                             <p style="margin:0 0 8px; font-size:12px; color:#999999;">© ${new Date().getFullYear()} VASTRA VERSE. All rights reserved.</p>
@@ -489,28 +423,9 @@ export const sendMarketingMail = async (user: any, campaign: any) => {
         </tr>
     </table>
 </body>
-</html>`,
-            };
-            transPorter.sendMail(mailOptions, function (err: any, data: any) {
-                if (err) {
-                    console.log(err)
-                    reject(err)
-                } else {
-                    const previewUrl = nodemailer.getTestMessageUrl(data);
-                    if (previewUrl) {
-                        console.log("===========================================");
-                        console.log(`📧 Marketing Email sent to: ${user.email}`);
-                        console.log(`🔗 Preview URL: ${previewUrl}`);
-                        console.log("===========================================");
-                    }
-                    resolve(`Marketing email has been sent to ${user.email}`)
-                }
-            })
-        } catch (error) {
-            console.log(error)
-            reject(error)
-        }
-    });
+</html>`;
+
+    return sendEmail(user.email, `${campaign.name || 'Exclusive Offer'} - VASTRA VERSE`, html, "Marketing");
 }
 
 export const sendNotificationMailToSubscribers = async (campaign: any, type: 'campaign' | 'flash_sale' = 'campaign') => {
@@ -519,11 +434,8 @@ export const sendNotificationMailToSubscribers = async (campaign: any, type: 'ca
         const subscribers = await subscribeModel.find({ isDeleted: false });
 
         if (!subscribers || subscribers.length === 0) {
-            console.log("No subscribers found to send marketing emails");
             return { sent: 0, failed: 0, total: 0 };
         }
-
-        console.log(`📨 Sending ${type} notification to ${subscribers.length} subscriber(s)...`);
 
         const results = await Promise.allSettled(
             subscribers.map((subscriber: any) =>
@@ -537,13 +449,12 @@ export const sendNotificationMailToSubscribers = async (campaign: any, type: 'ca
         const sent = results.filter(r => r.status === 'fulfilled').length;
         const failed = results.filter(r => r.status === 'rejected').length;
 
-        console.log("===========================================");
-        console.log(`✅ ${type.toUpperCase()} notification emails - Sent: ${sent}, Failed: ${failed}, Total: ${subscribers.length}`);
-        console.log("===========================================");
+        // console.log("===========================================");
+        // console.log(`✅ ${type.toUpperCase()} notification emails - Sent: ${sent}, Failed: ${failed}, Total: ${subscribers.length}`);
+        // console.log("===========================================");
 
         return { sent, failed, total: subscribers.length };
     } catch (error) {
-        console.log("Error sending notification emails to subscribers:", error);
         return { sent: 0, failed: 0, total: 0, error };
     }
 }
