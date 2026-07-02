@@ -25,19 +25,19 @@ if (isDev && (!mailUser || !mailPass)) {
                 user: testAccount.user,
                 pass: testAccount.pass,
             },
-        });
+        } as any);
     }).catch((err) => {
         console.log("Ethereal test account creation failed:", err.message);
     });
 } else {
-    // Otherwise (Production or Dev with Gmail creds), use the real SMTP (Gmail)
     transPorter = nodemailer.createTransport({
         host: mailHost,
         port: mailPort,
-        secure: mailPort === 465, // true for 465, false for other ports
+        secure: mailPort === 465,
+        family: 4,
         tls: { rejectUnauthorized: false },
         auth: { user: mailUser, pass: mailPass },
-    });
+    } as any);
 }
 
 const sendEmail = async (to: string, subject: string, html: string, logLabel: string): Promise<string> => {
