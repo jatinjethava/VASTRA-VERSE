@@ -225,3 +225,42 @@ body {
         transform: translateY(0);
     }
 }
+
+.hero-btn {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.hero-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: white;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: 0;
+}
+
+.hero-btn:hover::before {
+    transform: scaleX(1);
+}
+
+.hero-btn-filled::before {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+.hero-btn-filled:hover::before {
+    transform: scaleX(0);
+}
+
+.hero-btn-arrow {
+    display: inline-block;
+    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.hero-btn:hover .hero-btn-arrow {
+    transform: translateX(4px);
+}
