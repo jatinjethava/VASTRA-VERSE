@@ -133,7 +133,7 @@ export const Home = () => {
 
 
             {
-                !recentlyViewedLoading && recentlyViewed.length > 0 && (
+                !recentlyViewedLoading && recentlyViewed?.length > 0 && (
                     <section className="w-full max-w-7xl mx-auto py-15 px-4 sm:px-6 lg:px-8">
                         <div className="mb-8">
                             <div className="flex items-center gap-3">
@@ -148,7 +148,7 @@ export const Home = () => {
                             </p>
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-                            {recentlyViewed.map((item: Product) => (
+                            {recentlyViewed?.map((item: Product) => (
                                 <div
                                     key={item._id}
                                     onClick={() => navigate(`/more-details`, { state: { product: item } })}
