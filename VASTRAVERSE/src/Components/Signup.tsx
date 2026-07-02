@@ -389,7 +389,7 @@ export const SignUp = () => {
                                 <button
                                     onClick={verifyOTP}
                                     disabled={isOtpPending}
-                                    className="w-full sm:w-50 flex items-center justify-center gap-2.5 rounded-xl border border-zinc-200 bg-white py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-700 font-semibold hover:bg-zinc-50 hover:border-zinc-300 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="w-full sm:w-48 flex items-center justify-center gap-2.5 rounded-xl border border-zinc-200 bg-white py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-700 font-semibold hover:bg-zinc-50 hover:border-zinc-300 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {isOtpPending ? "Verifying..." : "Verify OTP"}
                                 </button>
@@ -411,7 +411,7 @@ export const SignUp = () => {
                 <div className="relative w-full max-w-sm space-y-8">
 
                     {isPending && (
-                        <div className="absolute top-0 bottom-0 h-full z-100 left-0 right-0 flex items-center justify-center bg-white/50">
+                        <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/60 backdrop-blur-[1px] rounded-2xl">
                             <div className="dot-spinner">
                                 <div className="dot-spinner__dot"></div>
                                 <div className="dot-spinner__dot"></div>
