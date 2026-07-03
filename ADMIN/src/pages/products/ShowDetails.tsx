@@ -18,8 +18,8 @@ export const ShowDetails = ({
         <>
             <div onClick={() => {
                 setSelectedProduct(null);
-            }} className="animate-fade-in-up-delay-3 fixed top-0 left-0 right-0 bottom-0 z-10 bg-black/60 backdrop-blur-sm  opacity-50 transition-opacity duration-300"></div>
-            <div className="animate-fade-in-up-delay-3 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  z-15 bg-white w-[90vw] max-w-6xl rounded-3xl shadow-2xl overflow-hidden transform transition-all duration-300 scale-100 flex flex-col max-h-[90vh]">
+            }} className="animate-fade-in-up-delay-3 fixed top-0 left-0 right-0 bottom-0 z-50 bg-black/60 backdrop-blur-sm  opacity-50 transition-opacity duration-300"></div>
+            <div className="animate-fade-in-up-delay-3 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  z-60 bg-white w-[90vw] max-w-6xl rounded-3xl shadow-2xl overflow-hidden transform transition-all duration-300 scale-100 flex flex-col max-h-[90vh]">
                 <div className="flex items-center justify-between border-b px-6 py-4 bg-gray-50/80 backdrop-blur-md sticky top-0 z-10">
                     <h2 className="text-xl font-bold text-gray-900">Product Details</h2>
                     <button onClick={() => setSelectedProduct(null)} className="text-gray-400 hover:text-gray-900 hover:bg-gray-200 p-2 rounded-full cursor-pointer transition-colors">
