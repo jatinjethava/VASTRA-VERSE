@@ -357,7 +357,8 @@ export const Bots = () => {
 
             if (keywords.length > 0) {
                 let filtered = results.filter(product => {
-                    const searchable = `${product.title} ${product.description} ${product.category} ${product.tags?.join(" ") || ""} ${product.gender} ${product.material} ${product.fit}`.toLowerCase();
+                    const categoryName = typeof product.category === 'object' ? (product.category as any).name || "" : product.category || "";
+                    const searchable = `${product.title} ${product.description} ${categoryName} ${product.tags?.join(" ") || ""} ${product.gender} ${product.material} ${product.fit}`.toLowerCase();
                     return keywords.every(kw => {
                         const singular = kw.endsWith('es') ? kw.slice(0, -2) : (kw.endsWith('s') && !kw.endsWith('ss') ? kw.slice(0, -1) : kw);
                         const strippedKw = kw.replace(/-/g, "");
@@ -366,6 +367,8 @@ export const Bots = () => {
                 });
 
                 if (filtered.length === 0 && (lowerText.includes("gift") || lowerText.includes("best") || lowerText.includes("top") || lowerText.includes("popular") || lowerText.includes("recommend"))) {
+
+                } else {
                     results = filtered;
                 }
             }
@@ -791,8 +794,7 @@ export const Bots = () => {
         if (lowerText.includes("password") || lowerText.includes("mobile") || lowerText.includes("number") || lowerText.includes("manage address") || lowerText.includes("change address")) {
             setTimeout(() => {
                 addBotMessage("You can easily manage your account details, including your password, mobile number, and saved addresses, right from your Profile section. ⚙️", [
-                    { label: "👤 Go to Profile", action: () => navigate("/security") },
-                    { label: "📍 Manage Addresses", action: () => navigate("/profile") }
+                    { label: "👤 Go to Profile", action: () => navigate("/profile") }
                 ]);
             }, 800);
             return;
