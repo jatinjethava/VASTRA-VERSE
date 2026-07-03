@@ -152,7 +152,8 @@ export const Bots = () => {
 
         const token = JSON.parse(tokenStr);
         const newSocket = io(import.meta.env.VITE_URL || "http://localhost:8200", {
-            auth: { token }
+            auth: { token },
+            transports: ["websocket", "polling"],
         });
 
         newSocket.on("connect", () => {
