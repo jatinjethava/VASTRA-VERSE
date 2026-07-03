@@ -4,6 +4,7 @@ import { useClearCart, useDecreaseCartQuantity, useGetCart, useIncreaseCartQuant
 import { clearCart, increaseCartQuantity, decreaseCartQuantity, removeFromCart } from "../Redux/cartSlice";
 import { toast } from "sonner";
 import { FaWhatsapp } from "react-icons/fa6";
+import { colorMap } from "../Components/Detail";
 
 // Notes : if is guest user than fetch data from localstorage otherwise fetch from server
 
@@ -164,7 +165,7 @@ export const Cart = () => {
                                                             <div className="flex items-center gap-1">
                                                                 <span
                                                                     className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border border-gray-200 shadow-sm block"
-                                                                    style={{ backgroundColor: item.color || '#fff' }}
+                                                                    style={{ backgroundColor: item.color ? (colorMap[item.color] || item.color) : '#fff' }}
                                                                 />
                                                                 <span className="text-gray-900 hidden sm:inline">{item.color || 'White'}</span>
                                                             </div>

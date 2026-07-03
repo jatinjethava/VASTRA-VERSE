@@ -11,7 +11,7 @@ export const HomeSlider = () => {
 
     const { data: Banner, isPending: bannerLoading } = useAllBanner();
 
-    const hasVideo = false;
+    const hasVideo = true;
     const [videoError, setVideoError] = useState(false);
 
     if (!bannerLoading && (!Banner || Banner.length === 0)) {

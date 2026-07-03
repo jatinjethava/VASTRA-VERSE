@@ -16,6 +16,7 @@ export const colorMap: Record<string, string> = {
     "White": "#FFFFFF",
     "Gray": "#808080",
     "Charcoal": "#36454F",
+    "Navy": "#000080",
     "Navy Blue": "#000080",
     "Royal Blue": "#4169E1",
     "Sky Blue": "#87CEEB",
@@ -302,10 +303,10 @@ export const Detail = ({
                                                     ? "ring-2 ring-offset-2 ring-gray-900 scale-110"
                                                     : "hover:scale-105 ring-1 ring-gray-200"
                                                     }`}
-                                                style={{ backgroundColor: color }}
+                                                style={{ backgroundColor: colorMap[color] || color }}
                                             >
                                                 {selectedColor === color && (
-                                                    <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes(color.toLowerCase()) ? '#111' : '#fff'} strokeWidth="3" viewBox="0 0 24 24">
+                                                    <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes((colorMap[color] || color).toLowerCase()) ? '#111' : '#fff'} strokeWidth="3" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                                     </svg>
                                                 )}

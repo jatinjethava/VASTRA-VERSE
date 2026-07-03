@@ -378,36 +378,36 @@ export const ProductForm = ({
                                                 className="border border-gray-400 rounded-lg px-2 py-2 outline-none focus:ring focus:ring-gray-500"
                                             >
                                                 <option value="">Select color</option>
-                                                <option value="Black">Black</option>
-                                                <option value="White">White</option>
-                                                <option value="Gray">Gray</option>
-                                                <option value="Charcoal">Charcoal</option>
-                                                <option value="Navy">Navy Blue</option>
-                                                <option value="Royal Blue">Royal Blue</option>
-                                                <option value="Sky Blue">Sky Blue</option>
-                                                <option value="Red">Red</option>
-                                                <option value="Maroon">Maroon</option>
-                                                <option value="Burgundy">Burgundy</option>
-                                                <option value="Green">Green</option>
-                                                <option value="Olive">Olive</option>
-                                                <option value="Mint">Mint</option>
-                                                <option value="Yellow">Yellow</option>
-                                                <option value="Mustard">Mustard</option>
-                                                <option value="Orange">Orange</option>
-                                                <option value="Coral">Coral</option>
-                                                <option value="Pink">Pink</option>
-                                                <option value="Hot Pink">Hot Pink</option>
-                                                <option value="Purple">Purple</option>
-                                                <option value="Lavender">Lavender</option>
-                                                <option value="Brown">Brown</option>
-                                                <option value="Tan">Tan</option>
-                                                <option value="Beige">Beige</option>
-                                                <option value="Cream">Cream</option>
-                                                <option value="Khaki">Khaki</option>
-                                                <option value="Teal">Teal</option>
-                                                <option value="Cyan">Cyan</option>
-                                                <option value="Gold">Gold</option>
-                                                <option value="Silver">Silver</option>
+                                                <option value="Black" style={{ color: 'black' }}>● Black</option>
+                                                <option value="White" style={{ color: '#d1d5db' }}>● White</option>
+                                                <option value="Gray" style={{ color: 'gray' }}>● Gray</option>
+                                                <option value="Charcoal" style={{ color: '#36454F' }}>● Charcoal</option>
+                                                <option value="Navy" style={{ color: 'navy' }}>● Navy Blue</option>
+                                                <option value="Royal Blue" style={{ color: '#4169E1' }}>● Royal Blue</option>
+                                                <option value="Sky Blue" style={{ color: '#87CEEB' }}>● Sky Blue</option>
+                                                <option value="Red" style={{ color: 'red' }}>● Red</option>
+                                                <option value="Maroon" style={{ color: 'maroon' }}>● Maroon</option>
+                                                <option value="Burgundy" style={{ color: '#800020' }}>● Burgundy</option>
+                                                <option value="Green" style={{ color: 'green' }}>● Green</option>
+                                                <option value="Olive" style={{ color: 'olive' }}>● Olive</option>
+                                                <option value="Mint" style={{ color: '#3EB489' }}>● Mint</option>
+                                                <option value="Yellow" style={{ color: '#FFD700' }}>● Yellow</option>
+                                                <option value="Mustard" style={{ color: '#FFDB58' }}>● Mustard</option>
+                                                <option value="Orange" style={{ color: 'orange' }}>● Orange</option>
+                                                <option value="Coral" style={{ color: 'coral' }}>● Coral</option>
+                                                <option value="Pink" style={{ color: 'pink' }}>● Pink</option>
+                                                <option value="Hot Pink" style={{ color: 'hotpink' }}>● Hot Pink</option>
+                                                <option value="Purple" style={{ color: 'purple' }}>● Purple</option>
+                                                <option value="Lavender" style={{ color: '#9370DB' }}>● Lavender</option>
+                                                <option value="Brown" style={{ color: 'brown' }}>● Brown</option>
+                                                <option value="Tan" style={{ color: 'tan' }}>● Tan</option>
+                                                <option value="Beige" style={{ color: '#C19A6B' }}>● Beige</option>
+                                                <option value="Cream" style={{ color: '#EADDCA' }}>● Cream</option>
+                                                <option value="Khaki" style={{ color: 'khaki' }}>● Khaki</option>
+                                                <option value="Teal" style={{ color: 'teal' }}>● Teal</option>
+                                                <option value="Cyan" style={{ color: 'darkcyan' }}>● Cyan</option>
+                                                <option value="Gold" style={{ color: 'gold' }}>● Gold</option>
+                                                <option value="Silver" style={{ color: 'silver' }}>● Silver</option>
                                             </select>
 
                                             <input

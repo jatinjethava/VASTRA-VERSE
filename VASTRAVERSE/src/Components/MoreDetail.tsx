@@ -11,6 +11,7 @@ import { RecommendProduct } from "./RecommendProduct";
 import ReactGA from "react-ga4";
 import { QA } from "./QA";
 import { useGetProductAllReview } from "../Hooks/review";
+import { colorMap } from "./Detail";
 
 interface LocationState {
     product: Product;
@@ -217,10 +218,10 @@ export const MoreDetails = () => {
                                                         ? "ring-2 ring-offset-2 ring-gray-900 scale-110"
                                                         : "hover:scale-105 ring-1 ring-gray-200"
                                                         }`}
-                                                    style={{ backgroundColor: color }}
+                                                    style={{ backgroundColor: colorMap[color] || color }}
                                                 >
                                                     {selectedColor === color && (
-                                                        <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes(color.toLowerCase()) ? '#111' : '#fff'} strokeWidth="3" viewBox="0 0 24 24">
+                                                        <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes((colorMap[color] || color).toLowerCase()) ? '#111' : '#fff'} strokeWidth="3" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                                         </svg>
                                                     )}
@@ -240,10 +241,10 @@ export const MoreDetails = () => {
                                                         ? "ring-2 ring-offset-2 ring-gray-900 scale-110"
                                                         : "hover:scale-105 ring-1 ring-gray-200"
                                                         }`}
-                                                    style={{ backgroundColor: color }}
+                                                    style={{ backgroundColor: colorMap[color] || color }}
                                                 >
                                                     {selectedColor === color && (
-                                                        <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes(color.toLowerCase()) ? '#111' : '#fff'} strokeWidth="3" viewBox="0 0 24 24">
+                                                        <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes((colorMap[color] || color).toLowerCase()) ? '#111' : '#fff'} strokeWidth="3" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                                         </svg>
                                                     )}
