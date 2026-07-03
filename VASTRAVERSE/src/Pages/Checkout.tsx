@@ -269,7 +269,7 @@ export const Checkout = () => {
         <>
             <div className="min-h-screen py-8 sm:py-12 relative flex justify-center items-start">
                 <div className="flex flex-col lg:flex-row w-[95%] sm:w-[90%] max-w-7xl mx-auto gap-8 lg:gap-10">
-                    <form onSubmit={handleOrderSubmit} className="w-full lg:w-2/3 relative order-2 lg:order-1">
+                    <form onSubmit={handleOrderSubmit} className="w-full lg:w-2/3 relative">
                         <h1 className="text-3xl sm:text-4xl font-semibold text-gray-500 animate-fade-in-up">Do Your <span className="text-gray-800">Order</span></h1>
 
                         <div className="flex flex-col gap-2 mt-5 animate-fade-in-up-delay-1">
@@ -385,7 +385,7 @@ export const Checkout = () => {
 
                         <div className="mt-5">
                             <p className="text-[10px] sm:text-xs py-1 font-semibold text-gray-700 tracking-widest uppercase animate-fade-in-up-delay-2">Payment Methods</p>
-                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-10 pt-2 sm:pt-3 animate-fade-in-up-delay-2">
+                            <div className="flex sm:flex-row items-start sm:items-center gap-3 sm:gap-10 pt-2 sm:pt-3 animate-fade-in-up-delay-2">
                                 <label className="flex items-center gap-2">
                                     <input
                                         type="radio"

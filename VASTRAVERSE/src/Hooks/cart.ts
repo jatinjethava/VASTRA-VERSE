@@ -122,7 +122,7 @@ export const useApplyDiscountCode = () => {
         mutationFn: ({ id, coupon }: { id: string, coupon: string }) => applyDiscountCode(id, coupon),
         onSuccess: (data: any) => {
             toast.success(data.message, {
-                duration: 1500
+                duration: 2000
             });
             queryClient.invalidateQueries({
                 queryKey: ["cart"],

@@ -177,7 +177,7 @@ export const MoreDetails = () => {
                                 </div>
                                 <div>
                                     <p className="mb-2 text-xs font-bold text-gray-800 uppercase tracking-wider">
-                                        Wash Care
+                                        Fit
                                     </p>
                                     <p className="text-sm text-gray-400 font-medium">
                                         {product?.fit}

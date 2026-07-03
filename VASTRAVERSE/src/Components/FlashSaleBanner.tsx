@@ -97,7 +97,7 @@ export const FlashSaleBanner = ({ flashSales }: FlashSaleProps) => {
                     </div>
 
                     <div className="w-full flex justify-center items-center mt-2 xl:mt-0">
-                        <a href="#menu" className="block text-[10px] sm:text-[8px] sm:p-2 sm:absolute sm:top-2 sm:right-10 sm:rounded-2xl sm:bg-white sm:shadow-none sm:text-gray-800 w-fit text-center lg:pulse-glow-btn bg-gray-900 text-white font-extrabold md:text-[12px] lg:text-[12px] xl:text-[15px] uppercase tracking-widest px-6 py-4 hover:bg-gray-800 transition-all duration-300 shadow-[0_10px_20px_rgba(0,0,0,0.1)] hover:-translate-y-1">
+                        <a href="#menu" className="block text-[10px] sm:text-[8px] sm:p-2 sm:absolute sm:top-2 sm:right-10 sm:rounded-2xl sm:bg-white sm:shadow-none sm:text-gray-800 w-fit text-center lg:pulse-glow-btn bg-gray-900 text-white font-extrabold md:text-[12px] lg:text-[12px] xl:text-[15px] uppercase tracking-widest px-6 py-4 transition-all duration-300 shadow-[0_10px_20px_rgba(0,0,0,0.1)] hover:-translate-y-1">
                             Shop {activeSale.discountValue}{activeSale.discountType === 'percentage' ? '%' : '₹'} OFF
                         </a>
                     </div>

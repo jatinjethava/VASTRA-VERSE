@@ -6,8 +6,20 @@ export interface CartState {
     cart: CartItem[];
 }
 
+let initialCart: CartItem[] = [];
+try {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+        initialCart = JSON.parse(savedCart);
+    } else {
+        initialCart = []
+    }
+} catch (error) {
+    console.error("Error parsing cart from localStorage", error);
+}
+
 const initialState: CartState = {
-    cart: []
+    cart: initialCart
 }
 
 const cartSlice = createSlice({

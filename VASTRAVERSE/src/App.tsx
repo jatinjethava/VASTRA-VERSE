@@ -26,8 +26,20 @@ import { Security } from './Pages/Security/Security';
 import { HelpCenter } from './Pages/HelpCenter';
 import { Wallet } from './Pages/Wallet';
 import { Analytics } from "@vercel/analytics/react"
+import { useDispatch } from 'react-redux';
+import { useGetCart } from './Hooks/cart';
+import { setCart } from './Redux/cartSlice';
 
 function App() {
+
+    const dispatch = useDispatch();
+    const { data: cartData } = useGetCart();
+
+    useEffect(() => {
+        if (cartData) {
+            dispatch(setCart(cartData));
+        }
+    }, [cartData, dispatch]);
 
     const { pathname } = useLocation();
     const location = useLocation();
