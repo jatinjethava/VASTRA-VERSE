@@ -108,7 +108,7 @@ export const MoreDetails = () => {
                         <img src={product?.images[selected]} className="w-full h-full rounded-xl object-cover" alt="" />
                     </div>
                 </div>
-                <div className="w-full lg:w-[40%] h-auto lg:h-full flex flex-col bg-white rounded-xl lg:rounded-none">
+                <div className="w-full lg:w-[55%] h-auto lg:h-full flex flex-col bg-white rounded-xl lg:rounded-none">
                     <div className="relative w-full flex flex-col h-full">
 
                         {isPending && (
