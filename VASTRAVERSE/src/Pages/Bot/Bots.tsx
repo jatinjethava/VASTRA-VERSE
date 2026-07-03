@@ -938,11 +938,10 @@ export const Bots = () => {
     return (
         <>
             <div
-                className={`fixed bottom-24 right-4 md:right-6 w-[calc(100vw-2rem)] md:w-110 bg-white rounded-2xl shadow-2xl border border-gray-200 z-9999 flex flex-col overflow-hidden transition-all duration-300 origin-bottom-right ${isOpen
+                className={`fixed sm:bottom-24 sm:right-6 w-full h-full sm:w-[400px] sm:h-[min(75vh,620px)] bottom-0 right-0 bg-white sm:rounded-2xl shadow-2xl border-t sm:border sm:border-gray-200 z-[99999] flex flex-col overflow-hidden transition-all duration-300 origin-bottom sm:origin-bottom-right ${isOpen
                     ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
-                    : "opacity-0 scale-95 pointer-events-none translate-y-4"
+                    : "opacity-0 sm:scale-95 pointer-events-none translate-y-[100%] sm:translate-y-4"
                     }`}
-                style={{ height: "min(75vh, 620px)" }}
             >
 
                 <div className="bg-slate-900 px-5 py-4 flex items-center justify-between shrink-0">
@@ -1153,9 +1152,9 @@ export const Bots = () => {
 
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`fixed bottom-6 right-4 md:right-6 w-14 h-14 rounded-full shadow-lg flex items-center justify-center z-99999 transition-all duration-300 cursor-pointer ${isOpen
-                    ? "bg-gray-200 hover:bg-gray-300 rotate-0"
-                    : "bg-slate-800 hover:bg-slate-700 rotate-0"
+                className={`fixed bottom-6 right-4 md:right-6 w-14 h-14 rounded-full shadow-lg flex items-center justify-center z-[99999] transition-all duration-300 cursor-pointer ${isOpen
+                    ? "bg-gray-200 hover:bg-gray-300 hidden sm:flex rotate-0"
+                    : "bg-slate-800 hover:bg-slate-700 flex rotate-0"
                     }`}
             >
                 {isOpen ? (
