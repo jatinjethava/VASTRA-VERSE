@@ -77,7 +77,18 @@ export const Chat = () => {
 
         setSocket(newSocket);
 
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible' && newSocket) {
+                newSocket.disconnect();
+                setTimeout(() => {
+                    newSocket.connect();
+                }, 100);
+            }
+        };
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
         return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
             newSocket.disconnect();
         };
     }, []);
