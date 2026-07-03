@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { motion } from "framer-motion";
 import { Reviews } from "./Review";
 import { useLocation } from "react-router-dom";
 import type { Product } from "../Api/productApi";
@@ -95,7 +96,12 @@ export const MoreDetails = () => {
 
     return (
         <>
-            <div className="mt-6 sm:mt-10 w-[95vw] sm:w-[90vw] mx-auto flex flex-col lg:flex-row min-h-fit lg:h-[700px] gap-4 lg:gap-0">
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="mt-6 sm:mt-10 w-[95vw] sm:w-[90vw] mx-auto flex flex-col lg:flex-row min-h-fit lg:h-[700px] gap-4 lg:gap-0"
+            >
                 <div className="flex flex-col-reverse lg:flex-row w-full lg:w-[60%] h-[50vh] sm:h-[60vh] lg:h-full gap-2 lg:gap-0">
                     <div className="p-0 lg:p-2 w-full lg:w-[15%] flex flex-row lg:flex-col gap-2 sm:gap-3 overflow-x-auto lg:overflow-y-auto no-scrollbar shrink-0 h-20 sm:h-24 lg:h-full">
                         {product?.images?.map((i, index) => (
@@ -400,19 +406,36 @@ export const MoreDetails = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
-            <div className="mt-10 mb-10 w-[95vw] sm:w-[90vw] mx-auto">
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="mt-10 mb-10 w-[95vw] sm:w-[90vw] mx-auto"
+            >
                 <Reviews productId={product?._id as string} />
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+            >
                 <QA productId={product?._id as string} />
-            </div>
+            </motion.div>
 
-            <div className="mt-10 mb-10 w-[95vw] sm:w-[90vw] mx-auto">
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="mt-10 mb-10 w-[95vw] sm:w-[90vw] mx-auto"
+            >
                 <RecommendProduct recommendedProducts={[product]} />
-            </div>
+            </motion.div>
 
             {showSizeChart && (
                 <SizeGuide setShowSizeChart={setShowSizeChart} />

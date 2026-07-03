@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Detail } from "./Detail";
 import type { Product } from "../Api/productApi";
 import "./CSS/card.css";
@@ -48,7 +49,15 @@ export const Card = ({ product }: { product: Product }
 
     return (
         <>
-            <div className="page" onMouseEnter={() => setIsShow(true)} onMouseLeave={() => setIsShow(false)}>
+            <motion.div
+                className="page"
+                onMouseEnter={() => setIsShow(true)}
+                onMouseLeave={() => setIsShow(false)}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true, amount: 0.1 }}
+            >
                 <div className="scene">
                     <div
                         className="card shadow-xl"
@@ -210,7 +219,7 @@ export const Card = ({ product }: { product: Product }
                         </p>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             <Detail curruntProduct={curruntProduct} showDetail={showDetail} setShowDetail={setShowDetail} />
         </>

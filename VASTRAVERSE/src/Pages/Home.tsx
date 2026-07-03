@@ -14,6 +14,7 @@ import { useFlashCampaigns, useMarketingCampaigns } from '../Hooks/marketing';
 import { FlashSaleBanner } from '../Components/FlashSaleBanner';
 import { HomeSlider } from '../Components/slider/homeSlider';
 import { useGetCoupons } from '../Hooks/help';
+import { motion } from 'framer-motion';
 
 export const Home = () => {
 
@@ -51,7 +52,13 @@ export const Home = () => {
             {
                 campaigns && campaigns.length > 0 && (
                     <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
-                        <div className="text-center max-w-3xl mx-auto space-y-2 mb-16">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            viewport={{ once: true }}
+                            className="text-center max-w-3xl mx-auto space-y-2 mb-16"
+                        >
                             <span className="text-[10px] font-bold text-red-500 uppercase tracking-widest">Limited Time Only</span>
                             <h2 className="text-xl md:text-3xl lg:text-5xl font-extrabold text-gray-800 tracking-tight">
                                 Exclusive <span className="text-gray-500">Offers</span>
@@ -59,11 +66,15 @@ export const Home = () => {
                             <p className="text-sm text-gray-600">
                                 Grab these exclusive deals before they are gone. Premium streetwear at unbeatable prices.
                             </p>
-                        </div>
+                        </motion.div>
                         <div className="flex flex-col gap-12">
                             {campaigns?.map((campaign) => (
-                                <div
+                                <motion.div
                                     key={campaign._id}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.5, delay: 0.1 }}
+                                    viewport={{ once: true }}
                                     className="group bg-white overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] transition-all duration-500 border border-gray-100/50 flex flex-col md:flex-row items-stretch relative"
                                 >
                                     <div className="relative w-full md:w-2/5 min-h-50 md:min-h-60 overflow-hidden shrink-0">
@@ -124,7 +135,7 @@ export const Home = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
                     </section>
@@ -135,7 +146,13 @@ export const Home = () => {
             {
                 !recentlyViewedLoading && (recentlyViewed?.length ?? 0) > 0 && (
                     <section className="w-full max-w-7xl mx-auto py-15 px-4 sm:px-6 lg:px-8">
-                        <div className="mb-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            viewport={{ once: true }}
+                            className="mb-8"
+                        >
                             <div className="flex items-center gap-3">
 
                                 <h2 className="text-2xl md:text-3xl font-bold tracking-wide text-gray-800">
@@ -146,7 +163,7 @@ export const Home = () => {
                             <p className="mt-2 text-sm text-gray-500 tracking-wide">
                                 Continue exploring products you've viewed recently.
                             </p>
-                        </div>
+                        </motion.div>
                         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
                             {recentlyViewed?.map((item: Product) => (
                                 <div
