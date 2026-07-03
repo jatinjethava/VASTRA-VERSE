@@ -151,7 +151,7 @@ export const Bots = () => {
         }
 
         const token = JSON.parse(tokenStr);
-        const newSocket = io("http://localhost:8200", {
+        const newSocket = io(import.meta.env.VITE_URL || "http://localhost:8200", {
             auth: { token }
         });
 
