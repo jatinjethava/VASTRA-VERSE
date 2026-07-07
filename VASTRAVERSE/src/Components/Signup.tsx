@@ -325,9 +325,9 @@ export const SignUp = () => {
         }
     }
 
-    const handleGoogleLogin = async (response: CredentialResponse) => {
+    const handleGoogleLogin = async (response: any) => {
         try {
-            const res = await googleLoginUser(response.credential as string);
+            const res = await googleLoginUser(response.credential);
             if (res.success) {
 
                 dispatch(
@@ -357,7 +357,7 @@ export const SignUp = () => {
             }
         } catch (error) {
             const err = error as { response?: { data?: { message?: string } } };
-            const msg = err.response?.data?.message || "Login failed. Please try again.";
+            const msg = err.response?.data?.message || "Google Signup failed. Please try again.";
             toast.error(msg, {
                 duration: 1500,
             });
@@ -431,7 +431,7 @@ export const SignUp = () => {
                     </div>
 
                     <div ref={googleBtnRef} className='w-full'>
-                        <GoogleLogin onSuccess={handleGoogleLogin} size='large' width={btnWidth} onError={() => { toast.error("Google Login failed"); }} />
+                        <GoogleLogin onSuccess={handleGoogleLogin} size='large' width={btnWidth} text="signup_with" onError={() => { toast.error("Google Signup failed"); }} />
                     </div>
 
                     <div className="flex items-center gap-3">

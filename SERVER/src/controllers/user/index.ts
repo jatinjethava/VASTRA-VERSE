@@ -339,6 +339,34 @@ export const googleLogin = async (req: Request, res: Response) => {
 
         const appToken = await generateToken({ _id: isValidObjectId(isUserExists._id) });
 
+        const parser = new UAParser(req.headers["user-agent"]);
+        const result = parser.getResult();
+
+        let clientIp = (req.headers['x-forwarded-for'] || req.ip || req.socket?.remoteAddress || '').toString().split(',')[0]?.trim() || '';
+        if (clientIp.includes('::ffff:')) {
+            clientIp = clientIp.replace('::ffff:', '');
+        }
+
+        await createOne(loginActivityModel, {
+            userId: isValidObjectId(isUserExists._id),
+            device: result.device.type,
+            browser: result.browser.name,
+            os: result.os.name,
+            ipAddress: clientIp,
+            loginAt: new Date()
+        });
+
+        await createOne(sessionModel, {
+            userId: isValidObjectId(isUserExists._id),
+            token: appToken,
+            device: result.device.type || "Desktop",
+            browser: result.browser.name,
+            os: result.os.name,
+            ipAddress: clientIp,
+            lastActive: new Date(),
+            isActive: true
+        });
+
         return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, responseMessage.loginSuccess, { user: isUserExists, token: appToken }, {}));
     } catch (error: any) {
         console.log("Error in googleLogin:", error);
