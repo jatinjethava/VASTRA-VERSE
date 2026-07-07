@@ -327,7 +327,7 @@ export const SignUp = () => {
 
     const handleGoogleLogin = async (response: CredentialResponse) => {
         try {
-            const res = await googleLoginUser(response.credential);
+            const res = await googleLoginUser(response.credential as string);
             if (res.success) {
 
                 dispatch(
