@@ -20,6 +20,7 @@ export const Login = () => {
     const { mutateAsync: googleLogin } = useGoogleLogin();
 
     const googleBtnRef = useRef<HTMLDivElement>(null);
+    const isNewLogin = useRef(false);
     const [btnWidth, setBtnWidth] = useState(400);
 
     useEffect(() => {
@@ -120,6 +121,7 @@ export const Login = () => {
                 duration: 1500,
             });
 
+            isNewLogin.current = true;
             dispatch(
                 setUser({
                     token: result.data.token,
@@ -156,20 +158,22 @@ export const Login = () => {
 
     useEffect(() => {
         if (token) {
-            toast.success("User already logged in", {
-                duration: 1500,
-            });
+            if (!isNewLogin.current) {
+                toast.success("User already logged in", {
+                    duration: 1500,
+                });
+            }
             setTimeout(() => {
                 navigate("/");
             }, 1500);
         }
-    }, [dispatch, navigate]);
+    }, [dispatch, navigate, token]);
 
     const handleGoogleLogin = async (response: any) => {
         try {
             const res = await googleLogin(response.credential);
             if (res.success) {
-
+                isNewLogin.current = true;
                 dispatch(
                     setUser({
                         token: res.data.token,
