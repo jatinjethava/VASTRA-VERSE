@@ -1,0 +1,39 @@
+services:
+
+  frontend:
+    build: ./VASTRAVERSE
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+  admin:
+    build: ./ADMIN
+    container_name: admin
+    ports:
+      - "5174:5174"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./SERVER
+    container_name: backend
+    ports:
+      - "8200:8200"
+    env_file:
+      - ./SERVER/.env
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

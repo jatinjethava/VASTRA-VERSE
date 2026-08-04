@@ -23,9 +23,7 @@ import { router as marketingRouter } from "./marketing";
 import { router as chatRouter } from "./chat";
 import { router as walletRouter } from "./wallet";
 
-const router = Router({
-    strict: true
-});
+const router = Router();
 
 router.use(adminRouter)
 router.use(userRouter);

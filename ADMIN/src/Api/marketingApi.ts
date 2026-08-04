@@ -61,10 +61,10 @@ export const createCampaign = async (payload: FormData): Promise<CampaignType> =
         if (!data) {
             throw new Error("No data found");
         }
-        return data.campaign;
+        return data.data?.result || data.data?.campaign || data.campaign;
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            throw new Error(error.response?.data?.message || "Failed to answer question");
+            throw new Error(error.response?.data?.message || "Failed to create campaign");
         } else {
             throw error;
         }
@@ -82,7 +82,7 @@ export const updateCampaign = async (id: string, payload: FormData): Promise<Cam
         if (!data) {
             throw new Error("No data found");
         }
-        return data.campaign;
+        return data.data?.result || data.data?.campaign || data.campaign;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to update campaign");
@@ -99,7 +99,7 @@ export const deleteCampaign = async (id: string): Promise<CampaignType> => {
         if (!data) {
             throw new Error("No data found");
         }
-        return data.campaign;
+        return data.data?.result || data.data?.campaign || data.campaign;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to delete campaign");
@@ -116,7 +116,7 @@ export const toggleCampaign = async (id: string): Promise<CampaignType> => {
         if (!data) {
             throw new Error("No data found");
         }
-        return data.campaign;
+        return data.data?.result || data.data?.campaign || data.campaign;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to toggle campaign");
@@ -138,7 +138,7 @@ export const createFlashSales = async (payload: FormData): Promise<FlashSalesTyp
         if (!data) {
             throw new Error("No data found");
         }
-        return data.data.flashSales;
+        return data.data?.result || data.data?.flashSales || data.flashSales;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to create flash sales");
@@ -159,7 +159,7 @@ export const updateFlashSales = async (id: string, payload: FormData): Promise<F
         if (!data) {
             throw new Error("No data found");
         }
-        return data.flashSales;
+        return data.data?.result || data.data?.flashSales || data.flashSales;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to update flash sales");
@@ -176,7 +176,7 @@ export const deleteFlashSales = async (id: string): Promise<FlashSalesType> => {
         if (!data) {
             throw new Error("No data found");
         }
-        return data.flashSales;
+        return data.data?.result || data.data?.flashSales || data.flashSales;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to delete flash sales");
@@ -193,7 +193,7 @@ export const toggleFlashSales = async (id: string): Promise<FlashSalesType> => {
         if (!data) {
             throw new Error("No data found");
         }
-        return data.flashSales;
+        return data.data?.result || data.data?.flashSales || data.flashSales;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to toggle flash sales");
@@ -260,7 +260,7 @@ export const createBanner = async (payload: FormData): Promise<BannerType> => {
         if (!data) {
             throw new Error("No data found");
         }
-        return data.banner;
+        return data.data?.result || data.data?.banner || data.banner;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to create banner");
@@ -281,7 +281,7 @@ export const updateBanner = async (id: string, payload: FormData): Promise<Banne
         if (!data) {
             throw new Error("No data found");
         }
-        return data.banner;
+        return data.data?.result || data.data?.banner || data.banner;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to update banner");
@@ -298,7 +298,7 @@ export const deleteBanner = async (id: string): Promise<BannerType> => {
         if (!data) {
             throw new Error("No data found");
         }
-        return data.banner;
+        return data.data?.result || data.data?.banner || data.banner;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || "Failed to delete banner");

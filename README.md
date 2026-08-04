@@ -298,3 +298,37 @@ GitHub: https://github.com/jatinjethava
 ---
 
 ⭐ If you like this project, don't forget to give it a star!
+
+# 👨‍💻 Docker Commands
+
+**1. Build and start all services in the background:**
+```bash
+docker compose -f docker_compose.yml up -d --build
+```
+
+**2. View logs for all services:**
+```bash
+docker compose -f docker_compose.yml logs -f
+```
+
+**3. View logs for a specific service:**
+```bash
+docker compose -f docker_compose.yml logs -f backend
+docker compose -f docker_compose.yml logs -f admin
+docker compose -f docker_compose.yml logs -f frontend
+```
+
+**4. Stop services without removing them:**
+```bash
+docker compose -f docker_compose.yml stop
+```
+
+**5. Stop and remove services:**
+```bash
+docker compose -f docker_compose.yml down
+```
+
+**6. Stop and remove services, including database volumes:**
+```bash
+docker compose -f docker_compose.yml down -v
+```
