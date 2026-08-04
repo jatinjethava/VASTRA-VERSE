@@ -8,7 +8,8 @@ const storage = new CloudinaryStorage({
     params: async (req: Request, file: any) => {
         return {
             folder: 'react_todo_images',
-            allowed_formats: ['jpeg', 'png', 'jpg', 'webp'],
+            resource_type: 'auto',
+            allowed_formats: ['jpeg', 'png', 'jpg', 'webp', 'avif', 'gif', 'svg', 'mp4', 'avi', 'mov', 'mkv', 'webm'],
         };
     },
 });

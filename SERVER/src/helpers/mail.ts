@@ -433,7 +433,7 @@ export const sendMarketingMail = async (user: any, campaign: any) => {
                                         <table role="presentation" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <td style="background:linear-gradient(135deg, #c8a96e 0%, #b8944e 100%); border-radius:8px;">
-                                                    <a href="#" style="display:inline-block; padding:14px 40px; color:#ffffff; text-decoration:none; font-size:14px; font-weight:600; letter-spacing:1px; text-transform:uppercase;">Shop the Collection</a>
+                                                    <a href="https://vastra-verse.vercel.app" style="display:inline-block; padding:14px 40px; color:#ffffff; text-decoration:none; font-size:14px; font-weight:600; letter-spacing:1px; text-transform:uppercase;">Shop the Collection</a>
                                                 </td>
                                             </tr>
                                         </table>

@@ -1,5 +1,5 @@
 import * as bodyParser from 'body-parser';
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import http from 'http';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
@@ -62,6 +62,17 @@ app.get('/isServerUp', (req: Request, res: Response) => {
 app.use(router);
 
 app.use(not_found);
+
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    console.error("Global Error Handler caught error:", err);
+    const statusCode = err?.status || err?.statusCode || 500;
+    const message = err?.message || (typeof err === 'string' ? err : "An unexpected server error occurred");
+    return res.status(statusCode).json({
+        status: statusCode,
+        message: message,
+        error: err
+    });
+});
 
 const server = new http.Server(app);
 
