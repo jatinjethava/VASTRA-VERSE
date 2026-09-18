@@ -1,6 +1,5 @@
 import mongoose, { Document, Types } from "mongoose";
 import { USER_ROLE } from "../common";
-import { subscribe } from "diagnostics_channel";
 
 export interface UserDocument extends Document {
     name: String,
