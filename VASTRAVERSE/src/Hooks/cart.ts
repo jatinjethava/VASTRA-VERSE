@@ -1,3 +1,4 @@
+import { isAuthenticated } from '../Utils/auth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { addToCart, applyDiscountCode, cartEmpty, decreaseQuantity, getCart, getSavedCart, increaseQuantity, moveCart, removeFromCart, saveForLater } from "../Api/cartApi";
 import { toast } from 'sonner';
@@ -32,7 +33,7 @@ export const useGetCart = () => {
         queryFn: () => getCart(),
         staleTime: 5000 * 60 * 1,
         gcTime: 5000 * 60 * 1,
-        enabled: !!localStorage.getItem("token")
+        enabled: isAuthenticated()
     })
 }
 
@@ -160,7 +161,7 @@ export const useGetSavedCart = () => {
     return useQuery({
         queryKey: ['savedCart'],
         queryFn: () => getSavedCart(),
-        enabled: !!localStorage.getItem("token")
+        enabled: isAuthenticated()
     });
 }
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAllBanner } from "../../Hooks/marketing";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -7,23 +7,106 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+export const DEFAULT_BANNERS = [
+    {
+        _id: "default-1",
+        title: "Wear Confidence. Define Your Style.",
+        description: "Discover premium fashion designed for comfort, quality, and everyday confidence. From oversized streetwear to timeless essentials, explore collections crafted to elevate your wardrobe.",
+        bgImage: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=2000&q=80",
+        isActive: true,
+    },
+    {
+        _id: "default-2",
+        title: "Autumn & Winter Minimalist Drop",
+        description: "Crafted from 100% heavyweight certified organic cotton. Modern cuts and tailored silhouettes engineered to stand the test of time.",
+        bgImage: "https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=2000&q=80",
+        isActive: true,
+    },
+    {
+        _id: "default-3",
+        title: "Exclusive Urban Streetwear",
+        description: "Unmatched craftsmanship meets contemporary edge. Redefine your aesthetic with our newest signature capsule collection.",
+        bgImage: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=2000&q=80",
+        isActive: true,
+    }
+];
+
+export const getBannerImageUrl = (path?: string): string => {
+    if (!path) return DEFAULT_BANNERS[0].bgImage;
+    const cleaned = path.replace(/\\/g, '/');
+    if (cleaned.startsWith('http://') || cleaned.startsWith('https://')) {
+        return cleaned;
+    }
+    const backendUrl = import.meta.env.VITE_URL || "";
+    const base = backendUrl.endsWith('/') ? backendUrl.slice(0, -1) : backendUrl;
+    const rel = cleaned.startsWith('/') ? cleaned : `/${cleaned}`;
+    return `${base}${rel}`;
+};
+
 export const HomeSlider = () => {
 
     const { data: Banner, isPending: bannerLoading } = useAllBanner();
 
     const hasVideo = false;
     const [videoError, setVideoError] = useState(false);
+    const [timedOut, setTimedOut] = useState(false);
 
-    if (!bannerLoading && (!Banner || Banner.length === 0)) {
-        return null;
-    }
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setTimedOut(true);
+        }, 2500);
+        return () => clearTimeout(timer);
+    }, []);
+
+    const hasApiBanners = Array.isArray(Banner) && Banner.length > 0;
+    const showLoader = bannerLoading && !timedOut && !hasApiBanners;
+    const activeBanners = hasApiBanners ? Banner : DEFAULT_BANNERS;
 
     return (
         <>
-            {bannerLoading ? (
-                <section id="hero" className="flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 min-h-[80vh]">
-                    <div className="flex items-center justify-center h-full">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+            {showLoader ? (
+                <section id="hero" className="relative w-full h-[62vh] sm:h-[70vh] md:h-[80vh] lg:h-[85vh] xl:h-[90vh] overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+                    <div className="absolute inset-0 hero-shimmer-overlay" />
+
+                    <div className="absolute inset-y-0 left-0 w-full md:w-3/4 lg:w-2/3 bg-gradient-to-r from-black/60 via-black/30 to-transparent z-10 pointer-events-none" />
+
+                    <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+                        <div className="hero-particle hero-particle-1" />
+                        <div className="hero-particle hero-particle-2" />
+                        <div className="hero-particle hero-particle-3" />
+                    </div>
+
+                    <div className="relative z-20 flex w-full max-w-[92%] sm:max-w-[90%] lg:max-w-[80%] mx-auto justify-start items-center h-full py-10 sm:py-12">
+                        <div className="max-w-2xl flex flex-col justify-center text-left space-y-5 sm:space-y-7 p-0 sm:p-4">
+
+                            <div className="flex items-center gap-3 hero-skeleton-fade-in" style={{ animationDelay: '0.1s' }}>
+                                <div className="w-8 h-[1px] bg-white/20 rounded-full" />
+                                <div className="h-3 w-28 sm:w-36 rounded-full bg-white/10 hero-skeleton-pulse" />
+                                <div className="w-8 h-[1px] bg-white/20 rounded-full" />
+                            </div>
+
+                            <div className="space-y-3 hero-skeleton-fade-in" style={{ animationDelay: '0.25s' }}>
+                                <div className="h-7 sm:h-10 md:h-12 lg:h-14 w-[90%] rounded-lg bg-white/8 hero-skeleton-pulse" style={{ animationDelay: '0.1s' }} />
+                                <div className="h-7 sm:h-10 md:h-12 lg:h-14 w-[70%] rounded-lg bg-white/6 hero-skeleton-pulse" style={{ animationDelay: '0.2s' }} />
+                            </div>
+
+                            <div className="space-y-2.5 hero-skeleton-fade-in" style={{ animationDelay: '0.4s' }}>
+                                <div className="h-3 sm:h-4 w-full max-w-xl rounded-full bg-white/6 hero-skeleton-pulse" style={{ animationDelay: '0.3s' }} />
+                                <div className="h-3 sm:h-4 w-[85%] max-w-lg rounded-full bg-white/5 hero-skeleton-pulse" style={{ animationDelay: '0.4s' }} />
+                                <div className="h-3 sm:h-4 w-[60%] max-w-md rounded-full bg-white/4 hero-skeleton-pulse" style={{ animationDelay: '0.5s' }} />
+                            </div>
+
+                            <div className="flex gap-4 sm:gap-6 pt-2 hero-skeleton-fade-in" style={{ animationDelay: '0.55s' }}>
+                                <div className="h-10 sm:h-12 w-32 sm:w-40 rounded-sm bg-white/10 hero-skeleton-pulse border border-white/10" style={{ animationDelay: '0.6s' }} />
+                                <div className="h-10 sm:h-12 w-32 sm:w-40 rounded-sm bg-white/15 hero-skeleton-pulse border border-white/5" style={{ animationDelay: '0.7s' }} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                        <div className="w-2 h-2 rounded-full bg-white/30 hero-skeleton-pulse" />
+                        <div className="w-2 h-2 rounded-full bg-white/15 hero-skeleton-pulse" style={{ animationDelay: '0.2s' }} />
+                        <div className="w-2 h-2 rounded-full bg-white/15 hero-skeleton-pulse" style={{ animationDelay: '0.4s' }} />
                     </div>
                 </section>
             ) : (
@@ -37,7 +120,7 @@ export const HomeSlider = () => {
                                 muted
                                 playsInline
                                 className="absolute inset-0 w-full h-full object-cover z-0"
-                                poster={Banner?.[0]?.bgImage?.replace(/\\/g, '/')}
+                                poster={getBannerImageUrl(activeBanners?.[0]?.bgImage)}
                                 onError={() => setVideoError(true)}
                             >
                                 <source src="/home.mp4" type="video/mp4" onError={() => setVideoError(true)} />
@@ -115,15 +198,15 @@ export const HomeSlider = () => {
                                 autoplay={{
                                     delay: 4000,
                                 }}
-                                loop={Banner && Banner.length > 1}
+                                loop={activeBanners && activeBanners.length > 1}
                                 className="w-full h-full pb-8! sm:pb-0! [&_.swiper-pagination-bullet]:bg-white/60! [&_.swiper-pagination-bullet-active]:bg-white! [&_.swiper-pagination]:bottom-4! sm:[&_.swiper-pagination]:bottom-6!"
                             >
-                                {Banner?.map((banner, index) => (
+                                {activeBanners.map((banner, index) => (
                                     <SwiperSlide
                                         key={banner._id || index}
                                         id={index === 0 ? "hero" : `hero-${index}`}
                                         className="relative w-full h-full flex justify-center items-center group bg-cover bg-top bg-no-repeat"
-                                        style={{ backgroundImage: `url(${banner?.bgImage?.replace(/\\/g, '/')})` }}
+                                        style={{ backgroundImage: `url(${getBannerImageUrl(banner?.bgImage)})` }}
                                     >
                                         <div className="absolute inset-y-0 left-0 w-full md:w-3/4 lg:w-2/3 bg-linear-to-r from-black/80 via-black/60 to-transparent z-0 pointer-events-none transition-opacity duration-700"></div>
                                         <div className="home-slider flex relative z-10 w-full max-w-[92%] sm:max-w-[90%] lg:max-w-[80%] mx-auto justify-start items-center h-full py-10 sm:py-12">

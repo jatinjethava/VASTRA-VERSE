@@ -77,6 +77,9 @@ const bannerSchema = new Schema({
     isDeleted: { type: Boolean, default: false }
 }, { timestamps: true });
 
+campaignSchema.index({ isActive: 1, isDeleted: 1, startDate: 1, endDate: 1 });
+flashSalesSchema.index({ isActive: 1, isDeleted: 1, startDate: 1, endDate: 1 });
+
 export const CampaignModel = model<ICampaign>("Campaign", campaignSchema);
 export const FlashSalesModel = model<FlashSales>("FlashSales", flashSalesSchema);
 export const BannerModel = model<Banner>("Banner", bannerSchema);

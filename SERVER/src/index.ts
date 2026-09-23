@@ -55,6 +55,9 @@ const not_found = (req: Request, res: Response) => {
 
 app.get('/', health);
 app.get('/health', health);
+app.get('/ping', (req: Request, res: Response) => {
+    res.status(200).send('pong');
+});
 app.get('/isServerUp', (req: Request, res: Response) => {
     res.send('Server is running ');
 });

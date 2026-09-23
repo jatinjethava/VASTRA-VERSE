@@ -125,4 +125,10 @@ tshirtSchema.index({ isFeatured: 1 });
 
 tshirtSchema.index({ createdAt: -1 });
 
+tshirtSchema.index({ isDeleted: 1 });
+
+tshirtSchema.index({ isPublished: 1 });
+
+tshirtSchema.index({ slug: 1, isDeleted: 1 });
+
 export const TShirtModel = mongoose.models.TShirt || mongoose.model<ITShirt>("TShirt", tshirtSchema);

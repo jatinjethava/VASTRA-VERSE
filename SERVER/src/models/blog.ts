@@ -49,4 +49,10 @@ const blogSchema = new mongoose.Schema({
 
 }, { timestamps: true })
 
+blogSchema.index({ status: 1 });
+blogSchema.index({ isDeleted: 1 });
+blogSchema.index({ userId: 1 });
+blogSchema.index({ author: 1 });
+blogSchema.index({ createdAt: -1 });
+
 export const blogModel = mongoose.model<blogDocument>("blog", blogSchema);

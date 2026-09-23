@@ -1,3 +1,4 @@
+import { isAuthenticated } from '../Utils/auth';
 import { useNavigate } from "react-router"
 import type { IBlog } from "../Api/blogApi";
 import { useViewBlog } from "../Hooks/blog";
@@ -23,8 +24,10 @@ export const MensBlog = ({ blog }: { blog: IBlog }) => {
                         </div>
                         <button
                             onClick={() => {
-                                viewBlog(blog._id);
-                                navigate("/blogs", { state: { blog } });
+                                if (isAuthenticated()) {
+                                    viewBlog(blog._id);
+                                }
+                                navigate("/blogs/detail", { state: { blog } });
                             }}
                             className="text-gray-700 font-bold hover:text-gray-900 hover:underline hover:underline-offset-4 text-xs sm:text-sm py-2 rounded-lg mt-1 transition-all">Read More</button>
                         <p className="text-[10px] sm:text-xs text-gray-400 mt-2 tracking-wider uppercase font-medium">By <span className="text-gray-800 font-bold text-xs sm:text-sm lg:text-base font-mono">{blog?.author}</span> on {new Date(blog?.createdAt).toDateString()}</p>

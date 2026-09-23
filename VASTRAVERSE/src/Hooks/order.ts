@@ -1,3 +1,4 @@
+import { isAuthenticated } from '../Utils/auth';
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { cancelOrder, createOrder, DownloadInvoice, getStatus, getUserOrder, type Order } from '../Api/orderApi'
 import { toast } from 'sonner';
@@ -35,7 +36,7 @@ export const useGetUserOrder = () => {
         refetchOnMount: true,
         refetchOnReconnect: true,
         refetchOnWindowFocus: true,
-        enabled: !!localStorage.getItem("token")
+        enabled: isAuthenticated()
     });
 }
 
@@ -100,7 +101,7 @@ export const useStatus = (orderNumber: string) => {
     return useQuery({
         queryKey: ["status", orderNumber],
         queryFn: () => getStatus(orderNumber),
-        enabled: !!orderNumber,
+        enabled: isAuthenticated() && !!orderNumber,
         refetchOnMount: true,
         refetchOnReconnect: true,
         refetchOnWindowFocus: true

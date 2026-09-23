@@ -1,113 +1,145 @@
-import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
-import { CiCalendar } from "react-icons/ci";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import { useFetchBlogs } from "../Hooks/blog";
+import { useViewBlog } from "../Hooks/blog";
+import type { IBlog } from "../Api/blogApi";
+import { isAuthenticated } from "../Utils/auth";
 
-export const Blogs = () => {
-
+const BlogCard = ({ blog, index }: { blog: IBlog; index: number }) => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const blog = location.state?.blog;
+    const { mutate: viewBlog } = useViewBlog();
 
-    const [imageIndex, setImageIndex] = useState<number>(0);
+    const handleRead = () => {
+        if (isAuthenticated()) viewBlog(blog._id);
+        navigate("/blogs/detail", { state: { blog } });
+    };
+
+    const isFeatured = index === 0;
 
     return (
-        <>
-            <div className="mx-auto relative mb-10">
-                <div className="h-[80vh] mx-5 rounded-2xl overflow-hidden relative shadow-lg">
-                    <img src={blog?.featuredImage} className="w-full h-full object-cover absolute inset-0" alt={blog?.title} />
-
-                    <div className="absolute inset-0 bg-black/60 z-0"></div>
-
-                    <div className="absolute inset-0 flex flex-col justify-center items-center text-center z-10 px-5">
-                        <h1 className="w-full md:w-[70%] mx-auto text-md md:text-3xl xl:text-[40px] font-extrabold text-white tracking-wider mb-3 drop-shadow-lg">{blog?.title}</h1>
-                        <p className="w-full md:w-[80%] text-gray-200 text-xs md:text-lg xl:text-[20px] font-light tracking-wider mb-6">{blog?.subTitle}</p>
-
-                        <div className="flex flex-wrap gap-4 justify-center items-center mb-8">
-                            <button className="px-6 py-3 rounded-full text-[10px] sm:text-xs md:text-sm lg:text-[12px] xl:text-[13px] font-bold uppercase tracking-widest cursor-pointer text-gray-900 bg-white hover:bg-gray-200 transition shadow-md">
-                                {blog?.category || "Blog"}
-                            </button>
-                        </div>
-
-                        <div className="flex flex-wrap gap-2 justify-center items-center mt-4">
-                            <CiCalendar className="text-white text-xl" />
-                            <p className="text-[10px] sm:text-xs md:text-sm lg:text-[12px] xl:text-[13px] text-gray-200 uppercase tracking-widest">
-                                Published: <span className="font-bold">{blog?.createdAt ? new Date(blog.createdAt).toDateString() : "January 15, 2024"}</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <button onClick={() => navigate(-1)} className="text-[10px] sm:text-xs md:text-sm lg:text-[12px] xl:text-[13px] mx-4 absolute top-5 left-5 z-10 cursor-pointer text-gray-800 text-lg flex gap-2 items-center bg-white rounded-xl shadow-md px-3 py-2 animate-pulse">
-                    <ArrowLeft size={15} className="text-gray-900 text-[10px] sm:text-xs md:text-sm lg:text-base" /> Back
-                </button>
+        <article
+            onClick={handleRead}
+            className={`group cursor-pointer ${isFeatured ? "md:col-span-2 lg:col-span-2" : ""}`}
+        >
+            <div className={`overflow-hidden bg-gray-50 mb-5 ${isFeatured ? "aspect-[4/3] md:aspect-[16/9]" : "aspect-[4/3]"}`}>
+                <img
+                    src={blog.featuredImage}
+                    alt={blog.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
             </div>
 
-            <div className="my-5 w-full">
-                <div className="w-[80%] h-full mx-auto flex">
-                    <div className="w-full h-full flex text-[20px] sm:text-base md:text-[20px] lg:text-xl">
-                        <p className="font-bold text-gray-800">Explore Blogs</p>
+            <div className="space-y-2.5">
+                {blog.category && (
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+                        {blog.category}
+                    </span>
+                )}
+                <h2 className={`font-extrabold text-gray-900 tracking-tight leading-tight group-hover:text-gray-600 transition-colors duration-200 ${isFeatured ? "text-xl sm:text-2xl lg:text-3xl" : "text-base sm:text-lg"}`}>
+                    {blog.title}
+                </h2>
+                <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
+                    {blog.description}
+                </p>
+                <div className="flex items-center gap-3 pt-1">
+                    <span className="text-[11px] uppercase tracking-widest font-semibold text-gray-400">
+                        {blog.author}
+                    </span>
+                    <span className="w-1 h-1 rounded-full bg-gray-300 inline-block" />
+                    <span className="text-[11px] uppercase tracking-widest text-gray-400">
+                        {new Date(blog.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                    </span>
+                </div>
+            </div>
+        </article>
+    );
+};
+
+export const Blogs = () => {
+    const { data: blogsData, isLoading, isError } = useFetchBlogs();
+    const [search, setSearch] = useState("");
+
+    const blogs = (blogsData?.data?.blog ?? []).filter((b: IBlog) =>
+        b.title.toLowerCase().includes(search.toLowerCase()) ||
+        b.description.toLowerCase().includes(search.toLowerCase()) ||
+        (b.category ?? "").toLowerCase().includes(search.toLowerCase())
+    );
+
+    return (
+        <div className="min-h-screen">
+
+            <div className="border-b border-gray-100 pt-10 sm:pt-14 pb-10 px-6 lg:px-0">
+                <div className="max-w-6xl mx-auto">
+                    <span className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-[0.2em] block mb-3">
+                        Vastra Verse
+                    </span>
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight leading-tight">
+                            The Journal
+                        </h1>
+                        <div className="shrink-0">
+                            <input
+                                type="text"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Search articles..."
+                                className="w-full sm:w-64 px-4 py-2.5 border border-gray-200 text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:border-gray-900 transition-all duration-200 font-medium"
+                                style={{ borderRadius: 0 }}
+                            />
+                        </div>
                     </div>
-                    <div className="w-full h-full flex justify-end items-end">
-                        <button className="px-3 py-2.5 rounded-full text-[8px] sm:text-xs md:text-sm lg:text-base font-semibold uppercase tracking-widest cursor-pointer text-gray-800 bg-white">
-                            This is certified blog
-                        </button>
-                    </div>
+                    <div className="w-12 h-[2px] bg-gray-900 mt-5" />
                 </div>
             </div>
 
-            <div className="bg-gray-300 mx-auto w-[80%] h-0.5 rounded-full"></div>
+            <div className="max-w-6xl mx-auto px-6 lg:px-0 py-12 sm:py-16">
 
-            <section id="blog" className="mx-auto w-[80%] my-10">
-                <div className="">
-                    <h1 className="text-lg sm:text-base md:text-[20px] lg:text-xl xl:text-3xl uppercase mb-5 font-bold tracking-wider">{blog?.subTitle || "Best fashion tips ever!"}</h1>
-                    <p className="text-sm sm:text-base md:text-[15px] lg:text-xl xl:text-[18px] text-gray-600">{blog?.subDescription}</p>
-                    <div className="w-full flex flex-col lg:flex-row gap-10 justify-between items-start my-10">
-                        <div className="lg:w-2/3">
-                            <h2 className="text-lg sm:text-base md:text-[20px] lg:text-xl xl:text-[22px] font-bold text-gray-800 uppercase tracking-wider mb-4">{blog?.title}</h2>
-                            <p className="text-sm sm:text-base md:text-[15px] lg:text-xl xl:text-[17px] mb-5 text-gray-800 leading-relaxed">
-                                {blog?.subDescription || "This blog contains detailed information about fashion, style and more."}
-                            </p>
-
-                            {blog?.content?.map((paragraph: string, index: number) => (
-                                <p key={index} className="text-sm sm:text-base md:text-[15px] lg:text-xl xl:text-[17px] mb-6 text-gray-600 leading-relaxed">
-                                    {paragraph}
-                                </p>
-                            ))}
-
-                            {!blog?.content && (
-                                <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-[17px] mb-6 text-gray-800 leading-relaxed">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum deserunt alias necessitatibus quam perspiciatis ea facere doloribus, repellat perferendis consequatur assumenda eligendi fugiat in ratione.
-                                </p>
-                            )}
-                        </div>
-                        <div className="lg:w-1/3">
-                            {blog?.images && blog.images.length > 0 ? (
-                                <img src={blog.images[imageIndex]} className="w-full h-[60vh] rounded-2xl shadow-md object-cover" alt="Blog Visual" />
-                            ) : (
-                                <img src="/pexels-anna-nekrashevich-8532616.jpg" className="w-full h-[60vh] rounded-2xl shadow-md object-cover" alt="Blog Visual" />
-                            )}
-
-                            {blog?.images?.length > 1 ? (
-                                <div className="flex justify-center items-center gap-5 mt-10">
-                                    {blog.images.map((image: string, index: number) => (
-                                        <div
-                                            key={index}
-                                            className="overflow-hidden rounded-2xl shadow-md"
-                                        >
-                                            <img
-                                                onClick={() => setImageIndex(index)}
-                                                src={image}
-                                                alt={`Blog Visual ${index + 1}`}
-                                                className="w-20 h-20 object-cover transition-transform duration-300 hover:scale-105"
-                                            />
-                                        </div>
-                                    ))}
+                {isLoading && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 animate-pulse">
+                        {[...Array(6)].map((_, i) => (
+                            <div key={i}>
+                                <div className="aspect-[4/3] bg-gray-100 mb-5" />
+                                <div className="space-y-3">
+                                    <div className="h-3 bg-gray-100 w-1/4" />
+                                    <div className="h-5 bg-gray-100 w-3/4" />
+                                    <div className="h-4 bg-gray-100 w-full" />
+                                    <div className="h-4 bg-gray-100 w-2/3" />
                                 </div>
-                            ) : (null)}
-                        </div>
+                            </div>
+                        ))}
                     </div>
-                </div>
-            </section>
-        </>
-    )
-}
+                )}
+
+                {isError && (
+                    <div className="py-24 text-center border border-dashed border-gray-200">
+                        <p className="text-[11px] uppercase tracking-widest font-bold text-gray-300">
+                            Failed to load articles
+                        </p>
+                    </div>
+                )}
+
+                {!isLoading && !isError && blogs.length === 0 && (
+                    <div className="py-24 text-center border border-dashed border-gray-200">
+                        <div className="w-10 h-10 mx-auto mb-4 flex items-center justify-center border border-gray-200">
+                            <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z" />
+                            </svg>
+                        </div>
+                        <p className="text-[11px] uppercase tracking-widest font-bold text-gray-300">
+                            {search ? "No articles match your search" : "No articles published yet"}
+                        </p>
+                    </div>
+                )}
+
+                {!isLoading && !isError && blogs.length > 0 && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12">
+                        {blogs.map((blog: IBlog, index: number) => (
+                            <BlogCard key={blog._id} blog={blog} index={index} />
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};

@@ -191,6 +191,15 @@ export const Navbar = () => {
                                         </div>
                                     </div> */}
                                 </li>
+                                <li
+                                    className="relative"
+                                >
+                                    <Link to="blogs" onClick={() => dispatch(setNavActive("blogs"))}
+                                        className={`relative overflow-hidden group transition-all duration-300 py-1.5 px-3 rounded-md flex items-center gap-1.5 font-medium ${navActive === "blogs" ? "text-gray-900 bg-gray-100" : "text-gray-500 hover:text-gray-900"}`}>
+                                        <span className="relative z-10">Blogs</span>
+                                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -342,6 +351,13 @@ export const Navbar = () => {
                             className="block text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-bold text-sm py-3 px-4 rounded-xl transition-colors"
                         >
                             Kids
+                        </Link>
+                        <Link
+                            to="blogs"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="block text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-bold text-sm py-3 px-4 rounded-xl transition-colors"
+                        >
+                            Blogs
                         </Link>
                     </div>
 

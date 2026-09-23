@@ -69,3 +69,24 @@ export const userJWT = async (req: Request, res: Response, next: NextFunction) =
     }
 }
 
+export const optionalUserJWT = async (req: Request, res: Response, next: NextFunction) => {
+    let { authorization } = req.headers;
+
+    if (authorization) {
+        try {
+            const token = authorization.startsWith("Bearer ") ? (authorization.split(" ")[1] || "") : authorization;
+            const decoded: any = jwt.verify(token, env.JWT_TOKEN_SECRET!);
+            if (decoded && decoded._id) {
+                const user = await getFirstMatch(userModel, { _id: isValidObjectId(decoded._id), isDeleted: false });
+                if (user && user.isActive !== false && user.isBlocked !== true) {
+                    req.headers.user = decoded;
+                    (req as any).user = user;
+                }
+            }
+        } catch (err: any) {
+            // Ignore errors for optional auth
+        }
+    }
+    return next();
+}
+

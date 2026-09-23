@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { createBlog, deleteBlog, getAllBlogForUser, updateBlog, updateBlogStatus, getAllBlog, getUserBlog, viewBlog } from "../controllers/blog";
 import upload from "../services/multer";
-import { adminJWT, userJWT } from "../helpers";
+import { adminJWT, userJWT, optionalUserJWT } from "../helpers";
 
 const router = Router();
 
@@ -18,7 +18,7 @@ router.post("/create-blog-by-user", upload.fields([
 ]), userJWT, createBlog);
 router.get("/get-user-blog", userJWT, getUserBlog);
 router.delete("/delete-user-blog/:id", userJWT, deleteBlog);
-router.put("/view-blog/:id", userJWT, viewBlog);
+router.put("/view-blog/:id", optionalUserJWT, viewBlog);
 
 router.put("/update-blog/:id", upload.fields([
     { name: "featuredImage", maxCount: 1 },

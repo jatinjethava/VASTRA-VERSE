@@ -7,8 +7,8 @@ import { FaEye, FaHeart, FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa
 import { useAddToWishList, useGetWishList, useRemoveFromWishList } from "../Hooks/wishList";
 import { CiHeart } from "react-icons/ci";
 import { useRecentlyViewed } from "../Hooks/user";
-import { useGetProductAllReview } from "../Hooks/review";
 import { useViewProduct } from "../Hooks/product";
+import { useGetProductAllReview } from "../Hooks/review";
 import '../App.css'
 
 export const StarRating = ({ rating = 0 }: { rating?: number }) => {
@@ -160,13 +160,13 @@ export const Card = ({ product }: { product: Product }
                                     {product?.title.length > 18 ? `${product?.title.slice(0, 18)}...` : product?.title}
                                 </p>
                                 <p className="backDesc text-[8px] sm:text-[12px] md:text-[12px] lg:text-[13px] xl:text-[13px] tracking-wide">
-                                    {product?.description.length > 160 ? `${product?.description.slice(0, 160)}...` : product?.description}
+                                    {(product?.description?.length || 0) > 160 ? `${product?.description?.slice(0, 160)}...` : product?.description}
                                 </p>
                                 <ul className="featureList">
                                     {[
                                         `220 GSM ${product?.material}`,
                                         `${product?.fit}`,
-                                        `${product?.tags.length > 5 ? product?.tags?.map((tag) => tag).join(", ").slice(0, 65) + " ..." : product?.tags?.map((tag) => tag).join(", ")}`,
+                                        `${(product?.tags?.length || 0) > 5 ? product?.tags?.map((tag) => tag).join(", ").slice(0, 65) + " ..." : product?.tags?.map((tag) => tag).join(", ")}`,
                                         `For ${product?.gender}'s`,
                                         `Made with ❤️ by Jatin Jethava`,
                                     ].map((f) => (
@@ -195,8 +195,10 @@ export const Card = ({ product }: { product: Product }
                                         setCurrentProduct(product);
                                         setShowDetail(true);
                                         setIsFlipped(false);
-                                        recentlyViewed(product._id as string);
-                                        view(product._id as string)
+                                        if (localStorage.getItem("token")) {
+                                            recentlyViewed(product._id as string);
+                                            view(product._id as string).catch(() => { });
+                                        }
                                     }}
                                 >
                                     {showDetail ? "✓ Show Details!" : "Show Details"}

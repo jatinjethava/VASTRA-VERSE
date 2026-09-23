@@ -264,7 +264,7 @@ export const deleteBlog = async (req: Request, res: Response) => {
 
 export const getAllBlogForUser = async (req: Request, res: Response) => {
     try {
-        const blog = await getData(blogModel, { status: BLOG_STATUS.PUBLISHED, isDeleted: false });
+        const blog = await getData(blogModel, { status: BLOG_STATUS.PUBLISHED, isDeleted: false }, { title: 1, description: 1, subTitle: 1, subDescription: 1, featuredImage: 1, category: 1, views: 1, status: 1, author: 1, createdAt: 1, images: 1 });
         if (!blog) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Blog"), {}, {}));
         return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, responseMessage.getDataSuccess("Blog"), { blog }, {}));
     } catch (error) {
@@ -276,7 +276,7 @@ export const getAllBlogForUser = async (req: Request, res: Response) => {
 export const getUserBlog = async (req: Request, res: Response) => {
     try {
         const userId = (req as any).user?._id || undefined;
-        const blog = await getData(blogModel, { userId: userId, author: AUTHOR_TYPE.USER, isDeleted: false });
+        const blog = await getData(blogModel, { userId: userId, author: AUTHOR_TYPE.USER, isDeleted: false }, { title: 1, description: 1, subTitle: 1, subDescription: 1, featuredImage: 1, category: 1, views: 1, status: 1, author: 1, createdAt: 1, images: 1 });
         if (!blog) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Blog"), {}, {}));
         return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, responseMessage.getDataSuccess("Blog"), { blog }, {}));
     } catch (error) {
@@ -287,7 +287,7 @@ export const getUserBlog = async (req: Request, res: Response) => {
 
 export const getAllBlog = async (req: Request, res: Response) => {
     try {
-        const blog = await getData(blogModel, { isDeleted: false }, {}, {});
+        const blog = await getData(blogModel, { isDeleted: false }, { title: 1, description: 1, subTitle: 1, subDescription: 1, featuredImage: 1, category: 1, views: 1, status: 1, author: 1, createdAt: 1, images: 1 }, {});
         if (!blog) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Blog"), {}, {}));
         return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, responseMessage.getDataSuccess("Blog"), { blog }, {}));
     } catch (error) {

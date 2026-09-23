@@ -11,6 +11,7 @@ import { Women } from './Pages/Women/Women';
 import { Kids } from './Pages/Kids/Kids';
 import { MoreDetails } from './Components/MoreDetail';
 import { Blogs } from './Pages/Blogs';
+import { BlogDetail } from './Pages/BlogDetail';
 import { Cart } from './Pages/cart';
 import { Checkout } from './Pages/Checkout';
 import { OrderList } from './Pages/orderList';
@@ -74,6 +75,7 @@ function App() {
                     <Route path='kids' element={<Kids />} />
                     <Route path="more-details" element={<MoreDetails />} />
                     <Route path='blogs' element={<Blogs />} />
+                    <Route path='blogs/detail' element={<BlogDetail />} />
                     <Route path='blogs/write' element={<AddBlog />} />
                     <Route path='cart' element={<Cart />} />
                     <Route path='checkout' element={<Checkout />} />

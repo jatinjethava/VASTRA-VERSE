@@ -243,17 +243,22 @@ export const Home = () => {
                 <div className='relative mt-1.5 min-h-50'>
                     {isLoading ?
                         (
-                            <div className="absolute top-0 bottom-0 h-full z-50 left-0 right-0 flex items-center justify-center bg-white/50">
-                                <div className="dot-spinner">
-                                    <div className="dot-spinner__dot"></div>
-                                    <div className="dot-spinner__dot"></div>
-                                    <div className="dot-spinner__dot"></div>
-                                    <div className="dot-spinner__dot"></div>
-                                    <div className="dot-spinner__dot"></div>
-                                    <div className="dot-spinner__dot"></div>
-                                    <div className="dot-spinner__dot"></div>
-                                    <div className="dot-spinner__dot"></div>
-                                </div>
+                            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-6 lg:gap-10 place-content-center place-items-center">
+                                {[...Array(8)].map((_, i) => (
+                                    <div key={i} className="w-full bg-white overflow-hidden border border-gray-100 shadow-sm hero-skeleton-fade-in" style={{ animationDelay: `${i * 0.08}s` }}>
+                                        <div className="relative h-48 sm:h-72 bg-gray-100 overflow-hidden">
+                                            <div className="absolute inset-0 product-skeleton-shimmer" />
+                                        </div>
+                                        <div className="p-3 sm:p-5 space-y-3">
+                                            <div className="h-3 sm:h-4 w-3/4 rounded-full bg-gray-100 hero-skeleton-pulse" />
+                                            <div className="flex items-baseline gap-2">
+                                                <div className="h-4 sm:h-5 w-16 rounded-full bg-gray-100 hero-skeleton-pulse" style={{ animationDelay: '0.15s' }} />
+                                                <div className="h-3 w-12 rounded-full bg-gray-50 hero-skeleton-pulse" style={{ animationDelay: '0.3s' }} />
+                                            </div>
+                                            <div className="h-8 sm:h-10 w-full rounded-lg bg-gray-50 hero-skeleton-pulse" style={{ animationDelay: '0.2s' }} />
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         ) : (
                             <>
@@ -423,31 +428,42 @@ export const Home = () => {
 
                 <div className="relative">
                     {reviewLoading && (
-                        <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/50">
-                            <div className="dot-spinner">
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                            </div>
+                        <div className="flex gap-4 sm:gap-6 md:gap-8 py-4 overflow-hidden">
+                            {[...Array(4)].map((_, i) => (
+                                <div key={i} className="w-[280px] sm:w-[320px] md:w-[400px] lg:w-[450px] shrink-0 p-5 sm:p-6 md:p-8 rounded-lg border border-gray-100 bg-white shadow-sm space-y-4 hero-skeleton-fade-in" style={{ animationDelay: `${i * 0.12}s` }}>
+                                    <div className="flex justify-between items-center">
+                                        <div className="flex gap-1.5">
+                                            {[...Array(5)].map((_, s) => (
+                                                <div key={s} className="w-4 h-4 rounded-full bg-yellow-100 hero-skeleton-pulse" style={{ animationDelay: `${s * 0.1}s` }} />
+                                            ))}
+                                        </div>
+                                        <div className="w-8 h-4 rounded-full bg-gray-100 hero-skeleton-pulse" />
+                                    </div>
+                                    <div className="h-4 w-2/3 rounded-full bg-gray-100 hero-skeleton-pulse" />
+                                    <div className="space-y-2">
+                                        <div className="h-3 w-full rounded-full bg-gray-50 hero-skeleton-pulse" style={{ animationDelay: '0.1s' }} />
+                                        <div className="h-3 w-[90%] rounded-full bg-gray-50 hero-skeleton-pulse" style={{ animationDelay: '0.2s' }} />
+                                        <div className="h-3 w-[70%] rounded-full bg-gray-50 hero-skeleton-pulse" style={{ animationDelay: '0.3s' }} />
+                                    </div>
+                                    <div className="pt-3 border-t border-gray-100 flex items-center gap-4">
+                                        <div className="w-10 h-10 rounded-full bg-gray-100 hero-skeleton-pulse" />
+                                        <div className="space-y-1.5 flex-1">
+                                            <div className="h-3 w-24 rounded-full bg-gray-100 hero-skeleton-pulse" />
+                                            <div className="h-2.5 w-32 rounded-full bg-gray-50 hero-skeleton-pulse" style={{ animationDelay: '0.15s' }} />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     )}
 
                     {reviewError && (
-                        <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/50">
-                            <div className="dot-spinner">
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
-                                <div className="dot-spinner__dot"></div>
+                        <div className="flex items-center justify-center py-16">
+                            <div className="text-center space-y-3">
+                                <div className="w-12 h-12 mx-auto rounded-full bg-red-50 flex items-center justify-center">
+                                    <span className="text-red-400 text-lg">!</span>
+                                </div>
+                                <p className="text-sm font-medium text-gray-500">Unable to load reviews</p>
                             </div>
                         </div>
                     )}

@@ -1,3 +1,4 @@
+import { isAuthenticated } from '../Utils/auth';
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getBlogs, createBlogByUser, updateBlog, deleteBlog, getUserBlog, viewBlog } from "../Api/blogApi";
@@ -18,6 +19,7 @@ export const useFetchUserBlog = () => {
         queryFn: getUserBlog,
         staleTime: 5000 * 60 * 1,
         gcTime: 5000 * 60 * 1,
+        enabled: isAuthenticated(),
     });
 };
 

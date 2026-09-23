@@ -1,3 +1,4 @@
+import { isAuthenticated } from '../Utils/auth';
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { addProductInWishList, removeProductFromWishList, getProductInWishList, getWishlistShowProducts } from "../Api/wishlistApi";
 import { toast } from "sonner";
@@ -48,7 +49,7 @@ export const useGetWishList = () => {
         queryFn: () => getProductInWishList(),
         staleTime: 5000 * 60 * 1,
         gcTime: 5000 * 60 * 1,
-        enabled: !!localStorage.getItem("token"),
+        enabled: isAuthenticated(),
     });
 }
 
@@ -58,6 +59,6 @@ export const useGetWishlistProducts = () => {
         queryFn: () => getWishlistShowProducts(),
         staleTime: 5000 * 60 * 1,
         gcTime: 5000 * 60 * 1,
-        enabled: !!localStorage.getItem("token"),
+        enabled: isAuthenticated(),
     });
 }

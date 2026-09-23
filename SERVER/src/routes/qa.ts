@@ -1,10 +1,10 @@
 import { askQuestion, answerQuestion, deleteQuestion, getQuestionsByProductId, getAllQuestions, helpFulCount } from "../controllers";
 import { Router } from "express";
-import { userJWT, adminJWT } from "../helpers";
+import { userJWT, adminJWT, optionalUserJWT } from "../helpers";
 const router = Router();
 
 router.post("/ask-question", userJWT, askQuestion);
-router.get("/get-questions-by-product-id/:productId", userJWT, getQuestionsByProductId);
+router.get("/get-questions-by-product-id/:productId", optionalUserJWT, getQuestionsByProductId);
 router.put("/helpful-count/:questionId", userJWT, helpFulCount)
 
 router.post("/answer-question", answerQuestion);

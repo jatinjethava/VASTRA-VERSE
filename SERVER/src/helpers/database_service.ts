@@ -3,25 +3,21 @@ export const createOne = async (model: any, data: any) => {
 };
 
 export const getFirstMatch = async (model: any, criteria: any, projection: any = {}, options: any = {}) => {
-    options.lean = true;
-    return model.findOne(criteria, projection, options);
+    return model.findOne(criteria, projection, options).lean().exec();
 };
 
 export const updateData = async (model: any, criteria: any, dataToSet: any, options: any = {}) => {
     options.returnDocument = 'after';
-    options.lean = true;
-    return model.findOneAndUpdate(criteria, dataToSet, options);
+    return model.findOneAndUpdate(criteria, dataToSet, options).lean().exec();
 };
 
 export const updateMany = async (model: any, criteria: any, dataToSet: any, options: any = {}) => {
     options.returnDocument = 'after';
-    options.lean = true;
-    return model.updateMany(criteria, dataToSet, options);
+    return model.updateMany(criteria, dataToSet, options).lean().exec();
 };
 
 export const getDataWithSorting = async (model: any, criteria: any, projection: any = {}, options: any = {}) => {
-    options.lean = true;
-    let query = model.find(criteria, projection, options);
+    let query = model.find(criteria, projection, options).lean();
     if (options.sort) query = query.sort(options.sort);
     if (options.skip) query = query.skip(options.skip);
     if (options.limit) query = query.limit(options.limit);
@@ -34,5 +30,5 @@ export const countData = async (model: any, criteria: any) => {
 };
 
 export const getData = async (model: any, criteria: any, projection: any = {}, options: any = {}) => {
-    return model.find(criteria, projection, options);
+    return model.find(criteria, projection, options).lean().exec();
 };

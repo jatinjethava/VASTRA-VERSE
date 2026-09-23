@@ -1,3 +1,4 @@
+import { isAuthenticated } from '../Utils/auth';
 import { toast } from "sonner";
 import { getCurrentUser, updateUserProfile, googleLogin, changePassword, recentlyViewed, getRecentlyViewed, getLoginActivity, getAllSessions, logoutOtherDevices, revokeToken, logoutCurrentDevice, addAddress, updateAddress, getAllAddresses, deleteAddress, setDefaultAddress, getDefaultAddress, createContact, subscribeMail, addMoneyToWallet, verifyRazorpaySignature, debitMoneyFromWallet, getWalletInfo, getWalletTransactions } from "../Api/userApi";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -7,7 +8,7 @@ export const useGetCurrentUser = () => {
     return useQuery({
         queryKey: ["currentUser"],
         queryFn: () => getCurrentUser(),
-        enabled: !!localStorage.getItem("token"),
+        enabled: isAuthenticated(),
     });
 }
 
@@ -71,7 +72,7 @@ export const useGetRecentlyViewed = () => {
         refetchOnReconnect: true,
         staleTime: 0,
         gcTime: 0,
-        enabled: !!localStorage.getItem("token"),
+        enabled: isAuthenticated(),
     });
 }
 
@@ -84,7 +85,7 @@ export const useLoginActivity = () => {
         refetchOnReconnect: true,
         staleTime: 0,
         gcTime: 0,
-        enabled: !!localStorage.getItem("token"),
+        enabled: isAuthenticated(),
     });
 }
 
@@ -97,7 +98,7 @@ export const useGetAllSessions = () => {
         refetchOnReconnect: true,
         staleTime: 0,
         gcTime: 0,
-        enabled: !!localStorage.getItem("token"),
+        enabled: isAuthenticated(),
     });
 }
 
@@ -196,7 +197,7 @@ export const useGetAllAddresses = () => {
         refetchOnReconnect: true,
         staleTime: 0,
         gcTime: 0,
-        enabled: !!localStorage.getItem("token"),
+        enabled: isAuthenticated(),
     });
 }
 
@@ -237,7 +238,7 @@ export const useGetDefaultAddress = () => {
         refetchOnReconnect: true,
         staleTime: 0,
         gcTime: 0,
-        enabled: !!localStorage.getItem("token"),
+        enabled: isAuthenticated(),
     });
 }
 
@@ -323,7 +324,7 @@ export const useGetWalletInfo = () => {
         refetchOnReconnect: true,
         staleTime: 0,
         gcTime: 0,
-        enabled: !!localStorage.getItem("token"),
+        enabled: isAuthenticated(),
     });
 }
 
@@ -336,6 +337,6 @@ export const useWalletTransactions = () => {
         refetchOnReconnect: true,
         staleTime: 0,
         gcTime: 0,
-        enabled: !!localStorage.getItem("token"),
+        enabled: isAuthenticated(),
     });
 }

@@ -181,7 +181,7 @@ export const shopBySlug = async (req: Request, res: Response) => {
             query.discountPrice = { $lte: Number(maxPrice) };
         }
 
-        const products = await getData(TShirtModel, query);
+        const products = await TShirtModel.find(query).lean();
 
         const currentDate = getDateForSalesQuery();
         const campaign = await getFirstMatch(CampaignModel, { isActive: true, isDeleted: false, startDate: { $lte: currentDate }, endDate: { $gte: currentDate } }, {}, {});

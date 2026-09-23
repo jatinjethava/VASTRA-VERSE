@@ -1,3 +1,4 @@
+import { isAuthenticated } from '../Utils/auth';
 import {
     useQuery,
     useMutation,
@@ -17,7 +18,7 @@ export const getAllUserNotifications = () => {
         refetchOnMount: true,
         refetchOnWindowFocus: true,
         refetchOnReconnect: true,
-        enabled: !!localStorage.getItem("token"),
+        enabled: isAuthenticated(),
     })
 }
 

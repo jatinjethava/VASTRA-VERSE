@@ -178,7 +178,7 @@ export const getProductByCategory = async (req: Request, res: Response) => {
         const { error, value } = getProductByIdSchema.validate(req.params);
         if (error) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, error.details[0]?.message || "Validation Error", {}, {}));
 
-        const product = await getData(TShirtModel, { category: value.id, isDeleted: false, isPublished: true });
+        const product = await getData(TShirtModel, { category: value.id, isDeleted: false, isPublished: true }, { title: 1, images: 1, basePrice: 1, discountPrice: 1, variants: 1, slug: 1, isFeatured: 1, category: 1, fit: 1, material: 1, gender: 1, isNewArrival: 1, isBestSeller: 1, description: 1, tags: 1, limitedEdition: 1 });
         if (!product) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Product"), {}, {}));
 
         const currentDate = getDateForSalesQuery();
@@ -203,7 +203,7 @@ export const getProducts = async (req: Request, res: Response) => {
 
         const products = await getDataWithSorting(TShirtModel, {
             isDeleted: false,
-        }, {}, { skip, limit, sort: { createdAt: -1 } });
+        }, { title: 1, images: 1, basePrice: 1, discountPrice: 1, variants: 1, slug: 1, isFeatured: 1, category: 1, fit: 1, material: 1, gender: 1, isNewArrival: 1, isBestSeller: 1, description: 1, tags: 1, limitedEdition: 1 }, { skip, limit, sort: { createdAt: -1 } });
 
         if (!products) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Products"), {}, {}));
 
@@ -241,7 +241,7 @@ export const getPublishedProducts = async (req: Request, res: Response) => {
         const products = await getData(TShirtModel, {
             isPublished: true,
             isDeleted: false,
-        });
+        }, { title: 1, images: 1, basePrice: 1, discountPrice: 1, variants: 1, slug: 1, isFeatured: 1, category: 1, fit: 1, material: 1, gender: 1, isNewArrival: 1, isBestSeller: 1, description: 1, tags: 1, limitedEdition: 1 });
         if (!products) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Products"), {}, {}));
 
         const currentDate = getDateForSalesQuery();
@@ -279,7 +279,7 @@ export const filterProducts = async (req: Request, res: Response) => {
         }
         if (value.isFeatured !== undefined) query.isFeatured = value.isFeatured;
 
-        const products = await getDataWithSorting(TShirtModel, query, {}, { sort: { createdAt: -1 } });
+        const products = await getDataWithSorting(TShirtModel, query, { title: 1, images: 1, basePrice: 1, discountPrice: 1, variants: 1, slug: 1, isFeatured: 1, category: 1, fit: 1, material: 1, gender: 1, isNewArrival: 1, isBestSeller: 1, description: 1, tags: 1, limitedEdition: 1 }, { sort: { createdAt: -1 } });
         if (!products) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Products"), {}, {}));
 
         const currentDate = getDateForSalesQuery();
@@ -333,7 +333,7 @@ export const getProductsForUser = async (req: Request, res: Response) => {
     try {
         const products = await getData(TShirtModel, {
             isDeleted: false,
-        });
+        }, { title: 1, images: 1, basePrice: 1, discountPrice: 1, variants: 1, slug: 1, isFeatured: 1, category: 1, fit: 1, material: 1, gender: 1, isNewArrival: 1, isBestSeller: 1, description: 1, tags: 1, limitedEdition: 1 });
         if (!products) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Products"), {}, {}));
 
         const currentDate = getDateForSalesQuery();

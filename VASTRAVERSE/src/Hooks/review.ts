@@ -1,3 +1,4 @@
+import { isAuthenticated } from '../Utils/auth';
 import { createReview, getallReviews, getMyReviews, getProductAllReview, helpfulReview, likeReview, matchLike, reportReview } from '../Api/reviewApi';
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -76,7 +77,7 @@ export const useMatchLike = (productId: string) => {
     return useQuery({
         queryKey: ["matchLike"],
         queryFn: () => matchLike(productId),
-        enabled: !!productId,
+        enabled: !!productId && isAuthenticated(),
         staleTime: 0,
     });
 }

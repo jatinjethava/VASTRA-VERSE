@@ -5,7 +5,9 @@ export const useMarketingCampaigns = () => {
     return useQuery({
         queryKey: ["marketing-campaigns"],
         queryFn: () => getUserActiveCampaigns(),
-        staleTime: 5000 * 60 * 5,
+        staleTime: 1000 * 60 * 15,
+        retry: 1,
+        refetchOnWindowFocus: false,
     });
 }
 
@@ -13,7 +15,9 @@ export const useFlashCampaigns = () => {
     return useQuery({
         queryKey: ["flash-campaigns"],
         queryFn: () => getFlashCampaigns(),
-        staleTime: 5000 * 60 * 5,
+        staleTime: 1000 * 60 * 15,
+        retry: 1,
+        refetchOnWindowFocus: false,
     });
 }
 
@@ -21,6 +25,8 @@ export const useAllBanner = () => {
     return useQuery({
         queryKey: ["all-banners"],
         queryFn: () => getAllBanner(),
-        staleTime: 5000 * 60 * 5,
+        staleTime: 1000 * 60 * 30,
+        retry: 1,
+        refetchOnWindowFocus: false,
     });
 }
