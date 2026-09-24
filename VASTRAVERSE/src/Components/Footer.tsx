@@ -3,6 +3,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import { useGetCurrentUser, useSubscribeMail } from "../Hooks/user";
 import { isAuthenticated } from "../Utils/auth";
+import { ArrowRight } from "lucide-react";
 
 export const Footer = () => {
 
@@ -89,40 +90,39 @@ export const Footer = () => {
     ];
 
     return (
-        <footer className="bg-[#0f0f0f] border-t border-white/[0.06] text-gray-400">
+        <footer className="bg-[#050505] border-t border-neutral-900 text-neutral-400">
 
-            <div className="border-b border-white/[0.06]">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-gray-500">
-                        Free shipping on orders above ₹999 &nbsp;·&nbsp; Cash on Delivery available
+            <div className="border-b border-white/[0.02]">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <p className="text-[9px] uppercase tracking-[0.25em] font-medium text-neutral-500">
+                        Global Standard Shipping &nbsp;·&nbsp; Atelier Client Services
                     </p>
                     <button
                         onClick={shareProduct}
-                        className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold text-gray-500 hover:text-white transition-colors duration-200 cursor-pointer"
+                        className="group flex items-center gap-2 text-[9px] uppercase tracking-widest font-bold text-neutral-500 hover:text-white transition-colors duration-300 cursor-pointer"
                     >
-                        <FaWhatsapp className="w-3.5 h-3.5" />
-                        Share Vastra Verse
+                        <FaWhatsapp className="w-3.5 h-3.5 group-hover:scale-110 transition-transform duration-300" />
+                        Share The Archives
                     </button>
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-16 pb-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-20 pb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-8">
 
                     <div className="lg:col-span-4 flex flex-col gap-6">
                         <div>
                             <Link to="/" className="inline-block">
-                                <h2 className="text-xl font-black uppercase tracking-[0.25em] text-white">
+                                <h2 className="editorial-text text-2xl font-light tracking-[0.3em] text-white">
                                     VASTRA VERSE
                                 </h2>
                             </Link>
-                            <div className="w-8 h-[2px] bg-white mt-3" />
                         </div>
-                        <p className="text-sm leading-relaxed text-gray-500 max-w-xs">
-                            The premium streetwear destination for high-quality cotton oversized T‑Shirts — crafted for those who wear their identity.
+                        <p className="text-xs leading-relaxed text-neutral-500 max-w-xs font-light tracking-wide">
+                            The definitive destination for premium oversized silhouettes and editorial streetwear. Crafted for those who curate their existence.
                         </p>
 
-                        <div className="flex items-center gap-3 pt-2">
+                        <div className="flex items-center gap-4 pt-4">
                             {socialLinks.map((s) => (
                                 <a
                                     key={s.label}
@@ -130,25 +130,27 @@ export const Footer = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={s.label}
-                                    className="w-9 h-9 border border-white/10 flex items-center justify-center text-gray-500 hover:text-white hover:border-white/40 transition-all duration-200"
+                                    className="group relative flex items-center justify-center w-10 h-10 border border-neutral-800 rounded-none text-neutral-500 hover:text-white hover:border-white transition-all duration-300"
                                 >
-                                    {s.icon}
+                                    <span className="relative z-10">{s.icon}</span>
+                                    <div className="absolute inset-0 bg-white scale-0 group-hover:scale-100 transition-transform duration-300 origin-center opacity-5" />
                                 </a>
                             ))}
                         </div>
                     </div>
 
-                    <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-10">
+                    <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-10 lg:gap-12">
 
                         <div>
-                            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white mb-5">Shop</h3>
-                            <ul className="space-y-3.5">
+                            <h3 className="text-[9px] font-bold uppercase tracking-[0.25em] text-neutral-300 mb-6">Shop</h3>
+                            <ul className="space-y-4">
                                 {shopLinks.map((link) => (
                                     <li key={link.to}>
                                         <Link
                                             to={link.to}
-                                            className="text-[13px] text-gray-500 hover:text-white transition-colors duration-200 font-medium"
+                                            className="group flex items-center whitespace-nowrap text-[10px] text-neutral-500 hover:text-white transition-colors duration-300 uppercase tracking-widest font-medium"
                                         >
+                                            <span className="h-[1px] w-0 bg-white mr-0 group-hover:w-2 group-hover:mr-2 transition-all duration-300" />
                                             {link.label}
                                         </Link>
                                     </li>
@@ -157,14 +159,15 @@ export const Footer = () => {
                         </div>
 
                         <div>
-                            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white mb-5">Account</h3>
-                            <ul className="space-y-3.5">
+                            <h3 className="text-[9px] font-bold uppercase tracking-[0.25em] text-neutral-300 mb-6">Account</h3>
+                            <ul className="space-y-4">
                                 {accountLinks.map((link) => (
                                     <li key={link.to}>
                                         <button
                                             onClick={() => handleAuthLink(link.to)}
-                                            className="text-[13px] text-gray-500 hover:text-white transition-colors duration-200 font-medium cursor-pointer text-left"
+                                            className="group flex items-center whitespace-nowrap text-[10px] text-neutral-500 hover:text-white transition-colors duration-300 uppercase tracking-widest font-medium cursor-pointer text-left"
                                         >
+                                            <span className="h-[1px] w-0 bg-white mr-0 group-hover:w-2 group-hover:mr-2 transition-all duration-300" />
                                             {link.label}
                                         </button>
                                     </li>
@@ -173,14 +176,15 @@ export const Footer = () => {
                         </div>
 
                         <div>
-                            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white mb-5">Support</h3>
-                            <ul className="space-y-3.5">
+                            <h3 className="text-[9px] font-bold uppercase tracking-[0.25em] text-neutral-300 mb-6">Support</h3>
+                            <ul className="space-y-4">
                                 {supportLinks.map((link) => (
                                     <li key={link.to}>
                                         <button
                                             onClick={() => handleAuthLink(link.to)}
-                                            className="text-[13px] text-gray-500 hover:text-white transition-colors duration-200 font-medium cursor-pointer text-left"
+                                            className="group flex items-center whitespace-nowrap text-[10px] text-neutral-500 hover:text-white transition-colors duration-300 uppercase tracking-widest font-medium cursor-pointer text-left"
                                         >
+                                            <span className="h-[1px] w-0 bg-white mr-0 group-hover:w-2 group-hover:mr-2 transition-all duration-300" />
                                             {link.label}
                                         </button>
                                     </li>
@@ -189,12 +193,11 @@ export const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="lg:col-span-3 flex flex-col gap-5">
+                    <div className="lg:col-span-3 flex flex-col gap-6">
                         <div>
-                            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white mb-1">Newsletter</h3>
-                            <div className="w-8 h-[2px] bg-white/20 mb-4" />
-                            <p className="text-[13px] text-gray-500 leading-relaxed">
-                                Drop alerts, exclusive offers &amp; new collection announcements — straight to your inbox.
+                            <h3 className="text-[9px] font-bold uppercase tracking-[0.25em] text-neutral-300 mb-6">Atelier Dispatches</h3>
+                            <p className="text-[11px] text-neutral-500 leading-relaxed font-light tracking-wide">
+                                Subscribe for private access to exclusive drops, editorial insights, and unreleased archives.
                             </p>
                         </div>
                         <form
@@ -205,46 +208,37 @@ export const Footer = () => {
                                 if (email) subscribeMail(email);
                                 (e.target as HTMLFormElement).reset();
                             }}
-                            className="flex flex-col gap-2"
+                            className="flex flex-col gap-4 pt-2"
                         >
                             <input
                                 type="email"
                                 name="email"
                                 defaultValue={userData?.email}
-                                placeholder="your@email.com"
-                                className="w-full bg-white/[0.04] border border-white/10 px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-white/30 transition-all duration-200 font-medium"
-                                style={{ borderRadius: 0 }}
+                                placeholder="CLIENT EMAIL"
+                                className="w-full bg-transparent border-b border-neutral-800 px-0 py-3 text-xs text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-colors duration-300 font-mono tracking-widest"
                                 required
                             />
                             <button
                                 type="submit"
-                                className="w-full bg-white hover:bg-gray-100 text-black font-black text-[10px] uppercase tracking-[0.2em] py-3 transition-all duration-200 cursor-pointer active:scale-[0.98]"
-                                style={{ borderRadius: 0 }}
+                                className="group w-full flex items-center justify-between border border-white bg-white text-black px-5 py-3 transition-all duration-300 hover:bg-black hover:border-neutral-700 hover:text-white cursor-pointer mt-2"
                             >
-                                Subscribe
+                                <span className="text-[9px] uppercase tracking-[0.2em] font-bold">Subscribe</span>
+                                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <div className="border-t border-white/[0.06]">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <p className="text-[11px] text-gray-600 text-center sm:text-left">
-                        © {new Date().getFullYear()} VASTRA VERSE · All rights reserved · Made with ❤️ by{" "}
-                        <a
-                            href="https://www.linkedin.com/in/jatin-jethava-7096a42b3/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-white transition-colors font-semibold"
-                        >
-                            Jatin Jethava
-                        </a>
+            <div className="border-t border-white/[0.02]">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col sm:flex-row justify-between items-center gap-6">
+                    <p className="text-[10px] text-neutral-600 font-mono uppercase tracking-widest text-center sm:text-left">
+                        © {new Date().getFullYear()} VASTRA VERSE · ALL RIGHTS RESERVED
                     </p>
-                    <div className="flex gap-6 text-[11px] text-gray-600">
-                        <Link to="/help-center" className="hover:text-white transition-colors duration-200">Privacy Policy</Link>
-                        <Link to="/help-center" className="hover:text-white transition-colors duration-200">Terms of Service</Link>
-                        <Link to="/help-center" className="hover:text-white transition-colors duration-200">Refund Policy</Link>
+                    <div className="flex gap-8 text-[9px] uppercase tracking-widest font-bold text-neutral-600">
+                        <Link to="/help-center" className="hover:text-white transition-colors duration-300">Privacy</Link>
+                        <Link to="/help-center" className="hover:text-white transition-colors duration-300">Terms</Link>
+                        <Link to="/help-center" className="hover:text-white transition-colors duration-300">Refunds</Link>
                     </div>
                 </div>
             </div>

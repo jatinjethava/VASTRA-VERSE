@@ -66,7 +66,7 @@ export const getAllBlogs = async (): Promise<Blogs[]> => {
         return blogsArray;
     } catch (error: any) {
         if (axios.isAxiosError(error)) {
-            throw new Error(error.response?.data?.message || "Failed to create blog");
+            throw new Error(error.response?.data?.message || "Failed to fetch blogs");
         } else {
             throw error;
         }

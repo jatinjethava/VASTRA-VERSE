@@ -5,49 +5,48 @@ import { useViewBlog } from "../Hooks/blog";
 import type { IBlog } from "../Api/blogApi";
 import { isAuthenticated } from "../Utils/auth";
 
-const BlogCard = ({ blog, index }: { blog: IBlog; index: number }) => {
+const BlogCard = ({ blog }: { blog: IBlog }) => {
     const navigate = useNavigate();
     const { mutate: viewBlog } = useViewBlog();
 
     const handleRead = () => {
         if (isAuthenticated()) viewBlog(blog._id);
-        navigate("/blogs/detail", { state: { blog } });
+        navigate(`/blogs/detail?id=${blog._id}`, { state: { blog } });
     };
-
-    const isFeatured = index === 0;
 
     return (
         <article
             onClick={handleRead}
-            className={`group cursor-pointer ${isFeatured ? "md:col-span-2 lg:col-span-2" : ""}`}
+            className="group cursor-pointer flex flex-col gap-4"
         >
-            <div className={`overflow-hidden bg-gray-50 mb-5 ${isFeatured ? "aspect-[4/3] md:aspect-[16/9]" : "aspect-[4/3]"}`}>
+            <div className="overflow-hidden bg-[#f9f9f9] aspect-[3/2] w-full relative">
                 <img
                     src={blog.featuredImage}
                     alt={blog.title}
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
 
-            <div className="space-y-2.5">
+            <div className="space-y-2 px-1">
                 {blog.category && (
-                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+                    <span className="text-[9px] font-medium uppercase tracking-[0.2em] text-gray-500">
                         {blog.category}
                     </span>
                 )}
-                <h2 className={`font-extrabold text-gray-900 tracking-tight leading-tight group-hover:text-gray-600 transition-colors duration-200 ${isFeatured ? "text-xl sm:text-2xl lg:text-3xl" : "text-base sm:text-lg"}`}>
+                <h2 className="font-medium text-black line-clamp-2 text-lg leading-snug group-hover:text-gray-600 transition-colors">
                     {blog.title}
                 </h2>
-                <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
+                <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 font-light">
                     {blog.description}
                 </p>
-                <div className="flex items-center gap-3 pt-1">
-                    <span className="text-[11px] uppercase tracking-widest font-semibold text-gray-400">
+                <div className="flex items-center gap-3 pt-2">
+                    <span className="text-[10px] uppercase tracking-[0.1em] text-black font-medium">
                         {blog.author}
                     </span>
-                    <span className="w-1 h-1 rounded-full bg-gray-300 inline-block" />
-                    <span className="text-[11px] uppercase tracking-widest text-gray-400">
+                    <span className="text-[10px] text-gray-400">|</span>
+                    <span className="text-[10px] uppercase tracking-[0.1em] text-gray-500">
                         {new Date(blog.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                     </span>
                 </div>
@@ -134,8 +133,8 @@ export const Blogs = () => {
 
                 {!isLoading && !isError && blogs.length > 0 && (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12">
-                        {blogs.map((blog: IBlog, index: number) => (
-                            <BlogCard key={blog._id} blog={blog} index={index} />
+                        {blogs.map((blog: IBlog) => (
+                            <BlogCard key={blog._id} blog={blog} />
                         ))}
                     </div>
                 )}

@@ -1,43 +1,41 @@
 import { MensBlog } from "../Blogs";
 import { useFetchBlogs } from "../../Hooks/blog";
-import '../../index.css'
+import '../../index.css';
 
 export const BlogSlider = () => {
     const { data: blogs, isLoading, error } = useFetchBlogs();
 
+    const blogList = (blogs?.data?.blog && Array.isArray(blogs.data.blog)) ? blogs.data.blog : [];
+    // Duplicate cards to guarantee seamless infinite looping in CSS marquee
+    const marqueeList = blogList.length > 0 ? (blogList.length < 5 ? [...blogList, ...blogList, ...blogList] : [...blogList, ...blogList]) : [];
+
     return (
-        <div className="rounded-xl w-full overflow-hidden relative">
+        <div className="w-full overflow-hidden relative py-2">
+            {/* Smooth Edge Fade Masks */}
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-[#0c0c0d] to-transparent z-20" />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-[#000000] to-transparent z-20" />
 
             {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center z-50">
-                    <div className="dot-spinner">
-                        <div className="dot-spinner__dot"></div>
-                        <div className="dot-spinner__dot"></div>
-                        <div className="dot-spinner__dot"></div>
-                        <div className="dot-spinner__dot"></div>
-                        <div className="dot-spinner__dot"></div>
-                        <div className="dot-spinner__dot"></div>
-                        <div className="dot-spinner__dot"></div>
-                        <div className="dot-spinner__dot"></div>
-                    </div>
+                <div className="py-16 flex flex-col items-center justify-center gap-3">
+                    <div className="dot-spinner dot-spinner-inverse" />
                 </div>
             )}
 
             {error && (
-                <div className="absolute inset-0 flex items-center justify-center z-50">
-                    <p className="text-red-500 text-center">{error.message}</p>
+                <div className="py-12 flex items-center justify-center text-center">
+                    <p className="text-xs font-mono text-neutral-400 uppercase tracking-wider">Unable to load journal archives.</p>
                 </div>
             )}
 
-            <div
-                className="flex gap-4 sm:gap-6 lg:gap-10 w-max animate-scroll hover:[animation-play-state:paused]"
-            >
-                {blogs?.data?.blog && Array.isArray(blogs.data.blog) ? blogs.data.blog.map((blog: any) => (
-                    <div key={blog._id} className="shrink-0">
-                        <MensBlog blog={blog} />
-                    </div>
-                )) : null}
-            </div>
+            {!isLoading && !error && marqueeList.length > 0 && (
+                <div className="flex gap-4 sm:gap-6 lg:gap-8 w-max animate-scroll hover:[animation-play-state:paused] py-2">
+                    {marqueeList.map((blog: any, index: number) => (
+                        <div key={`${blog._id}-${index}`} className="shrink-0">
+                            <MensBlog blog={blog} />
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

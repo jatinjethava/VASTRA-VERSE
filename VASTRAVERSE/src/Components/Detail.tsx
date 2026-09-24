@@ -130,7 +130,7 @@ export const Detail = ({
     }
 
     const inStock = curruntProduct?.variants.reduce((acc, variant) => acc + variant.stock, 0) > 0;
-    const isWishlisted = wishListData?.data?.wishlist?.includes(curruntProduct?._id as string);
+    const isWishlisted = wishListData?.data?.wishlist?.some((item: any) => item.productId === curruntProduct?._id);
     const totalRating = productReviews?.reduce((acc: any, review: any) => acc + review.rating, 0);
     const averageRating = (totalRating ?? 0) / (productReviews?.length || 1);
 
@@ -162,7 +162,7 @@ export const Detail = ({
             />
 
             <div
-                className={`relative w-[92%] max-w-5xl h-[88vh] bg-white rounded-3xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.25)] flex flex-col md:flex-row transition-all duration-500 ${showDetail ? "scale-100 translate-y-0" : "scale-95 translate-y-6"
+                className={`relative w-[95%] max-w-6xl h-[90vh] bg-white rounded-none overflow-hidden shadow-2xl flex flex-col md:flex-row transition-all duration-500 ${showDetail ? "scale-100 translate-y-0" : "scale-95 translate-y-6"
                     }`}
             >
 
@@ -183,59 +183,60 @@ export const Detail = ({
 
                 <button
                     onClick={() => setShowDetail(false)}
-                    className="absolute top-3 right-3 z-10000 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-md border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 cursor-pointer shadow-sm"
+                    className="absolute top-4 right-4 z-[10000] p-2 bg-white flex items-center justify-center text-black hover:opacity-70 transition-opacity cursor-pointer border border-black/10"
                 >
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
 
-                <div className="w-full md:w-[55%] h-[45vh] md:h-full bg-gray-50 relative flex flex-col shrink-0">
+                <div className="w-full md:w-[55%] h-[45vh] md:h-full bg-gray-50 relative flex flex-col shrink-0 border-r border-gray-100">
 
-                    <div className="flex-1 relative overflow-hidden">
+                    <div className="flex-1 relative overflow-hidden bg-gray-100">
                         <img
                             src={curruntProduct?.images[activeImage] || curruntProduct?.images[0]}
-                            className="w-full h-full object-cover transition-all duration-500"
+                            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                             alt="Product"
                         />
 
                         <div className="absolute top-4 left-4 sm:top-5 sm:left-5 flex flex-col gap-2">
-                            <span className="bg-gray-900 text-white text-[8px] sm:text-[9px] font-bold uppercase tracking-widest px-2 py-1 sm:px-3 sm:py-1.5 rounded-md">
-                                Bestseller
-                            </span>
-                            <span className="bg-emerald-500 text-white text-[8px] sm:text-[9px] font-bold uppercase tracking-widest px-2 py-1 sm:px-3 sm:py-1.5 rounded-md">
+                            {curruntProduct?.isBestSeller && (
+                                <span className="bg-black text-white text-[9px] font-medium uppercase tracking-[0.15em] px-3 py-1.5 rounded-none">
+                                    Bestseller
+                                </span>
+                            )}
+                            <span className="bg-white text-black border border-black/10 text-[9px] font-medium uppercase tracking-[0.15em] px-3 py-1.5 rounded-none">
                                 {curruntProduct?.discountPrice === 0 ? "New Arrival" : `${Math.floor(((curruntProduct?.basePrice - curruntProduct?.discountPrice) / curruntProduct?.basePrice) * 100)}% Off`}
                             </span>
                         </div>
                     </div>
 
 
-                    <div className="flex justify-between items-center gap-2 p-2 sm:p-3 bg-white border-t border-gray-100">
-                        <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
+                    <div className="flex justify-between items-center gap-2 p-3 sm:p-4 bg-white border-t border-gray-100">
+                        <div className="flex gap-2 overflow-x-auto hide-scrollbar">
                             {curruntProduct?.images?.map((img, i) => (
                                 <button
                                     key={i}
                                     onClick={() => setActiveImage(i)}
-                                    className={`w-12 h-12 sm:w-16 sm:h-16 rounded-xl overflow-hidden border-2 transition-all duration-200 cursor-pointer shrink-0 ${activeImage === i
-                                        ? "border-gray-900 shadow-md"
-                                        : "border-transparent opacity-60 hover:opacity-100"
+                                    className={`w-14 h-14 sm:w-20 sm:h-20 rounded-none overflow-hidden transition-all duration-200 cursor-pointer shrink-0 border ${activeImage === i
+                                        ? "border-black"
+                                        : "border-transparent opacity-50 hover:opacity-100"
                                         }`}
                                 >
                                     <img src={img} className="w-full h-full object-cover" alt={`View ${i + 1}`} />
                                 </button>
                             ))}
-
                         </div>
-                        <div className="pl-1 sm:pl-2 shrink-0">
+                        <div className="pl-2 shrink-0">
                             <button
-                                className={`py-2 sm:py-3.5 rounded-2xl font-semibold text-xs sm:text-sm md:text-md tracking-wider transition-all duration-300 cursor-pointer text-gray-600 hover:text-gray-900 hover:underline hover:underline-offset-4`}
+                                className={`group py-2 rounded-none font-medium text-xs tracking-[0.1em] uppercase transition-all duration-300 cursor-pointer text-black hover:text-gray-500`}
                                 onClick={() => moreDetails(curruntProduct)}
                             >
-                                <p className="flex justify-center items-center gap-1.5 sm:gap-3 transition-all duration-300">
-                                    <span className="hidden sm:inline">Show More Details</span>
-                                    <span className="sm:hidden">More Details</span>
-                                    <FaArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                                </p>
+                                <span className="flex justify-center items-center gap-2">
+                                    <span className="hidden sm:inline border-b border-black group-hover:border-gray-500 pb-0.5">Show Details</span>
+                                    <span className="sm:hidden border-b border-black group-hover:border-gray-500 pb-0.5">Details</span>
+                                    <FaArrowRight className="w-3 h-3" />
+                                </span>
                             </button>
                         </div>
                     </div>
@@ -259,31 +260,26 @@ export const Detail = ({
 
 
                         <div className="flex items-center gap-2 sm:gap-3">
-                            <span className="text-xs font-semibold text-gray-500">
+                            <span className="text-xs text-black">
                                 <StarRating rating={averageRating} />
                             </span>
-                            <span className="text-[10px] sm:text-[11px] text-[#aaa]">{averageRating ? averageRating.toFixed(1) : ""}</span>
+                            <span className="text-[10px] sm:text-[11px] text-gray-500 font-medium">{averageRating ? averageRating.toFixed(1) : ""}</span>
                         </div>
 
 
                         <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
-                            <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">₹{curruntProduct?.discountPrice ? curruntProduct?.discountPrice : curruntProduct?.basePrice}</span>
+                            <span className="text-2xl sm:text-3xl font-light text-black">₹{curruntProduct?.discountPrice ? curruntProduct?.discountPrice : curruntProduct?.basePrice}</span>
                             {curruntProduct?.discountPrice !== 0 && (
-                                <span className="text-base sm:text-lg text-gray-400 line-through font-medium">₹{curruntProduct?.basePrice}</span>
-                            )}
-                            {curruntProduct?.discountPrice !== 0 && (
-                                <span className="bg-emerald-50 text-emerald-600 text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full whitespace-nowrap">
-                                    Save {`₹${curruntProduct?.basePrice - curruntProduct?.discountPrice}`}
-                                </span>
+                                <span className="text-base sm:text-lg text-gray-400 line-through font-light">₹{curruntProduct?.basePrice}</span>
                             )}
                         </div>
 
-                        <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
+                        <p className="text-xs sm:text-sm text-gray-600 font-light leading-relaxed">
                             {curruntProduct?.description}
                         </p>
 
 
-                        <div className="h-px bg-gray-100" />
+                        <div className="h-[1px] bg-black/10" />
 
 
                         <div>
@@ -299,14 +295,14 @@ export const Detail = ({
                                                 key={color}
                                                 onClick={() => setSelectedColor(color)}
                                                 title={color}
-                                                className={`w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-full transition-all duration-200 cursor-pointer relative ${selectedColor === color
-                                                    ? "ring-2 ring-offset-2 ring-gray-900 scale-110"
-                                                    : "hover:scale-105 ring-1 ring-gray-200"
+                                                className={`w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-none transition-all duration-200 cursor-pointer relative ${selectedColor === color
+                                                    ? "border-[3px] border-black"
+                                                    : "border border-gray-300 hover:border-gray-500"
                                                     }`}
                                                 style={{ backgroundColor: colorMap[color] || color }}
                                             >
                                                 {selectedColor === color && (
-                                                    <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes((colorMap[color] || color).toLowerCase()) ? '#111' : '#fff'} strokeWidth="3" viewBox="0 0 24 24">
+                                                    <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes((colorMap[color] || color).toLowerCase()) ? '#111' : '#fff'} strokeWidth="2" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                                     </svg>
                                                 )}
@@ -322,14 +318,14 @@ export const Detail = ({
                                                 key={color}
                                                 onClick={() => setSelectedColor(color)}
                                                 title={color}
-                                                className={`w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-full transition-all duration-200 cursor-pointer relative ${selectedColor === color
-                                                    ? "ring-2 ring-offset-2 ring-gray-900 scale-110"
-                                                    : "hover:scale-105 ring-1 ring-gray-200"
+                                                className={`w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-none transition-all duration-200 cursor-pointer relative ${selectedColor === color
+                                                    ? "border-[3px] border-black"
+                                                    : "border border-gray-300 hover:border-gray-500"
                                                     }`}
                                                 style={{ backgroundColor: colorMap[color] || color }}
                                             >
                                                 {selectedColor === color && (
-                                                    <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes((colorMap[color] || color).toLowerCase()) ? '#111' : '#fff'} strokeWidth="3" viewBox="0 0 24 24">
+                                                    <svg className="absolute inset-0 m-auto w-4 h-4" fill="none" stroke={['white', '#ffffff', '#fff'].includes((colorMap[color] || color).toLowerCase()) ? '#111' : '#fff'} strokeWidth="2" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                                     </svg>
                                                 )}
@@ -353,9 +349,9 @@ export const Detail = ({
                                         <button
                                             key={s}
                                             onClick={() => setSelectedSize(s)}
-                                            className={`h-6 sm:h-8 md:h-9 px-2 sm:px-3 rounded-lg sm:rounded-xl text-[8px] sm:text-[10px] md:text-[11px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${selectedSize === s
-                                                ? "bg-gray-900 text-white shadow-md shadow-gray-900/20"
-                                                : "bg-gray-50 text-gray-600 border border-gray-200 hover:border-gray-400 hover:bg-gray-100"
+                                            className={`h-8 sm:h-10 px-4 text-[10px] sm:text-xs font-medium uppercase tracking-[0.1em] transition-all duration-200 cursor-pointer rounded-none border ${selectedSize === s
+                                                ? "bg-black text-white border-black"
+                                                : "bg-white text-black border-gray-300 hover:border-black"
                                                 }`}
                                         >
                                             {s}
@@ -369,9 +365,9 @@ export const Detail = ({
                                     <button
                                         key={v.size}
                                         onClick={() => setSelectedSize(v.size)}
-                                        className={`h-6 sm:h-8 md:h-9 px-2 sm:px-3 rounded-lg sm:rounded-xl text-[8px] sm:text-[10px] md:text-[11px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${selectedSize === v.size
-                                            ? "bg-gray-900 text-white shadow-md shadow-gray-900/20"
-                                            : "bg-gray-50 text-gray-600 border border-gray-200 hover:border-gray-400 hover:bg-gray-100"
+                                        className={`h-8 sm:h-10 px-4 text-[10px] sm:text-xs font-medium uppercase tracking-[0.1em] transition-all duration-200 cursor-pointer rounded-none border ${selectedSize === v.size
+                                            ? "bg-black text-white border-black"
+                                            : "bg-white text-black border-gray-300 hover:border-black"
                                             }`}
                                     >
                                         {v.size}
@@ -380,22 +376,22 @@ export const Detail = ({
                             </div>
                         </div>
 
-                        <div className="h-px bg-gray-100" />
+                        <div className="h-[1px] bg-black/10" />
 
 
                         <div>
                             <p className="text-[10px] sm:text-xs font-bold text-gray-800 uppercase tracking-wider mb-2 sm:mb-3">Quantity</p>
-                            <div className="flex items-center gap-1 bg-gray-50 rounded-lg sm:rounded-xl w-fit border border-gray-200 overflow-hidden">
+                            <div className="flex items-center gap-1 bg-white border border-gray-300 rounded-none w-fit overflow-hidden">
                                 <button
                                     onClick={() => setCount(Math.max(1, count - 1))}
-                                    className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-gray-500 hover:bg-gray-200 hover:text-gray-800 transition-all duration-200 cursor-pointer text-base sm:text-lg font-medium"
+                                    className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-gray-500 hover:bg-gray-100 hover:text-black transition-all duration-200 cursor-pointer text-base sm:text-lg font-light"
                                 >
                                     −
                                 </button>
-                                <span className="w-6 sm:w-8 text-center text-xs sm:text-sm font-bold text-gray-900 select-none">{count}</span>
+                                <span className="w-8 sm:w-10 text-center text-xs sm:text-sm font-medium text-black select-none">{count}</span>
                                 <button
                                     onClick={() => setCount(Math.min(10, count + 1))}
-                                    className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-gray-500 hover:bg-gray-200 hover:text-gray-800 transition-all duration-200 cursor-pointer text-base sm:text-lg font-medium"
+                                    className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-gray-500 hover:bg-gray-100 hover:text-black transition-all duration-200 cursor-pointer text-base sm:text-lg font-light"
                                 >
                                     +
                                 </button>
@@ -403,46 +399,44 @@ export const Detail = ({
                         </div>
 
                         {inStock ? (
-                            <div className="flex items-center gap-2 sm:gap-2.5 bg-emerald-50 border border-emerald-100 rounded-lg sm:rounded-xl px-3 py-2 sm:px-4 sm:py-2.5 w-fit">
-                                <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                                    <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-emerald-500" />
+                            <div className="flex items-center gap-2 w-fit">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-black" />
                                 </span>
-                                <p className="text-[9px] sm:text-[12px] font-semibold text-emerald-700">In Stock — Ready to Ship</p>
+                                <p className="text-[10px] sm:text-[11px] font-medium text-black uppercase tracking-[0.1em]">In Stock</p>
                             </div>
                         ) : (
-                            <div className="flex items-center gap-2 sm:gap-2.5 bg-red-50 border border-red-100 rounded-lg sm:rounded-xl px-3 py-2 sm:px-4 sm:py-2.5 w-fit">
-                                <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-                                    <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-red-500" />
+                            <div className="flex items-center gap-2 w-fit">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-gray-400" />
                                 </span>
-                                <p className="text-[9px] sm:text-[12px] font-semibold text-red-700">Out of Stock</p>
+                                <p className="text-[10px] sm:text-[11px] font-medium text-gray-500 uppercase tracking-[0.1em]">Out of Stock</p>
                             </div>
                         )}
                     </div>
 
-                    <div className="border-t border-gray-100 bg-white px-4 py-4 sm:px-6 md:px-8 sm:py-5 flex items-center gap-2 sm:gap-3">
+                    <div className="border-t border-black/10 bg-white px-4 py-4 sm:px-6 md:px-8 sm:py-5 flex items-center gap-2 sm:gap-3">
                         <button
                             onClick={handleAdd}
-                            className={`flex-1 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-bold text-[10px] sm:text-[12px] md:text-[13px] uppercase tracking-wider transition-all duration-300 cursor-pointer ${added
-                                ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
-                                : "bg-gray-900 text-white hover:bg-black shadow-lg shadow-gray-900/20 hover:shadow-gray-900/40"
+                            className={`flex-1 py-4 rounded-none font-medium text-xs md:text-sm uppercase tracking-[0.15em] transition-all duration-300 cursor-pointer border ${added
+                                ? "bg-white text-black border-black"
+                                : "bg-black text-white border-black hover:bg-transparent hover:text-black"
                                 }`}
                         >
-                            {added ? "✓ Added!" : `Add to Cart — ₹${(curruntProduct?.discountPrice ? curruntProduct?.discountPrice * count : curruntProduct?.basePrice * count).toLocaleString()}`}
+                            {added ? "✓ Added" : `Add to Cart — ₹${(curruntProduct?.discountPrice ? curruntProduct?.discountPrice * count : curruntProduct?.basePrice * count).toLocaleString()}`}
                         </button>
 
                         {isWishlisted ? (
                             <button
                                 onClick={() => { removeFromWishList(curruntProduct?._id as string) }}
-                                className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl border border-red-200 bg-white flex items-center justify-center text-red-500 hover:border-red-200 transition-all duration-200 cursor-pointer shrink-0">
-                                <FaHeart className="text-[14px] sm:text-[16px] md:text-[18px]" />
+                                className="w-12 h-12 rounded-none border border-black bg-white flex items-center justify-center text-black hover:bg-gray-100 transition-all duration-200 cursor-pointer shrink-0">
+                                <FaHeart className="text-[16px] sm:text-[18px]" />
                             </button>
                         ) : (
                             <button
                                 onClick={() => { addToWishList(curruntProduct?._id as string) }}
-                                className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl border border-gray-200 bg-white flex items-center justify-center text-gray-400 hover:text-red-500 hover:border-red-200 transition-all duration-200 cursor-pointer shrink-0">
-                                <FaRegHeart className="text-[14px] sm:text-[16px] md:text-[18px]" />
+                                className="w-12 h-12 rounded-none border border-black/20 bg-white flex items-center justify-center text-black hover:border-black transition-all duration-200 cursor-pointer shrink-0">
+                                <FaRegHeart className="text-[16px] sm:text-[18px]" />
                             </button>
                         )}
                     </div>

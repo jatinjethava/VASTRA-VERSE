@@ -162,18 +162,29 @@ export const Like = async (req: Request, res: Response) => {
             return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, "Review not found", {}, {}));
         }
 
-        const existingLike = await getFirstMatch(LikeModel, { reviewId: isValidObjectId(value.id), userId: userId })
-        if (existingLike) {
-            if (existingLike.isDeleted) {
-                await updateData(LikeModel, { _id: existingLike._id }, { $set: { isDeleted: false } }, { returnDocument: "after" })
-                await updateData(ReviewModel, { _id: isValidObjectId(value.id) }, { $inc: { likes: 1 } }, { returnDocument: "after" })
-            } else {
-                await updateData(LikeModel, { _id: existingLike._id }, { $set: { isDeleted: true } }, { returnDocument: "after" })
-                await updateData(ReviewModel, { _id: isValidObjectId(value.id) }, { $inc: { likes: -1 } }, { returnDocument: "after" })
-            }
+        const result = await LikeModel.findOneAndUpdate(
+            { reviewId: isValidObjectId(value.id), userId: userId, isDeleted: false },
+            { $set: { isDeleted: true } }
+        );
+
+        if (result) {
+            await ReviewModel.findByIdAndUpdate(value.id, { $inc: { likes: -1 } });
         } else {
-            await createOne(LikeModel, { userId: userId, reviewId: value.id, isDeleted: false })
-            await updateData(ReviewModel, { _id: isValidObjectId(value.id) }, { $inc: { likes: 1 } }, { returnDocument: "after" })
+            const result2 = await LikeModel.findOneAndUpdate(
+                { reviewId: isValidObjectId(value.id), userId: userId, isDeleted: true },
+                { $set: { isDeleted: false } }
+            );
+
+            if (result2) {
+                await ReviewModel.findByIdAndUpdate(value.id, { $inc: { likes: 1 } });
+            } else {
+                try {
+                    await LikeModel.create({ userId: userId, reviewId: value.id, isDeleted: false });
+                    await ReviewModel.findByIdAndUpdate(value.id, { $inc: { likes: 1 } });
+                } catch (err: any) {
+                    if (err.code !== 11000) throw err;
+                }
+            }
         }
 
         return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, "liked", {}, {}));
@@ -197,18 +208,29 @@ export const helpful = async (req: Request, res: Response) => {
             return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, "Review not found", {}, {}));
         }
 
-        const helpful = await getFirstMatch(HelpfulModel, { reviewId: isValidObjectId(value.id), userId: userId })
-        if (helpful) {
-            if (helpful.isDeleted) {
-                await updateData(HelpfulModel, { _id: helpful._id }, { $set: { isDeleted: false } }, { returnDocument: "after" })
-                await updateData(ReviewModel, { _id: isValidObjectId(value.id) }, { $inc: { helpfulCount: 1 } }, { returnDocument: "after" })
-            } else {
-                await updateData(HelpfulModel, { _id: helpful._id }, { $set: { isDeleted: true } }, { returnDocument: "after" })
-                await updateData(ReviewModel, { _id: isValidObjectId(value.id) }, { $inc: { helpfulCount: -1 } }, { returnDocument: "after" })
-            }
+        const result = await HelpfulModel.findOneAndUpdate(
+            { reviewId: isValidObjectId(value.id), userId: userId, isDeleted: false },
+            { $set: { isDeleted: true } }
+        );
+
+        if (result) {
+            await ReviewModel.findByIdAndUpdate(value.id, { $inc: { helpfulCount: -1 } });
         } else {
-            await createOne(HelpfulModel, { userId: userId, reviewId: value.id, isDeleted: false })
-            await updateData(ReviewModel, { _id: isValidObjectId(value.id) }, { $inc: { helpfulCount: 1 } }, { returnDocument: "after" })
+            const result2 = await HelpfulModel.findOneAndUpdate(
+                { reviewId: isValidObjectId(value.id), userId: userId, isDeleted: true },
+                { $set: { isDeleted: false } }
+            );
+
+            if (result2) {
+                await ReviewModel.findByIdAndUpdate(value.id, { $inc: { helpfulCount: 1 } });
+            } else {
+                try {
+                    await HelpfulModel.create({ userId: userId, reviewId: value.id, isDeleted: false });
+                    await ReviewModel.findByIdAndUpdate(value.id, { $inc: { helpfulCount: 1 } });
+                } catch (err: any) {
+                    if (err.code !== 11000) throw err;
+                }
+            }
         }
 
         return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, "helpful", {}, {}));
@@ -236,16 +258,37 @@ export const matchLike = async (req: Request, res: Response) => {
     }
 }
 
+export const matchHelpful = async (req: Request, res: Response) => {
+    try {
+        const userId = (req as any).user?._id || undefined;
+        if (!userId) {
+            return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, "helpful matched", { helpfulReviewIds: [] }, {}));
+        }
+
+        const reviews = await getData(ReviewModel, { productId: isValidObjectId(req.params.id), isDeleted: false }, {}, {});
+        const reviewIds = reviews.map((r: any) => r._id);
+
+        const userHelpfuls = await getData(HelpfulModel, { userId: userId, reviewId: { $in: reviewIds }, isDeleted: false }, {}, {});
+        const helpfulReviewIds = userHelpfuls.map((h: any) => h.reviewId.toString());
+
+        return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, "helpful matched", { helpfulReviewIds }, {}));
+    } catch (error) {
+        return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json(new apiResponse(HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage.internalServerError, {}, {}));
+    }
+}
+
 export const getMyReviews = async (req: Request, res: Response) => {
     try {
         const userId = (req as any).user?._id;
         if (!userId) {
             return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, "User not found", {}, {}));
         }
-
-        const reviews = await getData(ReviewModel, { userId: isValidObjectId(userId), isDeleted: false }, {}, {});
+        if (!isValidObjectId(userId)) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, "Invalid User ID", {}, {}));
+        const reviews = await ReviewModel.find({ userId: userId, isDeleted: false })
+            .populate({ path: "productId", model: "TShirt" })
+            .lean().exec();
+        console.log("getMyReviews called by user:", userId, "Found reviews:", reviews.length);
         return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, "My reviews fetched successfully", { reviews }, {}));
-
     } catch (error) {
         return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json(new apiResponse(HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage.internalServerError, {}, {}));
     }

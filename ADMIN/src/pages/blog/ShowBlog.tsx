@@ -3,6 +3,36 @@ import type { Blogs } from "../../Api/blogApi"
 
 export const ShowBlog = ({ blog, setShowBlog }: { blog: Blogs, setShowBlog: (value: boolean) => void }) => {
 
+    const formatContent = (content: any): string[] => {
+        if (!content) return [];
+        if (Array.isArray(content)) {
+            return content.flatMap((item: any) => {
+                if (typeof item === "string") {
+                    try {
+                        const parsed = JSON.parse(item);
+                        if (Array.isArray(parsed)) {
+                            return parsed.filter((p: any) => typeof p === "string" && p.trim().length > 0);
+                        }
+                    } catch (e) { }
+                    return item.trim().length > 0 ? [item] : [];
+                }
+                return [];
+            });
+        }
+        if (typeof content === "string") {
+            try {
+                const parsed = JSON.parse(content);
+                if (Array.isArray(parsed)) {
+                    return parsed.filter((p: any) => typeof p === "string" && p.trim().length > 0);
+                }
+            } catch (e) { }
+            return content.trim().length > 0 ? [content] : [];
+        }
+        return [];
+    };
+
+    const paragraphs = formatContent(blog?.content);
+
     return (
         <div
             onClick={() => setShowBlog(false)}
@@ -136,12 +166,16 @@ export const ShowBlog = ({ blog, setShowBlog }: { blog: Blogs, setShowBlog: (val
 
                             <div className="space-y-6">
                                 <h3 className="text-2xl font-bold text-gray-900">Content</h3>
-                                <div className="prose prose-gray text-gray-700">
-                                    {blog?.content?.map((paragraph: string, index: number) => (
-                                        <p key={index} className="leading-relaxed mb-4 text-[1.05rem]">
-                                            {paragraph}
-                                        </p>
-                                    ))}
+                                <div className="space-y-4 text-gray-700">
+                                    {paragraphs.length > 0 ? (
+                                        paragraphs.map((paragraph: string, index: number) => (
+                                            <p key={index} className="leading-relaxed text-[1.05rem] bg-gray-50/50 p-4 rounded-xl border border-gray-100">
+                                                {paragraph}
+                                            </p>
+                                        ))
+                                    ) : (
+                                        <p className="text-gray-400 italic">No content paragraphs available for this blog.</p>
+                                    )}
                                 </div>
                             </div>
                         </div>

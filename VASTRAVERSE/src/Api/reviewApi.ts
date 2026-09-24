@@ -157,6 +157,24 @@ export const matchLike = async (productId: string): Promise<{ likedReviewIds: st
     }
 }
 
+export const matchHelpful = async (productId: string): Promise<{ helpfulReviewIds: string[] }> => {
+    try {
+        const res = await api.get(`/matchHelpful/${productId}`);
+
+        if (!res.data.success) {
+            throw new Error(res.data.message || "Failed to match helpful");
+        }
+
+        return res.data.data;
+    } catch (error: any) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || "Failed to match helpful");
+        } else {
+            throw error;
+        }
+    }
+}
+
 export const reportReview = async (reviewId: string): Promise<ApiResponse<Review>> => {
     try {
         const res = await api.put(`/reportReview/${reviewId}`);

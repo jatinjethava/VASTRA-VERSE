@@ -77,40 +77,53 @@ export const Address = ({ isUpdating, setOpenAddressModel, userData, selectedAdd
 
     return (
         <>
-            <div className="animate-fade-in-up-delay-2 fixed inset-0 bg-black/50 z-1000 flex items-center justify-center p-4">
-                <div className="w-full max-w-lg bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl max-h-[90vh] overflow-y-auto">
-                    <div className="sticky -top-3 bg-white py-3 z-1000 border-b border-gray-200 flex items-center justify-between mb-4 sm:mb-6">
-                        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">{isUpdating ? "Update Address" : "Add Address"}</h2>
+            <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-1000 flex items-center justify-center p-4 transition-opacity animate-in fade-in duration-200">
+                <div className="w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-neutral-200 max-h-[90vh] overflow-y-auto no-scrollbar relative animate-in zoom-in-95 duration-200">
+                    
+                    {/* Top specular highlight accent */}
+                    <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
+
+                    <div className="sticky -top-6 bg-white pt-2 pb-4 z-10 border-b border-neutral-100 flex items-center justify-between mb-5">
+                        <div>
+                            <span className="text-[10px] font-semibold text-neutral-400 uppercase tracking-[0.25em] block mb-1">
+                                Shipping Destination
+                            </span>
+                            <h2 className="editorial-text text-xl sm:text-2xl font-light text-neutral-900 tracking-tight">
+                                {isUpdating ? "Update" : "Add"} <span className="italic font-serif font-normal">Address</span>
+                            </h2>
+                        </div>
                         <button
                             onClick={() => setOpenAddressModel(false)}
-                            className="text-gray-400 hover:text-gray-600 bg-gray-100 p-1 sm:p-1.5 hover:bg-gray-200 rounded-full transition-colors"
+                            className="text-neutral-400 hover:text-black bg-neutral-100 p-2 hover:bg-neutral-200 rounded-full transition-colors cursor-pointer"
+                            aria-label="Close"
                         >
-                            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
+
                     <form onSubmit={handleCreateAddress}>
-                        <div className="mb-4 sm:mb-6 flex flex-col gap-3 sm:gap-4">
+                        <div className="mb-6 flex flex-col gap-4">
                             <div className="flex flex-col md:flex-row gap-3 sm:gap-4">
                                 <div className="w-full">
-                                    <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-700">Full Name</label>
-                                    <input type="text" name="fullName" value={address.fullName} readOnly onChange={handleAddressChange} className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl border border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-gray-200 outline-none transition-all text-xs sm:text-sm" placeholder="John Doe" />
+                                    <label className="mb-1.5 block text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">Full Name</label>
+                                    <input type="text" name="fullName" value={address.fullName} readOnly onChange={handleAddressChange} className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-neutral-100 text-neutral-600 font-medium outline-none text-xs sm:text-sm cursor-not-allowed" placeholder="John Doe" />
                                 </div>
                                 <div className="w-full">
-                                    <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-700">Phone</label>
-                                    <input type="number" name="phone" value={address.phone} readOnly onChange={handleAddressChange} className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl border border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-gray-200 outline-none transition-all text-xs sm:text-sm" placeholder="1234567890" />
+                                    <label className="mb-1.5 block text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">Phone</label>
+                                    <input type="number" name="phone" value={address.phone} readOnly onChange={handleAddressChange} className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-neutral-100 text-neutral-600 font-medium outline-none text-xs sm:text-sm cursor-not-allowed" placeholder="1234567890" />
                                 </div>
                             </div>
 
                             <div className="flex flex-col md:flex-row gap-3 sm:gap-4">
                                 <div className="w-full md:w-2/3">
-                                    <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-700">Email</label>
-                                    <input type="email" name="email" value={userData?.email || ""} readOnly onChange={handleAddressChange} className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl border border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-gray-200 outline-none transition-all text-xs sm:text-sm" placeholder="john@example.com" />
+                                    <label className="mb-1.5 block text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">Email</label>
+                                    <input type="email" name="email" value={userData?.email || ""} readOnly onChange={handleAddressChange} className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-neutral-100 text-neutral-600 font-medium outline-none text-xs sm:text-sm cursor-not-allowed" placeholder="john@example.com" />
                                 </div>
                                 <div className="w-full md:w-1/3">
-                                    <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-700">Label</label>
-                                    <select name="label" value={address.label} onChange={handleAddressChange} className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl border border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-gray-200 outline-none transition-all bg-white text-xs sm:text-sm">
+                                    <label className="mb-1.5 block text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">Label</label>
+                                    <select name="label" value={address.label} onChange={handleAddressChange} className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all bg-neutral-50 font-medium text-neutral-900 text-xs sm:text-sm cursor-pointer">
                                         <option value="Home">Home</option>
                                         <option value="Office">Office</option>
                                         <option value="Other">Other</option>
@@ -119,68 +132,68 @@ export const Address = ({ isUpdating, setOpenAddressModel, userData, selectedAdd
                             </div>
 
                             <div>
-                                <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-700">Address Line 1</label>
+                                <label className="mb-1.5 block text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">Address Line 1</label>
                                 <input
                                     type="text"
-                                    placeholder="Street address, P.O. box, etc."
+                                    placeholder="Street address, P.O. box, suite"
                                     name="addressLine1"
                                     value={address.addressLine1}
                                     onChange={handleAddressChange}
-                                    className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl border border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-gray-200 outline-none transition-all text-xs sm:text-sm"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-neutral-50 focus:border-black focus:ring-1 focus:ring-black font-medium outline-none transition-all text-neutral-900 text-xs sm:text-sm placeholder:text-neutral-400"
                                 />
                             </div>
 
                             <div>
-                                <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-700">Address Line 2</label>
+                                <label className="mb-1.5 block text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">Address Line 2 (Optional)</label>
                                 <input
                                     type="text"
-                                    placeholder="Apartment, suite, unit, etc. (optional)"
+                                    placeholder="Apartment, suite, unit, building floor"
                                     name="addressLine2"
                                     value={address.addressLine2}
                                     onChange={handleAddressChange}
-                                    className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl border border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-gray-200 outline-none transition-all text-xs sm:text-sm"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-neutral-50 focus:border-black focus:ring-1 focus:ring-black font-medium outline-none transition-all text-neutral-900 text-xs sm:text-sm placeholder:text-neutral-400"
                                 />
                             </div>
 
                             <div className="flex flex-col md:flex-row gap-3 sm:gap-4">
                                 <div className="w-full">
-                                    <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-700">City</label>
+                                    <label className="mb-1.5 block text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">City</label>
                                     <input
                                         type="text"
                                         placeholder="City"
                                         name="city"
                                         value={address.city}
                                         onChange={handleAddressChange}
-                                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl border border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-gray-200 outline-none transition-all text-xs sm:text-sm"
+                                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-neutral-50 focus:border-black focus:ring-1 focus:ring-black font-medium outline-none transition-all text-neutral-900 text-xs sm:text-sm placeholder:text-neutral-400"
                                     />
                                 </div>
                                 <div className="w-full">
-                                    <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-700">State</label>
+                                    <label className="mb-1.5 block text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">State</label>
                                     <input
                                         type="text"
                                         placeholder="State"
                                         name="state"
                                         value={address.state}
                                         onChange={handleAddressChange}
-                                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl border border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-gray-200 outline-none transition-all text-xs sm:text-sm"
+                                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-neutral-50 focus:border-black focus:ring-1 focus:ring-black font-medium outline-none transition-all text-neutral-900 text-xs sm:text-sm placeholder:text-neutral-400"
                                     />
                                 </div>
                             </div>
 
                             <div className="flex flex-col md:flex-row gap-3 sm:gap-4">
                                 <div className="w-full">
-                                    <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-700">Country</label>
+                                    <label className="mb-1.5 block text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">Country</label>
                                     <input
                                         type="text"
                                         placeholder="Country"
                                         name="country"
                                         value={address.country}
                                         onChange={handleAddressChange}
-                                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl border border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-gray-200 outline-none transition-all text-xs sm:text-sm"
+                                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-neutral-50 focus:border-black focus:ring-1 focus:ring-black font-medium outline-none transition-all text-neutral-900 text-xs sm:text-sm placeholder:text-neutral-400"
                                     />
                                 </div>
                                 <div className="w-full">
-                                    <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-700">Pincode</label>
+                                    <label className="mb-1.5 block text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">Pincode</label>
                                     <input
                                         type="text"
                                         placeholder="Pincode"
@@ -188,15 +201,15 @@ export const Address = ({ isUpdating, setOpenAddressModel, userData, selectedAdd
                                         maxLength={6}
                                         value={address.pincode}
                                         onChange={handleAddressChange}
-                                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl border border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-gray-200 outline-none transition-all text-xs sm:text-sm"
+                                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-neutral-50 focus:border-black focus:ring-1 focus:ring-black font-medium outline-none transition-all text-neutral-900 text-xs sm:text-sm placeholder:text-neutral-400"
                                     />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex justify-end gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-gray-100">
-                            <button type="button" onClick={() => setOpenAddressModel(false)} className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-medium text-gray-700 hover:bg-gray-100 transition-colors text-xs sm:text-sm">Cancel</button>
-                            <button type="submit" className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-medium bg-gray-900 text-white hover:bg-gray-800 shadow-md hover:shadow-lg transition-all text-xs sm:text-sm">{isUpdating ? "Update Address" : "Save Address"}</button>
+                        <div className="flex justify-end gap-3 pt-4 border-t border-neutral-100">
+                            <button type="button" onClick={() => setOpenAddressModel(false)} className="px-5 py-2.5 rounded-xl font-medium text-neutral-600 hover:text-black hover:bg-neutral-100 transition-colors text-xs sm:text-sm uppercase tracking-wider cursor-pointer">Cancel</button>
+                            <button type="submit" className="px-6 py-2.5 rounded-xl font-medium bg-black text-white hover:bg-neutral-800 shadow-lg shadow-black/10 hover:-translate-y-0.5 transition-all text-xs sm:text-sm uppercase tracking-[0.15em] cursor-pointer">{isUpdating ? "Update Address" : "Save Address"}</button>
                         </div>
                     </form>
                 </div>

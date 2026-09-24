@@ -15,4 +15,6 @@ const helpfulSchema = new mongoose.Schema<IHelpful>(
     { timestamps: true }
 )
 
+helpfulSchema.index({ userId: 1, reviewId: 1 }, { unique: true });
+
 export const HelpfulModel = mongoose.model<IHelpful>("Helpful", helpfulSchema);

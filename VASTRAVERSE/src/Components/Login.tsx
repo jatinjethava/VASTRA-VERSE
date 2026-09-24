@@ -210,15 +210,18 @@ export const Login = () => {
 
     return (
         <>
-            <div className="min-h-screen bg-white flex">
+            <div className="min-h-screen bg-[#fafafa] flex flex-col lg:flex-row">
 
                 <LeftBar />
 
                 <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 md:p-12">
-                    <div className="relative w-full max-w-sm space-y-6 sm:space-y-8">
+                    <div className="relative w-full max-w-md bg-white rounded-3xl border border-neutral-200/80 p-7 sm:p-10 shadow-xl overflow-hidden space-y-6 sm:space-y-7">
+
+                        {/* Top specular hairline */}
+                        <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                         {isPending && (
-                            <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/60 backdrop-blur-[1px] rounded-2xl">
+                            <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/70 backdrop-blur-sm rounded-3xl">
                                 <div className="dot-spinner">
                                     <div className="dot-spinner__dot"></div>
                                     <div className="dot-spinner__dot"></div>
@@ -232,8 +235,13 @@ export const Login = () => {
                             </div>
                         )}
                         <div>
-                            <h1 className="text-xl sm:text-2xl font-bold text-zinc-800 tracking-tight">Login</h1>
-                            <p className="text-xs sm:text-sm text-zinc-400 mt-1">Welcome back. Enter your credentials to access your account.</p>
+                            <span className="text-[10px] font-semibold text-neutral-400 uppercase tracking-[0.25em] block mb-1">
+                                Client Portal
+                            </span>
+                            <h1 className="editorial-text text-2xl sm:text-3xl font-light text-neutral-900 tracking-tight">
+                                Atelier <span className="italic font-serif font-normal">Access</span>
+                            </h1>
+                            <p className="text-xs sm:text-sm text-neutral-500 font-light mt-1">Welcome back. Enter your credentials to access your account.</p>
                         </div>
 
                         <div ref={googleBtnRef} className='w-full'>
@@ -241,47 +249,53 @@ export const Login = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <div className="flex-1 h-px bg-zinc-200" />
-                            <span className="text-xs text-zinc-400 font-medium">or</span>
-                            <div className="flex-1 h-px bg-zinc-200" />
+                            <div className="flex-1 h-px bg-neutral-200" />
+                            <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-medium">or continue with email</span>
+                            <div className="flex-1 h-px bg-neutral-200" />
                         </div>
 
-                        <form className="space-y-3 sm:space-y-4" onSubmit={HandleSubmit}>
+                        <form className="space-y-4" onSubmit={HandleSubmit}>
 
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                className="w-full rounded-xl bg-zinc-100 border border-transparent focus:bg-white focus:border-zinc-300 px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm text-zinc-800 placeholder-zinc-400 transition outline-none"
-                                name="email"
-                                value={data.email}
-                                onChange={HandleInput}
-                            />
-
-                            <div className='relative'>
+                            <div>
+                                <label className="text-[10px] uppercase font-semibold tracking-wider text-neutral-400 mb-1.5 block">Email Address</label>
                                 <input
-                                    type={showPassword ? "text" : "password"}
-                                    placeholder="Password"
-                                    className="w-full rounded-xl bg-zinc-100 border border-transparent focus:bg-white focus:border-zinc-300 px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm text-zinc-800 placeholder-zinc-400 transition outline-none"
-                                    name="password"
-                                    value={data.password}
+                                    type="email"
+                                    placeholder="client@vastraverse.com"
+                                    className="w-full rounded-xl bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-black px-4 py-3 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 font-medium transition outline-none"
+                                    name="email"
+                                    value={data.email}
                                     onChange={HandleInput}
                                 />
-                                <button type="button" onClick={showPasswordHandler} className='absolute top-2 sm:top-2.5 right-3 text-zinc-400 hover:text-zinc-600 focus:outline-none transition text-sm sm:text-base'>
-                                    {showPassword ? "🙈" : "👁️"}
-                                </button>
                             </div>
 
-                            <button type="submit" className="w-full rounded-xl bg-zinc-800 hover:bg-zinc-900 text-white font-bold py-2 sm:py-2.5 text-xs sm:text-sm transition-all duration-300 shadow-md cursor-pointer">
-                                Login
+                            <div className='relative'>
+                                <label className="text-[10px] uppercase font-semibold tracking-wider text-neutral-400 mb-1.5 block">Password</label>
+                                <div className="relative">
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="••••••••"
+                                        className="w-full rounded-xl bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-black px-4 py-3 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 font-medium transition outline-none pr-10"
+                                        name="password"
+                                        value={data.password}
+                                        onChange={HandleInput}
+                                    />
+                                    <button type="button" onClick={showPasswordHandler} className='absolute top-3 right-3 text-neutral-400 hover:text-neutral-700 focus:outline-none transition text-sm cursor-pointer' aria-label="Toggle password visibility">
+                                        {showPassword ? "🙈" : "👁️"}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="submit" className="w-full rounded-full bg-black hover:bg-neutral-800 text-white font-medium py-3.5 text-xs uppercase tracking-[0.15em] transition-all duration-300 shadow-lg shadow-black/10 hover:scale-[1.01] cursor-pointer">
+                                Sign In to Atelier
                             </button>
                         </form>
 
-                        <p className="text-center text-xs text-zinc-500">
+                        <p className="text-center text-xs text-neutral-500 font-light">
                             Don't have an account?{" "}
                             <Link to="/signup"
-                                className="text-zinc-800 font-bold hover:underline cursor-pointer"
+                                className="text-neutral-900 font-medium hover:underline underline-offset-4 cursor-pointer"
                             >
-                                Sign Up
+                                Register Now
                             </Link>
                         </p>
 

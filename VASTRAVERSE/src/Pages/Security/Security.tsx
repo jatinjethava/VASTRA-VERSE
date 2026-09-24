@@ -79,188 +79,306 @@ export const Security = () => {
 
     return (
         <>
-            <div className="px-4 sm:px-6 py-6 sm:py-10 bg-gray-50 min-h-screen">
-                <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8">
+            <div className="px-4 sm:px-6 lg:px-8 py-8 sm:py-12 bg-[#fafafa] min-h-screen text-neutral-900">
+                <div className="max-w-5xl mx-auto space-y-8">
 
-                    <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100">
-                        <div className="flex flex-col items-center text-center">
-                            <div className="w-16 h-16 flex items-center justify-center rounded-full bg-blue-50 mb-4 shrink-0">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="w-8 h-8 text-blue-600"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M12 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 0v2m0 4h.01M5 12a7 7 0 1114 0c0 5-7 9-7 9s-7-4-7-9z"
-                                    />
-                                </svg>
+                    {/* Editorial Hero Header */}
+                    <div className="bg-[#0a0a0b] text-white border border-white/10 rounded-2xl sm:rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-2xl">
+                        {/* Specular hairline gradient */}
+                        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                        <div className="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-white/5 blur-3xl pointer-events-none" />
+
+                        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                            <div className="space-y-4 max-w-2xl">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/90">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                    Vault Security Protocol
+                                </div>
+                                <h1 className="editorial-text text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight leading-[1.15]">
+                                    Atelier Vault & <br className="hidden sm:inline" />
+                                    <span className="italic font-serif font-normal text-white/90">Credential Security</span>
+                                </h1>
+                                <p className="text-sm sm:text-base text-neutral-400 font-light leading-relaxed">
+                                    Protect your client dossier with cryptographic credential encryption, multi-point access telemetry, and live session governance.
+                                </p>
                             </div>
 
-                            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                                Manage Security
-                            </h1>
-
-                            <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-500 max-w-md leading-relaxed">
-                                Protect your account by updating your password regularly and
-                                reviewing your security settings.
-                            </p>
+                            <div className="shrink-0 flex items-center md:flex-col md:items-end justify-between md:justify-center gap-4 pt-4 md:pt-0 border-t border-white/10 md:border-t-0">
+                                <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/80 shadow-inner">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-8 h-8"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={1.5}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                                        />
+                                    </svg>
+                                </div>
+                                <span className="text-[11px] font-mono tracking-widest text-neutral-400 uppercase">
+                                    Status: Protected
+                                </span>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-8">
-                        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                            Password Settings
-                        </h3>
-                        <p className="text-sm text-gray-500 mb-5 sm:mb-6">
-                            Change your password to keep your account secure.
-                        </p>
-                        <button
-                            onClick={() => setOpenChangePassword(true)}
-                            className="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-xl hover:opacity-90 transition-opacity text-xs sm:text-sm font-bold uppercase tracking-wide shadow-sm"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-4 h-4 shrink-0"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-6 6l-5 2.5a2 2 0 01-2 0L6 13a6 6 0 01-6-6V6a2 2 0 012-2h16a2 2 0 012 2v1z"
-                                />
-                            </svg>
-                            Change Password
-                        </button>
-                    </div>
+                    {/* Action Cards Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-8">
-                        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                            Login Activity
-                        </h3>
-                        <p className="text-sm text-gray-500 mb-5 sm:mb-6">
-                            Review your recent login sessions across different devices and browsers.
-                        </p>
-                        <button
-                            onClick={() => setOpenLoginActivity(true)}
-                            className="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-xl hover:opacity-90 transition-opacity text-xs sm:text-sm font-bold uppercase tracking-wide shadow-sm"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-4 h-4 shrink-0"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            Show Login Activity
-                        </button>
-                    </div>
+                        {/* Password Settings */}
+                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-neutral-200/80 p-6 sm:p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                            <div className="space-y-4">
+                                <div className="w-12 h-12 rounded-xl bg-neutral-900 text-white flex items-center justify-center transition-transform group-hover:scale-105">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-5 h-5"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={1.75}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"
+                                        />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 block mb-1">
+                                        Vault Passphrase
+                                    </span>
+                                    <h3 className="text-lg font-medium text-neutral-900 tracking-tight">
+                                        Password Protocol
+                                    </h3>
+                                    <p className="text-xs sm:text-sm text-neutral-500 font-light mt-2 leading-relaxed">
+                                        Rotate your master passphrase to maintain fortified defense against unauthorized dossier access.
+                                    </p>
+                                </div>
+                            </div>
 
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-8">
-                        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                            Session Activity
-                        </h3>
-                        <p className="text-sm text-gray-500 mb-5 sm:mb-6">
-                            Review your recent active sessions.
-                        </p>
-                        <button
-                            onClick={() => setOpenSessionActivity(true)}
-                            className="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-xl hover:opacity-90 transition-opacity text-xs sm:text-sm font-bold uppercase tracking-wide shadow-sm"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-4 h-4 shrink-0"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+                            <button
+                                onClick={() => setOpenChangePassword(true)}
+                                className="mt-6 w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-neutral-900 text-white rounded-full hover:bg-neutral-800 active:scale-[0.98] transition-all text-xs font-semibold uppercase tracking-widest shadow-sm cursor-pointer"
                             >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            Show Session Activity
-                        </button>
+                                Update Passphrase
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </button>
+                        </div>
+
+                        {/* Login Activity */}
+                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-neutral-200/80 p-6 sm:p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                            <div className="space-y-4">
+                                <div className="w-12 h-12 rounded-xl bg-neutral-100 text-neutral-900 flex items-center justify-center transition-transform group-hover:scale-105 border border-neutral-200/60">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-5 h-5"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={1.75}
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 block mb-1">
+                                        Access Telemetry
+                                    </span>
+                                    <h3 className="text-lg font-medium text-neutral-900 tracking-tight">
+                                        Login History
+                                    </h3>
+                                    <p className="text-xs sm:text-sm text-neutral-500 font-light mt-2 leading-relaxed">
+                                        Inspect recognized IP points, client browsers, and geographical timestamps across sessions.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={() => setOpenLoginActivity(true)}
+                                className="mt-6 w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-white text-neutral-900 border border-neutral-300 rounded-full hover:bg-neutral-50 active:scale-[0.98] transition-all text-xs font-semibold uppercase tracking-widest shadow-sm cursor-pointer"
+                            >
+                                Audit Telemetry
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </button>
+                        </div>
+
+                        {/* Session Activity */}
+                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-neutral-200/80 p-6 sm:p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                            <div className="space-y-4">
+                                <div className="w-12 h-12 rounded-xl bg-neutral-100 text-neutral-900 flex items-center justify-center transition-transform group-hover:scale-105 border border-neutral-200/60">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-5 h-5"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={1.75}
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 block mb-1">
+                                        Token Concurrency
+                                    </span>
+                                    <h3 className="text-lg font-medium text-neutral-900 tracking-tight">
+                                        Active Sessions
+                                    </h3>
+                                    <p className="text-xs sm:text-sm text-neutral-500 font-light mt-2 leading-relaxed">
+                                        Review currently authenticated client tokens and terminate unrecognized devices instantly.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={() => setOpenSessionActivity(true)}
+                                className="mt-6 w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-white text-neutral-900 border border-neutral-300 rounded-full hover:bg-neutral-50 active:scale-[0.98] transition-all text-xs font-semibold uppercase tracking-widest shadow-sm cursor-pointer"
+                            >
+                                Manage Sessions
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
+                {/* Change Password Modal */}
                 {openChangePassword && (
-                    <div className="animate-fade-in-up-delay-1 fixed inset-0 z-50 flex items-center justify-center p-4">
-
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                         <div
-                            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
-                        ></div>
+                            className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity"
+                            onClick={() => setOpenChangePassword(false)}
+                        />
 
-                        <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-5 sm:p-8 transform transition-all">
-                            <div className="flex items-center justify-between mb-4 sm:mb-6">
-                                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Change Password</h2>
+                        <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl p-6 sm:p-8 transform transition-all border border-neutral-200 overflow-hidden z-10">
+                            {/* Specular hairline */}
+                            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-neutral-900/20 to-transparent" />
+
+                            <div className="flex items-start justify-between mb-6">
+                                <div>
+                                    <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-neutral-400 block mb-1">
+                                        Vault Re-Encryption
+                                    </span>
+                                    <h2 className="editorial-text text-2xl sm:text-3xl font-light text-neutral-900 tracking-tight">
+                                        Update <span className="italic font-serif font-normal">Passphrase</span>
+                                    </h2>
+                                </div>
                                 <button
                                     onClick={() => setOpenChangePassword(false)}
-                                    className="p-1.5 sm:p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
+                                    className="p-2 text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100 rounded-full transition-colors cursor-pointer"
+                                    aria-label="Close modal"
                                 >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                                 </button>
                             </div>
-                            <p className="text-[10px] sm:text-[12px] text-center tracking-widest text-gray-500 mb-4 sm:mb-5 font-semibold border border-gray-200 p-2 rounded-xl shadow-sm">Update your <span className="text-gray-900 font-bold">{userData?.email}</span> password to keep your account secure. Choose a strong password that you don't use elsewhere.</p>
 
-                            <form className="space-y-4 sm:space-y-5">
-                                <div className="relative">
-                                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5" htmlFor="oldPassword">Old Password</label>
-                                    <input
-                                        id="oldPassword"
-                                        type={showCurrentPassword ? "text" : "password"}
-                                        value={password.oldPassword}
-                                        onChange={(e) => setPassword({ ...password, oldPassword: e.target.value })}
-                                        placeholder="Enter your old password"
-                                        className="w-full px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all placeholder:text-gray-400"
-                                    />
-                                    <button type="button" onClick={showCurrentPasswordHandler} className='absolute top-8 sm:top-10 right-3 text-zinc-400 hover:text-zinc-600 focus:outline-none transition'>
-                                        {showCurrentPassword ? "🙈" : "👁️"}
-                                    </button>
+                            <div className="mb-6 p-3.5 rounded-2xl bg-neutral-50 border border-neutral-200/70 flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full bg-white border border-neutral-200 flex items-center justify-center text-neutral-700 shrink-0 shadow-xs">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                                 </div>
-                                <div className="relative">
-                                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5" htmlFor="newPassword">New Password</label>
-                                    <input
-                                        id="newPassword"
-                                        type={showNewPassword ? "text" : "password"}
-                                        name="newPassword"
-                                        value={password.newPassword}
-                                        onChange={(e) => setPassword({ ...password, newPassword: e.target.value })}
-                                        placeholder="Enter your new password"
-                                        className="w-full px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all placeholder:text-gray-400"
-                                    />
-                                    <button type="button" onClick={showNewPasswordHandler} className='absolute top-8 sm:top-10 right-3 text-zinc-400 hover:text-zinc-600 focus:outline-none transition'>
-                                        {showNewPassword ? "🙈" : "👁️"}
-                                    </button>
+                                <p className="text-xs text-neutral-600 font-light leading-relaxed">
+                                    Securing identity for <span className="font-semibold text-neutral-900">{userData?.email || "Current Client"}</span>. Select a distinct passphrase of at least 6 characters.
+                                </p>
+                            </div>
+
+                            <form className="space-y-4">
+                                <div className="space-y-1.5">
+                                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-neutral-700" htmlFor="oldPassword">
+                                        Current Passphrase
+                                    </label>
+                                    <div className="relative">
+                                        <input
+                                            id="oldPassword"
+                                            type={showCurrentPassword ? "text" : "password"}
+                                            value={password.oldPassword}
+                                            onChange={(e) => setPassword({ ...password, oldPassword: e.target.value })}
+                                            placeholder="Enter your current passphrase"
+                                            className="w-full px-4 py-3.5 text-xs sm:text-sm bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 outline-none transition-all placeholder:text-neutral-400 font-light"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={showCurrentPasswordHandler}
+                                            className="absolute inset-y-0 right-3 flex items-center text-neutral-400 hover:text-neutral-700 focus:outline-none transition-colors px-1"
+                                            aria-label={showCurrentPassword ? "Hide password" : "Show password"}
+                                        >
+                                            {showCurrentPassword ? (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                                            ) : (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="relative">
-                                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5" htmlFor="confirmPassword">Confirm Password</label>
-                                    <input
-                                        id="confirmPassword"
-                                        type={showConfirmPassword ? "text" : "password"}
-                                        name="confirmPassword"
-                                        value={password.confirmPassword}
-                                        onChange={(e) => setPassword({ ...password, confirmPassword: e.target.value })}
-                                        placeholder="Confirm your new password"
-                                        className="w-full px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all placeholder:text-gray-400"
-                                    />
-                                    <button type="button" onClick={showConfirmPasswordHandler} className='absolute top-8 sm:top-10 right-3 text-zinc-400 hover:text-zinc-600 focus:outline-none transition'>
-                                        {showConfirmPassword ? "🙈" : "👁️"}
-                                    </button>
+
+                                <div className="space-y-1.5">
+                                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-neutral-700" htmlFor="newPassword">
+                                        New Passphrase
+                                    </label>
+                                    <div className="relative">
+                                        <input
+                                            id="newPassword"
+                                            type={showNewPassword ? "text" : "password"}
+                                            name="newPassword"
+                                            value={password.newPassword}
+                                            onChange={(e) => setPassword({ ...password, newPassword: e.target.value })}
+                                            placeholder="Enter new master passphrase"
+                                            className="w-full px-4 py-3.5 text-xs sm:text-sm bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 outline-none transition-all placeholder:text-neutral-400 font-light"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={showNewPasswordHandler}
+                                            className="absolute inset-y-0 right-3 flex items-center text-neutral-400 hover:text-neutral-700 focus:outline-none transition-colors px-1"
+                                            aria-label={showNewPassword ? "Hide password" : "Show password"}
+                                        >
+                                            {showNewPassword ? (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                                            ) : (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-1.5">
+                                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-neutral-700" htmlFor="confirmPassword">
+                                        Confirm Passphrase
+                                    </label>
+                                    <div className="relative">
+                                        <input
+                                            id="confirmPassword"
+                                            type={showConfirmPassword ? "text" : "password"}
+                                            name="confirmPassword"
+                                            value={password.confirmPassword}
+                                            onChange={(e) => setPassword({ ...password, confirmPassword: e.target.value })}
+                                            placeholder="Confirm new passphrase"
+                                            className="w-full px-4 py-3.5 text-xs sm:text-sm bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 outline-none transition-all placeholder:text-neutral-400 font-light"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={showConfirmPasswordHandler}
+                                            className="absolute inset-y-0 right-3 flex items-center text-neutral-400 hover:text-neutral-700 focus:outline-none transition-colors px-1"
+                                            aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                                        >
+                                            {showConfirmPassword ? (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                                            ) : (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <button
                                     onClick={changePassword}
                                     type="button"
-                                    className="w-full mt-2 bg-gray-900 text-white font-bold text-xs sm:text-sm uppercase tracking-wider py-3 sm:py-3.5 rounded-xl hover:bg-gray-800 hover:shadow-lg transform active:scale-[0.98] transition-all cursor-pointer"
+                                    className="w-full mt-4 bg-neutral-900 text-white font-semibold text-xs uppercase tracking-widest py-4 rounded-full hover:bg-neutral-800 active:scale-[0.99] transition-all shadow-md cursor-pointer"
                                 >
-                                    Update Password
+                                    Confirm Passphrase Change
                                 </button>
                             </form>
                         </div>
@@ -278,3 +396,4 @@ export const Security = () => {
         </>
     );
 };
+

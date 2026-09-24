@@ -49,155 +49,51 @@ export const Navbar = () => {
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState<boolean>(false);
 
     return (
-        <nav className="sticky top-0 z-[999] w-full bg-white backdrop-blur-md transition-all duration-300">
+        <nav className="sticky top-0 z-[999] w-full bg-white/90 backdrop-blur-lg border-b border-gray-100 transition-all duration-300">
             <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-15">
                     <div className="flex justify-between gap-25 items-center">
-                        <Link to="/" className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105">
-                            <div className="logo flex items-center gap-1 p-1 bg-gray-50/50 backdrop-blur-sm  border border-gray-100 shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:border-gray-200">
-                                <h1 className="text-[10px] sm:text-[12px] md:text-sm tracking-wider font-bold px-2.5 py-1 bg-gradient-to-r from-gray-900 to-gray-700 text-white shadow-sm">VASTRA</h1>
-                                <h1 className="text-[10px] sm:text-[12px] md:text-sm tracking-wider font-extrabold pr-2 pl-1 bg-clip-text text-transparent bg-gradient-to-r from-gray-700 to-gray-500">VERSE</h1>
+                        <Link to="/" className="flex items-center group">
+                            <div className="flex items-center transition-opacity duration-300 group-hover:opacity-70">
+                                <h1 className="text-sm md:text-base tracking-[0.2em] font-light text-black uppercase">Vastra</h1>
+                                <h1 className="text-sm md:text-base tracking-[0.2em] font-bold text-black uppercase">Verse</h1>
                             </div>
                         </Link>
                         <div className="hidden md:flex items-center gap-5">
-                            <ul className="flex items-center gap-3 text-sm text-gray-500 tracking-wider">
-                                <li
-                                    className="relative"
-                                >
+                            <ul className="flex items-center gap-6 text-sm text-gray-500 tracking-wider">
+                                <li className="relative">
                                     <Link to="/" onClick={() => dispatch(setNavActive("home"))}
-                                        className={`relative overflow-hidden group transition-all duration-300 py-1.5 px-3 rounded-md flex items-center gap-1.5 font-medium ${navActive === "home" ? "text-gray-900 bg-gray-100" : "text-gray-500 hover:text-gray-900"}`}>
+                                        className={`relative overflow-hidden group transition-all duration-300 py-2 px-1 flex items-center text-xs uppercase tracking-[0.1em] font-medium ${navActive === "home" ? "text-black" : "text-gray-400 hover:text-black"}`}>
                                         <span className="relative z-10">Home</span>
-                                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                                        <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-black transition-transform duration-300 origin-left ${navActive === "home" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}></span>
                                     </Link>
                                 </li>
-
-                                <li
-                                    className="relative"
-                                >
+                                <li className="relative">
                                     <Link to="men" onClick={() => dispatch(setNavActive("men"))}
-                                        className={`relative overflow-hidden group transition-all duration-300 py-1.5 px-3 rounded-md flex items-center gap-1.5 font-medium ${navActive === "men" ? "text-gray-900 bg-gray-100" : "text-gray-500 hover:text-gray-900"}`}>
+                                        className={`relative overflow-hidden group transition-all duration-300 py-2 px-1 flex items-center text-xs uppercase tracking-[0.1em] font-medium ${navActive === "men" ? "text-black" : "text-gray-400 hover:text-black"}`}>
                                         <span className="relative z-10">Men</span>
-                                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                                        {/* <svg className={`w-3 h-3 transition-transform duration-300 ${isMenDropDown ? "rotate-180 text-gray-700" : "text-gray-400"}`} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                        </svg> */}
+                                        <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-black transition-transform duration-300 origin-left ${navActive === "men" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}></span>
                                     </Link>
-
-                                    {/* <div className="absolute left-0 w-full h-2 top-full" />
-
-                                    <div className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 w-48 bg-gray-900 rounded-xl p-1.5 z-50 transition-all duration-300 origin-top ${isMenDropDown
-                                        ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
-                                        : "opacity-0 -translate-y-1 scale-95 pointer-events-none"
-                                        }`}>
-
-                                        <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-900 border-l border-t border-gray-100 rotate-45" />
-
-                                        <div className="relative flex flex-col gap-0.5">
-                                            <Link to="/men" onClick={() => { dispatch(setNavActive("men")); setIsMenDropDown(false); }}
-                                                className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-900 transition-all duration-200">
-                                                <span className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center text-xs">👔</span>
-                                                Men
-                                            </Link>
-                                            <Link to="/women" onClick={() => { dispatch(setNavActive("women")); setIsMenDropDown(false); }}
-                                                className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-900 transition-all duration-200">
-                                                <span className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center text-xs">👗</span>
-                                                Women
-                                            </Link>
-                                            <Link to="/kids" onClick={() => { dispatch(setNavActive("kids")); setIsMenDropDown(false); }}
-                                                className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-900 transition-all duration-200">
-                                                <span className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center text-xs">🧒</span>
-                                                Kids
-                                            </Link>
-                                        </div>
-                                    </div> */}
                                 </li>
-                                <li
-                                    className="relative"
-                                >
+                                <li className="relative">
                                     <Link to="women" onClick={() => dispatch(setNavActive("women"))}
-                                        className={`relative overflow-hidden group transition-all duration-300 py-1.5 px-3 rounded-md flex items-center gap-1.5 font-medium ${navActive === "women" ? "text-gray-900 bg-gray-100" : "text-gray-500 hover:text-gray-900"}`}>
+                                        className={`relative overflow-hidden group transition-all duration-300 py-2 px-1 flex items-center text-xs uppercase tracking-[0.1em] font-medium ${navActive === "women" ? "text-black" : "text-gray-400 hover:text-black"}`}>
                                         <span className="relative z-10">Women</span>
-                                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                                        {/* <svg className={`w-3 h-3 transition-transform duration-300 ${isWomenDropDown ? "rotate-180 text-gray-700" : "text-gray-400"}`} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                        </svg> */}
+                                        <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-black transition-transform duration-300 origin-left ${navActive === "women" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}></span>
                                     </Link>
-
-                                    {/* <div className="absolute left-0 w-full h-2 top-full" />
-
-                                    <div className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 w-48 bg-gray-900 rounded-xl p-1.5 z-50 transition-all duration-300 origin-top ${isWomenDropDown
-                                        ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
-                                        : "opacity-0 -translate-y-1 scale-95 pointer-events-none"
-                                        }`}>
-
-                                        <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-900 border-l border-t border-gray-100 rotate-45" />
-
-                                        <div className="relative flex flex-col gap-0.5">
-                                            <Link to="/men" onClick={() => { dispatch(setNavActive("men")); setIsWomenDropDown(false); }}
-                                                className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-900 transition-all duration-200">
-                                                <span className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center text-xs">👔</span>
-                                                Men
-                                            </Link>
-                                            <Link to="/women" onClick={() => { dispatch(setNavActive("women")); setIsWomenDropDown(false); }}
-                                                className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-900 transition-all duration-200">
-                                                <span className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center text-xs">👗</span>
-                                                Women
-                                            </Link>
-                                            <Link to="/kids" onClick={() => { dispatch(setNavActive("kids")); setIsWomenDropDown(false); }}
-                                                className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-900 transition-all duration-200">
-                                                <span className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center text-xs">🧒</span>
-                                                Kids
-                                            </Link>
-                                        </div>
-                                    </div> */}
                                 </li>
-                                <li
-                                    className="relative"
-                                >
+                                <li className="relative">
                                     <Link to="kids" onClick={() => dispatch(setNavActive("kids"))}
-                                        className={`relative overflow-hidden group transition-all duration-300 py-1.5 px-3 rounded-md flex items-center gap-1.5 font-medium ${navActive === "kids" ? "text-gray-900 bg-gray-100" : "text-gray-500 hover:text-gray-900"}`}>
+                                        className={`relative overflow-hidden group transition-all duration-300 py-2 px-1 flex items-center text-xs uppercase tracking-[0.1em] font-medium ${navActive === "kids" ? "text-black" : "text-gray-400 hover:text-black"}`}>
                                         <span className="relative z-10">Kids</span>
-                                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                                        {/* <svg className={`w-3 h-3 transition-transform duration-300 ${isKidsDropDown ? "rotate-180 text-gray-700" : "text-gray-400"}`} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                        </svg> */}
+                                        <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-black transition-transform duration-300 origin-left ${navActive === "kids" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}></span>
                                     </Link>
-
-                                    {/* <div className="absolute left-0 w-full h-2 top-full" />
-
-                                    <div className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 w-48 bg-gray-900 rounded-xl p-1.5 z-50 transition-all duration-300 origin-top ${isKidsDropDown
-                                        ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
-                                        : "opacity-0 -translate-y-1 scale-95 pointer-events-none"
-                                        }`}>
-
-                                        <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-900 border-l border-t border-gray-100 rotate-45" />
-
-                                        <div className="relative flex flex-col gap-0.5">
-                                            <Link to="/men" onClick={() => { dispatch(setNavActive("men")); setIsKidsDropDown(false); }}
-                                                className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-900 transition-all duration-200">
-                                                <span className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center text-xs">👔</span>
-                                                Men
-                                            </Link>
-                                            <Link to="/women" onClick={() => { dispatch(setNavActive("women")); setIsKidsDropDown(false); }}
-                                                className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-900 transition-all duration-200">
-                                                <span className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center text-xs">👗</span>
-                                                Women
-                                            </Link>
-                                            <Link to="/kids" onClick={() => { dispatch(setNavActive("kids")); setIsKidsDropDown(false); }}
-                                                className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-900 transition-all duration-200">
-                                                <span className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center text-xs">🧒</span>
-                                                Kids
-                                            </Link>
-                                        </div>
-                                    </div> */}
                                 </li>
-                                <li
-                                    className="relative"
-                                >
+                                <li className="relative">
                                     <Link to="blogs" onClick={() => dispatch(setNavActive("blogs"))}
-                                        className={`relative overflow-hidden group transition-all duration-300 py-1.5 px-3 rounded-md flex items-center gap-1.5 font-medium ${navActive === "blogs" ? "text-gray-900 bg-gray-100" : "text-gray-500 hover:text-gray-900"}`}>
+                                        className={`relative overflow-hidden group transition-all duration-300 py-2 px-1 flex items-center text-xs uppercase tracking-[0.1em] font-medium ${navActive === "blogs" ? "text-black" : "text-gray-400 hover:text-black"}`}>
                                         <span className="relative z-10">Blogs</span>
-                                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                                        <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-black transition-transform duration-300 origin-left ${navActive === "blogs" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}></span>
                                     </Link>
                                 </li>
                             </ul>
@@ -206,43 +102,39 @@ export const Navbar = () => {
 
                     <div className="flex items-center gap-3 sm:gap-4">
 
-                        <div className="flex items-center gap-3 sm:gap-5">
-                            <Link to="/cart" onClick={() => setIsMobileMenuOpen(false)} className="relative text-gray-700 hover:text-gray-900 transition-colors duration-300 cursor-pointer">
-                                <CiShoppingCart size={26} className="cursor-pointer hover:scale-105" />
-                                <span className="absolute -top-1.5 -right-1.5 bg-gray-900 text-white text-[10px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white shadow-sm">
+                        <div className="flex items-center gap-4 sm:gap-6">
+                            <Link to="/cart" onClick={() => setIsMobileMenuOpen(false)} className="relative text-black hover:text-gray-500 transition-colors duration-300 cursor-pointer">
+                                <CiShoppingCart size={24} className="cursor-pointer" />
+                                <span className="absolute -top-2 -right-2 bg-black text-white text-[9px] font-bold min-w-[16px] h-[16px] rounded-full flex items-center justify-center">
                                     {cart?.length || 0}
                                 </span>
                             </Link>
 
-                            <Link to="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-700 hover:text-gray-900 transition-colors duration-300 cursor-pointer">
-                                <FaRegHeart size={20} className="cursor-pointer hover:scale-105" />
+                            <Link to="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="text-black hover:text-gray-500 transition-colors duration-300 cursor-pointer">
+                                <FaRegHeart size={20} className="cursor-pointer" />
                             </Link>
                         </div>
 
                         {user ? (
                             <>
                                 <div className="flex items-center gap-4 md:gap-7 ml-1 sm:ml-2">
-                                    <Link to="/notification" className="relative hidden sm:block text-gray-700 hover:text-gray-900 transition-colors duration-300 cursor-pointer">
-                                        <FaRegBell size={20} className="cursor-pointer hover:scale-105" />
-                                        {(allnotification?.notifications?.filter((notifi: any) => notifi?.isRead == false)?.length ?? 0) > 0 && <span className="absolute -top-1 -right-1 bg-red-600 font-bold min-w-3 h-3 rounded-full flex items-center justify-center px-1 border-2 border-white shadow-sm animate-pulse"></span>}
+                                    <Link to="/notification" className="relative hidden sm:block text-black hover:text-gray-500 transition-colors duration-300 cursor-pointer">
+                                        <FaRegBell size={20} className="cursor-pointer" />
+                                        {(allnotification?.notifications?.filter((notifi: any) => notifi?.isRead == false)?.length ?? 0) > 0 && <span className="absolute -top-1 -right-1 bg-black min-w-2 h-2 rounded-full border border-white"></span>}
                                     </Link>
 
                                     <div className="relative hidden md:block">
-                                        <button onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)} className="flex items-center justify-center gap-3 rounded-lg text-gray-700 text-sm uppercase tracking-wider transition-all duration-300 cursor-pointer">
-                                            <div className="border border-gray-300 hover:border-gray-500 transition-colors rounded-full p-0.5">
-                                                <div className="h-8 w-8 rounded-full bg-gray-900 text-white flex justify-center items-center">
-                                                    <p className="text-lg font-semibold">{user.name[0]}</p>
-                                                </div>
+                                        <button onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)} className="flex items-center justify-center transition-opacity duration-300 hover:opacity-70 cursor-pointer">
+                                            <div className="h-8 w-8 rounded-full bg-black text-white flex justify-center items-center">
+                                                <p className="text-xs font-medium tracking-widest">{user.name[0]}</p>
                                             </div>
                                         </button>
                                     </div>
                                     {isUserDropdownOpen &&
-                                        <div className="absolute right-5 top-15 w-60 bg-white border border-gray-100 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] hidden md:block overflow-hidden z-[1000] animate-in fade-in slide-in-from-top-4 duration-200">
-                                            <div className="flex flex-col p-5 justify-center items-center gap-1 bg-gray-50/50 border-b border-gray-100">
-                                                <div className="border border-gray-300 rounded-full p-0.5 mb-1">
-                                                    <div className="h-10 w-10 rounded-full bg-gray-900 text-white flex justify-center items-center">
-                                                        <p className="text-xl font-semibold uppercase">{user.name[0]}</p>
-                                                    </div>
+                                        <div className="absolute right-5 top-15 w-60 bg-white luxury-border shadow-2xl hidden md:block overflow-hidden z-[1000] animate-in fade-in slide-in-from-top-2 duration-200">
+                                            <div className="flex flex-col p-6 justify-center items-center gap-2 border-b border-gray-100">
+                                                <div className="h-12 w-12 rounded-full bg-black text-white flex justify-center items-center">
+                                                    <p className="text-xl font-light uppercase">{user.name[0]}</p>
                                                 </div>
                                                 <p className="text-sm font-bold text-gray-900 tracking-tight">{user.name}</p>
                                                 <p className="text-xs text-gray-500 truncate w-full text-center">{user.email}</p>
@@ -289,24 +181,24 @@ export const Navbar = () => {
                                 </div>
                             </>
                         ) : (
-                            <div className="hidden md:flex items-center gap-3 ml-2">
+                            <div className="hidden md:flex items-center gap-4 ml-4">
                                 <Link to="/login">
-                                    <button className="text-gray-700 hover:text-gray-900 text-sm font-bold tracking-wide px-4 py-2 transition-all duration-300 cursor-pointer">
+                                    <button className="text-black text-xs font-medium uppercase tracking-[0.1em] px-2 py-2 hover:text-gray-500 transition-colors cursor-pointer">
                                         Login
                                     </button>
                                 </Link>
                                 <Link to="/signup">
-                                    <button className="bg-gray-900 hover:bg-gray-800 text-white text-sm font-bold tracking-wide px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
+                                    <button className="btn-luxury text-[10px] px-6 py-2.5">
                                         Sign Up
                                     </button>
                                 </Link>
                             </div>
                         )}
 
-                        <div className="flex md:hidden items-center ml-1 sm:ml-2">
+                        <div className="flex md:hidden items-center ml-2">
                             <button
                                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                                className="inline-flex items-center justify-center p-2 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-300 cursor-pointer"
+                                className="inline-flex items-center justify-center p-2 text-black hover:opacity-70 transition-opacity duration-300 cursor-pointer"
                             >
                                 <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     {isMobileMenuOpen ? (
@@ -323,39 +215,39 @@ export const Navbar = () => {
 
             <div className={`md:hidden absolute w-full transition-all duration-300 ease-in-out border-b border-gray-100 shadow-xl z-50 ${isMobileMenuOpen ? 'opacity-100 translate-y-0 pointer-events-auto bg-white' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
                 <div className="px-4 pt-4 pb-6 space-y-1 overflow-y-auto max-h-[85vh]">
-                    <div className="space-y-1 mb-4">
+                    <div className="space-y-1 mb-4 border-t border-gray-100">
                         <Link
                             to="/"
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-bold text-sm py-3 px-4 rounded-xl transition-colors"
+                            className="block text-black hover:text-gray-500 font-medium uppercase tracking-[0.1em] text-xs py-4 px-4 transition-colors border-b border-gray-100"
                         >
                             Home
                         </Link>
                         <Link
                             to="men"
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-bold text-sm py-3 px-4 rounded-xl transition-colors"
+                            className="block text-black hover:text-gray-500 font-medium uppercase tracking-[0.1em] text-xs py-4 px-4 transition-colors border-b border-gray-100"
                         >
                             Men
                         </Link>
                         <Link
                             to="women"
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-bold text-sm py-3 px-4 rounded-xl transition-colors"
+                            className="block text-black hover:text-gray-500 font-medium uppercase tracking-[0.1em] text-xs py-4 px-4 transition-colors border-b border-gray-100"
                         >
                             Women
                         </Link>
                         <Link
                             to="kids"
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-bold text-sm py-3 px-4 rounded-xl transition-colors"
+                            className="block text-black hover:text-gray-500 font-medium uppercase tracking-[0.1em] text-xs py-4 px-4 transition-colors border-b border-gray-100"
                         >
                             Kids
                         </Link>
                         <Link
                             to="blogs"
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-bold text-sm py-3 px-4 rounded-xl transition-colors"
+                            className="block text-black hover:text-gray-500 font-medium uppercase tracking-[0.1em] text-xs py-4 px-4 transition-colors border-b border-gray-100"
                         >
                             Blogs
                         </Link>
@@ -404,14 +296,14 @@ export const Navbar = () => {
                             </div>
                         </>
                     ) : (
-                        <div className="flex flex-col gap-3 pt-4 border-t border-gray-100 mt-2">
+                        <div className="flex flex-col gap-3 pt-4 border-t border-gray-100 mt-2 px-4">
                             <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="w-full">
-                                <button className="w-full text-gray-900 bg-gray-100 border border-transparent rounded-xl py-3.5 font-bold uppercase tracking-wider text-xs hover:bg-gray-200 transition-colors duration-300 cursor-pointer">
+                                <button className="w-full text-black bg-white border border-black py-3.5 font-medium uppercase tracking-[0.1em] text-xs hover:bg-gray-100 transition-colors duration-300 cursor-pointer">
                                     Login
                                 </button>
                             </Link>
                             <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)} className="w-full">
-                                <button className="w-full bg-gray-900 text-white rounded-xl py-3.5 font-bold uppercase tracking-wider text-xs hover:bg-gray-800 transition-all duration-300 cursor-pointer shadow-md">
+                                <button className="btn-luxury w-full py-3.5 font-medium uppercase tracking-[0.1em] text-xs cursor-pointer">
                                     Sign Up
                                 </button>
                             </Link>

@@ -1,4 +1,4 @@
-import { createReview, deleteReview, getAllReviewById, getAllReview, getAllReviewsByAdmin, helpful, Like, matchLike, reportReview, updateReview, verifyReview, getMyReviews, adminReply } from "../controllers/review";
+import { createReview, deleteReview, getAllReviewById, getAllReview, getAllReviewsByAdmin, helpful, Like, matchLike, matchHelpful, reportReview, updateReview, verifyReview, getMyReviews, adminReply } from "../controllers/review";
 import { Router } from "express";
 import { adminJWT, userJWT } from "../helpers";
 import upload from "../services/multer";
@@ -11,6 +11,7 @@ router.put("/reportReview/:id", userJWT, reportReview);
 router.put("/like/:id", userJWT, Like);
 router.put("/helpful/:id", userJWT, helpful);
 router.get("/matchLike/:id", userJWT, matchLike);
+router.get("/matchHelpful/:id", userJWT, matchHelpful);
 router.get("/myReviews", userJWT, getMyReviews);
 
 router.get("/getAllReview/:id", getAllReviewById);

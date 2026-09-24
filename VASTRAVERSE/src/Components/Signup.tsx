@@ -369,53 +369,68 @@ export const SignUp = () => {
     }
 
     return (
-        <div className="min-h-screen bg-white flex">
+        <div className="min-h-screen bg-[#fafafa] flex flex-col lg:flex-row">
 
             <LeftBar />
 
-            <div className="relative w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 lg:p-12">
+            <div className="relative w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 md:p-12">
 
                 {otpOpen && (
                     <>
-                        <div className='h-full absolute top-0 bottom-0 left-0 right-0 inset-0 z-30 bg-black/50'></div>
-                        <div className='h-full absolute top-0 bottom-0 z-100 left-0 right-0 flex items-center justify-center p-4'>
-                            <div className='py-6 sm:py-7 border border-zinc-300 bg-white w-full sm:w-96 px-4 sm:px-6 rounded-lg shadow-lg flex flex-col items-center justify-center space-y-4'>
-                                <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight">Verify OTP</h1>
-                                <p className="text-xs sm:text-sm text-center text-zinc-400 mt-1">Enter the OTP sent to your email for verification that why we are enhance security of your account.</p>
-                                <div className='flex justify-center gap-1.5 sm:gap-3 w-full'>
-                                    <input name="otp1" value={otp.otp1} maxLength={1} type="text" className='w-9 h-10 sm:w-10 sm:h-10 text-center outline-none border border-zinc-400 rounded-lg text-sm sm:text-base' onChange={handleOTPChange} />
-                                    <input name="otp2" value={otp.otp2} maxLength={1} type="text" className='w-9 h-10 sm:w-10 sm:h-10 text-center outline-none border border-zinc-400 rounded-lg text-sm sm:text-base' onChange={handleOTPChange} />
-                                    <input name="otp3" value={otp.otp3} maxLength={1} type="text" className='w-9 h-10 sm:w-10 sm:h-10 text-center outline-none border border-zinc-400 rounded-lg text-sm sm:text-base' onChange={handleOTPChange} />
-                                    <input name="otp4" value={otp.otp4} maxLength={1} type="text" className='w-9 h-10 sm:w-10 sm:h-10 text-center outline-none border border-zinc-400 rounded-lg text-sm sm:text-base' onChange={handleOTPChange} />
-                                    <input name="otp5" value={otp.otp5} maxLength={1} type="text" className='w-9 h-10 sm:w-10 sm:h-10 text-center outline-none border border-zinc-400 rounded-lg text-sm sm:text-base' onChange={handleOTPChange} />
-                                    <input name="otp6" value={otp.otp6} maxLength={1} type="text" className='w-9 h-10 sm:w-10 sm:h-10 text-center outline-none border border-zinc-400 rounded-lg text-sm sm:text-base' onChange={handleOTPChange} />
+                        <div className='fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity'></div>
+                        <div className='fixed inset-0 z-50 flex items-center justify-center p-4'>
+                            <div className='relative py-8 px-6 sm:px-8 border border-neutral-200 bg-white w-full sm:w-[420px] rounded-3xl shadow-2xl flex flex-col items-center justify-center space-y-5 overflow-hidden'>
+                                {/* Specular hairline */}
+                                <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
+
+                                <div className="w-12 h-12 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center text-xl">
+                                    🔐
                                 </div>
+
+                                <div className="text-center">
+                                    <span className="text-[10px] font-semibold text-neutral-400 uppercase tracking-[0.25em] block mb-1">Security Authentication</span>
+                                    <h1 className="editorial-text text-xl sm:text-2xl font-light text-neutral-900 tracking-tight">Verify <span className="italic font-serif font-normal">Passcode</span></h1>
+                                    <p className="text-xs text-neutral-500 font-light mt-1.5 max-w-xs mx-auto">Enter the 6-digit authentication code dispatched to your registered email.</p>
+                                </div>
+
+                                <div className='flex justify-center gap-2 sm:gap-2.5 w-full pt-1'>
+                                    <input name="otp1" value={otp.otp1} maxLength={1} type="text" className='w-10 h-12 sm:w-11 sm:h-13 text-center outline-none border border-neutral-300 focus:border-black rounded-xl text-base sm:text-lg font-mono font-medium transition bg-neutral-50 focus:bg-white' onChange={handleOTPChange} />
+                                    <input name="otp2" value={otp.otp2} maxLength={1} type="text" className='w-10 h-12 sm:w-11 sm:h-13 text-center outline-none border border-neutral-300 focus:border-black rounded-xl text-base sm:text-lg font-mono font-medium transition bg-neutral-50 focus:bg-white' onChange={handleOTPChange} />
+                                    <input name="otp3" value={otp.otp3} maxLength={1} type="text" className='w-10 h-12 sm:w-11 sm:h-13 text-center outline-none border border-neutral-300 focus:border-black rounded-xl text-base sm:text-lg font-mono font-medium transition bg-neutral-50 focus:bg-white' onChange={handleOTPChange} />
+                                    <input name="otp4" value={otp.otp4} maxLength={1} type="text" className='w-10 h-12 sm:w-11 sm:h-13 text-center outline-none border border-neutral-300 focus:border-black rounded-xl text-base sm:text-lg font-mono font-medium transition bg-neutral-50 focus:bg-white' onChange={handleOTPChange} />
+                                    <input name="otp5" value={otp.otp5} maxLength={1} type="text" className='w-10 h-12 sm:w-11 sm:h-13 text-center outline-none border border-neutral-300 focus:border-black rounded-xl text-base sm:text-lg font-mono font-medium transition bg-neutral-50 focus:bg-white' onChange={handleOTPChange} />
+                                    <input name="otp6" value={otp.otp6} maxLength={1} type="text" className='w-10 h-12 sm:w-11 sm:h-13 text-center outline-none border border-neutral-300 focus:border-black rounded-xl text-base sm:text-lg font-mono font-medium transition bg-neutral-50 focus:bg-white' onChange={handleOTPChange} />
+                                </div>
+
                                 <button
                                     onClick={verifyOTP}
                                     disabled={isOtpPending}
-                                    className="w-full sm:w-48 flex items-center justify-center gap-2.5 rounded-xl border border-zinc-200 bg-white py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-700 font-semibold hover:bg-zinc-50 hover:border-zinc-300 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="w-full flex items-center justify-center gap-2 rounded-full bg-black py-3 text-xs sm:text-sm text-white font-medium uppercase tracking-widest hover:bg-neutral-800 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
                                 >
-                                    {isOtpPending ? "Verifying..." : "Verify OTP"}
+                                    {isOtpPending ? "Authenticating..." : "Authorize Passcode"}
                                 </button>
-                                <div className="text-xs text-zinc-500">
+
+                                <div className="text-xs text-neutral-500 font-light">
                                     Didn't receive the code?{" "}
                                     <button
                                         type="button"
                                         disabled={isResendPending}
                                         onClick={handleResendOTP}
-                                        className="text-zinc-800 font-bold hover:underline cursor-pointer disabled:opacity-50 disabled:no-underline"
+                                        className="text-neutral-900 font-semibold hover:underline cursor-pointer disabled:opacity-50 disabled:no-underline"
                                     >
-                                        {isResendPending ? "Resending..." : "Resend OTP"}
+                                        {isResendPending ? "Resending..." : "Resend Passcode"}
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </>
                 )}
-                <div className="relative w-full max-w-sm space-y-8">
+                <div className="relative w-full max-w-md bg-white rounded-3xl border border-neutral-200/80 p-5 sm:p-6 sm:pb-8 shadow-xl overflow-y-auto max-h-[85vh] custom-scrollbar space-y-3 sm:space-y-4">
+                    {/* Top specular hairline */}
+                    <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                     {isPending && (
-                        <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/60 backdrop-blur-[1px] rounded-2xl">
+                        <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/70 backdrop-blur-sm rounded-3xl">
                             <div className="dot-spinner">
                                 <div className="dot-spinner__dot"></div>
                                 <div className="dot-spinner__dot"></div>
@@ -430,8 +445,13 @@ export const SignUp = () => {
                     )}
 
                     <div>
-                        <h1 className="text-xl sm:text-2xl font-bold text-zinc-800 tracking-tight">Create your account</h1>
-                        <p className="text-xs sm:text-sm text-zinc-400 mt-1">Join the club for early access drops & exclusive gifts.</p>
+                        <span className="text-[10px] font-semibold text-neutral-400 uppercase tracking-[0.25em] block mb-0.5">
+                            Privilege Membership
+                        </span>
+                        <h1 className="editorial-text text-2xl sm:text-3xl font-light text-neutral-900 tracking-tight">
+                            Create <span className="italic font-serif font-normal">Account</span>
+                        </h1>
+                        <p className="text-xs text-neutral-500 font-light mt-0.5">Join the club for early access drops & exclusive privileges.</p>
                     </div>
 
                     <div ref={googleBtnRef} className='w-full'>
@@ -439,74 +459,89 @@ export const SignUp = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <div className="flex-1 h-px bg-zinc-200" />
-                        <span className="text-xs text-zinc-400 font-medium">or</span>
-                        <div className="flex-1 h-px bg-zinc-200" />
+                        <div className="flex-1 h-px bg-neutral-200" />
+                        <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-medium">or continue with details</span>
+                        <div className="flex-1 h-px bg-neutral-200" />
                     </div>
 
-                    <form className="space-y-3 sm:space-y-4" onSubmit={HandleSubmit}>
+                    <form className="space-y-2.5 sm:space-y-3" onSubmit={HandleSubmit}>
 
-                        <input
-                            type="text"
-                            placeholder="Full name"
-                            className="w-full rounded-xl bg-zinc-100 border border-transparent focus:bg-white focus:border-zinc-300 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-800 placeholder-zinc-400 transition outline-none"
-                            name="name"
-                            value={formData.name}
-                            onChange={HandleInput}
-                        />
-
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            className="w-full rounded-xl bg-zinc-100 border border-transparent focus:bg-white focus:border-zinc-300 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-800 placeholder-zinc-400 transition outline-none"
-                            name="email"
-                            value={formData.email}
-                            onChange={HandleInput}
-                        />
-
-                        <input
-                            type="text"
-                            placeholder="Mobile No"
-                            className="w-full rounded-xl bg-zinc-100 border border-transparent focus:bg-white focus:border-zinc-300 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-800 placeholder-zinc-400 transition outline-none"
-                            name="mobileNumber"
-                            maxLength={10}
-                            value={formData.mobileNumber}
-                            onChange={HandleInput}
-                        />
-
-                        <div className='relative'>
+                        <div>
+                            <label className="text-[10px] uppercase font-semibold tracking-wider text-neutral-400 mb-0.5 block">Full Name</label>
                             <input
-                                type={showPassword ? "text" : "password"}
-                                placeholder="Password"
-                                className="w-full rounded-xl bg-zinc-100 border border-transparent focus:bg-white focus:border-zinc-300 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-800 placeholder-zinc-400 transition outline-none"
-                                name="password"
-                                value={formData.password}
+                                type="text"
+                                placeholder="jatin jethava"
+                                className="w-full rounded-xl bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-black px-3.5 py-2 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 font-medium transition outline-none"
+                                name="name"
+                                value={formData.name}
                                 onChange={HandleInput}
                             />
-                            <button type="button" onClick={showPasswordHandler} className='absolute top-2 sm:top-2.5 right-3 text-zinc-400 hover:text-zinc-600 focus:outline-none transition text-xs sm:text-sm'>{showPassword ? "🙈" : "👁️"}</button>
+                        </div>
+
+                        <div>
+                            <label className="text-[10px] uppercase font-semibold tracking-wider text-neutral-400 mb-0.5 block">Email Address</label>
+                            <input
+                                type="email"
+                                placeholder="client@vastraverse.com"
+                                className="w-full rounded-xl bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-black px-3.5 py-2 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 font-medium transition outline-none"
+                                name="email"
+                                value={formData.email}
+                                onChange={HandleInput}
+                            />
+                        </div>
+
+                        <div>
+                            <label className="text-[10px] uppercase font-semibold tracking-wider text-neutral-400 mb-0.5 block">Mobile Number</label>
+                            <input
+                                type="text"
+                                placeholder="9876543210"
+                                className="w-full rounded-xl bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-black px-3.5 py-2 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 font-medium transition outline-none"
+                                name="mobileNumber"
+                                maxLength={10}
+                                value={formData.mobileNumber}
+                                onChange={HandleInput}
+                            />
                         </div>
 
                         <div className='relative'>
-                            <input
-                                type={showConfirmPassword ? "text" : "password"}
-                                placeholder="Confirm password"
-                                className="w-full rounded-xl bg-zinc-100 border border-transparent focus:bg-white focus:border-zinc-300 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-800 placeholder-zinc-400 transition outline-none"
-                                name="confirmPassword"
-                                value={formData.confirmPassword}
-                                onChange={HandleInput}
-                            />
-                            <button type="button" onClick={showConfirmPasswordHandler} className='absolute top-2 sm:top-2.5 right-3 text-zinc-400 hover:text-zinc-600 focus:outline-none transition text-xs sm:text-sm'>{showConfirmPassword ? "🙈" : "👁️"}</button>
+                            <label className="text-[10px] uppercase font-semibold tracking-wider text-neutral-400 mb-0.5 block">Password</label>
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="••••••••••••"
+                                    className="w-full rounded-xl bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-black px-3.5 py-2 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 font-medium transition outline-none pr-10"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={HandleInput}
+                                />
+                                <button type="button" onClick={showPasswordHandler} className='absolute top-2 right-3 text-neutral-400 hover:text-neutral-700 focus:outline-none transition text-xs sm:text-sm cursor-pointer'>{showPassword ? "🙈" : "👁️"}</button>
+                            </div>
                         </div>
 
-                        <button type='submit' className="w-full rounded-xl bg-zinc-800 hover:bg-zinc-900 text-white font-bold py-2.5 text-xs sm:text-sm transition-all duration-300 shadow-md cursor-pointer">
-                            Create account
+                        <div className='relative'>
+                            <label className="text-[10px] uppercase font-semibold tracking-wider text-neutral-400 mb-0.5 block">Confirm Password</label>
+                            <div className="relative">
+                                <input
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    placeholder="••••••••••••"
+                                    className="w-full rounded-xl bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-black px-3.5 py-2 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 font-medium transition outline-none pr-10"
+                                    name="confirmPassword"
+                                    value={formData.confirmPassword}
+                                    onChange={HandleInput}
+                                />
+                                <button type="button" onClick={showConfirmPasswordHandler} className='absolute top-2 right-3 text-neutral-400 hover:text-neutral-700 focus:outline-none transition text-xs sm:text-sm cursor-pointer'>{showConfirmPassword ? "🙈" : "👁️"}</button>
+                            </div>
+                        </div>
+
+                        <button type='submit' className="w-full rounded-full bg-black hover:bg-neutral-800 text-white font-medium py-3 text-xs sm:text-sm uppercase tracking-widest transition-all duration-300 shadow-md cursor-pointer mt-1">
+                            Create Account
                         </button>
                     </form>
 
-                    <p className="text-center text-xs text-zinc-500">
+                    <p className="text-center text-xs text-neutral-500 font-light">
                         Already have an account?{" "}
                         <Link to="/login"
-                            className="text-zinc-800 font-bold hover:underline cursor-pointer"
+                            className="text-neutral-900 font-semibold hover:underline cursor-pointer"
                         >
                             Sign in
                         </Link>
@@ -514,6 +549,6 @@ export const SignUp = () => {
 
                 </div>
             </div>
-        </div >
+        </div>
     );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Card } from "../../Components/card";
 import { BlogSlider } from "../../Components/slider/BlogSlider";
 import { useShopBySlug, useGetChildCategoriesBySlug } from "../../Hooks/product";
@@ -160,20 +161,56 @@ export const Women = () => {
                 </div>
             </div>
 
-            <div className="mt-20 mb-15 text-center max-w-7xl mx-auto space-y-4">
-                <span className="text-[10px] sm:text-sm font-bold text-gray-500 uppercase tracking-widest">Satisfy Your Craving</span>
-                <h2 className="text-[20px] sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-500 tracking-tight">
-                    READ <span className="text-gray-700">THOUGHTFUL</span> ARTICLES
-                </h2>
-                <p className="text-gray-500 max-w-2xl mx-auto text-[10px] sm:text-sm md:text-base font-medium leading-relaxed">
-                    Explore the latest trends, style tips, and stories behind our latest collections.
-                </p>
+            {/* Thoughtful Articles / Editorial Section */}
+            <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-black/10 relative">
+                {/* Section Header */}
+                <div className="text-center max-w-3xl mx-auto space-y-4 mb-12 sm:mb-16">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 border border-black/15 bg-black/[0.03] text-black/80 rounded-full text-[10px] tracking-[0.25em] uppercase font-mono font-medium">
+                        <span className="w-1.5 h-1.5 rounded-full bg-black/70 animate-pulse" />
+                        Editorial Gazette & Journal
+                    </div>
+                    <h2 className="editorial-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-black tracking-tight leading-[1.1]">
+                        Read Thoughtful <span className="italic font-serif font-normal">Articles</span>
+                    </h2>
+                    <p className="text-xs sm:text-sm md:text-base text-neutral-600 font-light max-w-xl mx-auto leading-relaxed">
+                        Explore the latest trends, style tips, and stories behind our latest collections.
+                    </p>
+                </div>
 
-                <div className="w-[50px] sm:w-[100px] md:w-[150px] lg:w-[200px] mx-auto border-t border-gray-300"></div>
-            </div>
-            <div className="w-[90vw] mx-auto flex justify-center items-center">
-                <BlogSlider />
-            </div>
+                {/* Black & White Luxury Editorial Showcase Container */}
+                <div className="relative rounded-[28px] sm:rounded-[36px] bg-gradient-to-b from-[#0c0c0d] via-[#070708] to-[#000000] border border-white/10 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.06)] overflow-hidden p-6 sm:p-8 lg:p-10">
+
+                    {/* Specular hairline & ambient light */}
+                    <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
+                    <div className="absolute -top-32 right-1/4 w-96 h-96 bg-white/[0.03] rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute -bottom-32 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
+
+                    {/* Showcase Header Bar */}
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 sm:pb-8 border-b border-white/10 mb-6 sm:mb-8 relative z-10">
+                        <div className="flex items-center gap-3">
+                            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/50">
+                                Curated Dispatches
+                            </span>
+                            <span className="w-1 h-1 rounded-full bg-white/40" />
+                            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/80">
+                                Vol. 2026 Archive
+                            </span>
+                        </div>
+                        <Link
+                            to="/blogs"
+                            className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] text-white/80 hover:text-white transition-colors cursor-pointer group"
+                        >
+                            <span>Explore Entire Journal</span>
+                            <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
+                        </Link>
+                    </div>
+
+                    {/* Infinite Marquee Slider with Fade Gradients */}
+                    <div className="relative">
+                        <BlogSlider />
+                    </div>
+                </div>
+            </section>
             {showFilter && (
                 <>
                     <div

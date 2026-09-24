@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Star, BadgeCheck, Quote } from "lucide-react";
 import { AddReview } from './AddReview';
-import { useGetProductAllReview, useHelpfulReview, useLikeReview, useMatchLike } from "../Hooks/review";
+import { useGetProductAllReview, useHelpfulReview, useLikeReview, useMatchLike, useMatchHelpful } from "../Hooks/review";
 import { FaRegStar, FaRegThumbsUp, FaStar, FaStarHalfAlt, FaThumbsUp } from "react-icons/fa";
 import '../index.css'
 
@@ -30,6 +30,8 @@ export const Reviews = ({ productId }: { productId: string }) => {
     const { mutate: helpfulReview } = useHelpfulReview();
     const { data: matchLike } = useMatchLike(productId);
     const likedReviewIds = matchLike?.likedReviewIds || [];
+    const { data: matchHelpful } = useMatchHelpful(productId);
+    const helpfulReviewIds = matchHelpful?.helpfulReviewIds || [];
 
     const [addReview, setAddReview] = useState<boolean>(false);
     const [activeFilter, setActiveFilter] = useState<number>(0);
@@ -86,25 +88,26 @@ export const Reviews = ({ productId }: { productId: string }) => {
         <div className="w-full py-10 px-2 md:px-6">
             <div className="w-full max-w-5xl mx-auto">
 
-                <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-                    <div className="w-1 sm:w-1.5 h-6 sm:h-8 rounded-full from-yellow-400 to-amber-500" />
-                    <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight">
+                <div className="flex items-center justify-between mb-10 border-b border-neutral-200 pb-4">
+                    <h2 className="text-2xl sm:text-3xl font-light editorial-text text-black tracking-tight">
                         Customer Reviews
                     </h2>
 
-                    <button onClick={() => setAddReview(true)} className="ml-auto text-gray-700 py-1.5 px-3 sm:py-2 sm:px-4 text-xs sm:text-sm rounded-xl border border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-all duration-200 cursor-pointer shrink-0">Add Review</button>
+                    <button onClick={() => setAddReview(true)} className="text-[9px] font-bold text-white bg-black py-2.5 px-6 uppercase tracking-widest rounded-none border border-black hover:bg-white hover:text-black transition-all duration-300 cursor-pointer shrink-0">
+                        Add Review
+                    </button>
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
 
-                    <div className="rounded-2xl border border-gray-200 from-gray-50 to-white flex flex-col items-center justify-center shrink-0 px-6 py-6 sm:px-10 sm:py-8 shadow-sm">
-                        <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900 tracking-tight">
+                    <div className="border border-neutral-200 bg-white flex flex-col items-center justify-center shrink-0 px-8 py-8 sm:px-12 shadow-none rounded-none w-full lg:w-auto">
+                        <h1 className="text-5xl sm:text-6xl font-light editorial-text text-black tracking-tight">
                             {averageRating.toFixed(1)}
                         </h1>
-                        <div className="flex items-center gap-0.5 mt-2 sm:mt-3">
+                        <div className="flex items-center gap-0.5 mt-4">
                             <StarRating rating={averageRating} />
                         </div>
-                        <p className="text-gray-400 mt-1 sm:mt-2 text-xs sm:text-sm font-medium">
+                        <p className="text-[9px] text-neutral-400 uppercase tracking-widest mt-4 font-bold">
                             {reviewsData?.length} reviews
                         </p>
                     </div>
@@ -115,24 +118,24 @@ export const Reviews = ({ productId }: { productId: string }) => {
                                 key={item.star}
                                 className="flex items-center gap-3 group cursor-pointer"
                             >
-                                <div className="flex items-center gap-1 w-10 shrink-0">
-                                    <span className="text-sm font-semibold text-gray-700">
+                                <div className="flex items-center gap-1 w-8 shrink-0">
+                                    <span className="text-[10px] font-bold text-black tracking-widest">
                                         {item.star}
                                     </span>
                                     <Star
-                                        size={13}
-                                        className="fill-yellow-400 text-yellow-400"
+                                        size={10}
+                                        className="fill-black text-black"
                                     />
                                 </div>
 
-                                <div className="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
+                                <div className="flex-1 h-1 bg-neutral-100 rounded-none overflow-hidden">
                                     <div
-                                        className="h-full rounded-full transition-all duration-700 ease-out bg-gray-400 shadow-xs group-hover:bg-gray-500"
+                                        className="h-full rounded-none transition-all duration-700 ease-out bg-black"
                                         style={{ width: `${item.percentage}%` }}
                                     />
                                 </div>
 
-                                <span className="text-sm text-gray-400 font-medium w-12 text-right tabular-nums">
+                                <span className="text-[10px] text-neutral-400 font-bold w-12 text-right tabular-nums tracking-widest">
                                     {item.percentage}%
                                 </span>
                             </div>
@@ -141,15 +144,15 @@ export const Reviews = ({ productId }: { productId: string }) => {
                 </div>
 
 
-                <div className="flex flex-wrap gap-2 sm:gap-2.5 mt-6 sm:mt-8">
+                <div className="flex flex-wrap gap-2 sm:gap-3 mt-10">
                     {filters.map((item, index) => (
                         <button
                             key={index}
                             onClick={() => setActiveFilter(index)}
-                            className={`px-3 py-1.5 sm:px-4 sm:py-2.5 rounded-xl border transition-all duration-200 text-xs sm:text-sm font-semibold cursor-pointer shrink-0
+                            className={`px-4 py-2 rounded-none border transition-all duration-200 text-[9px] uppercase tracking-widest font-bold cursor-pointer shrink-0
                                 ${activeFilter === index
-                                    ? "bg-gray-900 text-white border-gray-900 shadow-md shadow-gray-900/10"
-                                    : "border-gray-200 text-gray-600 hover:bg-gray-50 hover:border-gray-300"
+                                    ? "bg-black text-white border-black shadow-none"
+                                    : "border-neutral-200 text-neutral-500 hover:border-black hover:text-black"
                                 }`}
                         >
                             {item}
@@ -157,55 +160,55 @@ export const Reviews = ({ productId }: { productId: string }) => {
                     ))}
                 </div>
 
-                <div className="mt-6 flex md:flex-row md:items-center gap-4">
-                    <p className="text-gray-400 text-xs font-medium">
+                <div className="mt-8 flex md:flex-row md:items-center gap-4 justify-between border-b border-neutral-200 pb-4">
+                    <p className="text-neutral-400 text-[9px] uppercase tracking-widest font-bold">
                         Showing {reviewsData.length} of {reviewsData.length} reviews
                     </p>
 
-                    <button className="ml-auto rounded-xl px-3 py-1 sm:px-5 sm:py-3 flex items-center gap-3">
-                        <hr className="bg-black/10 w-16 h-0.5" />
-                        <span className="font-semibold text-gray-700 text-xs">
+                    <button className="flex items-center gap-2 cursor-pointer group">
+                        <span className="font-bold text-black text-[9px] uppercase tracking-widest group-hover:text-neutral-500 transition-colors">
                             Highest rated
                         </span>
+                        <div className="w-4 h-px bg-black group-hover:bg-neutral-500 transition-colors" />
                     </button>
                 </div>
 
-                <div className="mt-6 space-y-4">
+                <div className="mt-0 space-y-0">
                     {filterReview().map((review, idx) => (
                         <div
                             key={idx}
-                            className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 hover:shadow-lg hover:border-gray-300 transition-all duration-300 group overflow-hidden"
+                            className="bg-white border-b border-neutral-200 py-8 transition-all duration-300 group overflow-hidden rounded-none"
                         >
 
                             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-0">
                                 <div className="flex gap-3 sm:gap-4 items-center sm:items-start">
 
                                     <div
-                                        className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full ${review.avatarColor || 'bg-gray-800'} text-white flex items-center justify-center font-bold text-xs sm:text-sm shadow-sm shrink-0`}
+                                        className={`w-10 h-10 sm:w-11 sm:h-11 rounded-none ${review.avatarColor || 'bg-black'} text-white flex items-center justify-center font-bold text-[10px] tracking-widest uppercase shadow-none shrink-0`}
                                     >
                                         {review?.user?.name.charAt(0) + review?.user?.name.charAt(1) || "U"}
                                     </div>
 
 
                                     <div className="min-w-0 flex-1">
-                                        <h3 className="font-bold text-gray-900 text-sm sm:text-base truncate">
+                                        <h3 className="font-bold text-black text-xs sm:text-sm uppercase tracking-widest truncate">
                                             {review?.user?.name || "User"}
                                         </h3>
                                         <div className="flex flex-wrap text-[10px] sm:text-xs items-center gap-1 sm:gap-1.5 mt-0.5">
-                                            <div className="flex text-gray-500 tracking-wider items-center max-w-[120px] sm:max-w-[200px] truncate">
+                                            <div className="flex text-neutral-400 font-bold uppercase tracking-widest text-[9px] items-center max-w-[120px] sm:max-w-[200px] truncate">
                                                 {review?.user?.email || "User"}
                                             </div>
-                                            <span className="w-1 h-1 mx-0.5 sm:mx-1 bg-gray-300 rounded-full shrink-0"></span>
-                                            <p className="text-gray-400 font-medium shrink-0">
+                                            <span className="w-1 h-1 mx-1 bg-neutral-200 rounded-none shrink-0"></span>
+                                            <p className="text-neutral-400 font-bold text-[9px] uppercase tracking-widest shrink-0">
                                                 {review?.createdAt ? new Date(review.createdAt).toLocaleDateString() : ''}
                                             </p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-2 sm:gap-3 ml-[3.25rem] sm:ml-0">
+                                <div className="flex items-center gap-2 sm:gap-4 ml-[3.25rem] sm:ml-0 mt-3 sm:mt-0">
                                     {review.recommended && (
-                                        <span className="inline-flex bg-emerald-50 text-emerald-600 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold border border-emerald-100 shrink-0">
+                                        <span className="inline-flex bg-white text-black px-2 py-1 border border-black rounded-none text-[8px] uppercase tracking-[0.2em] font-bold shrink-0">
                                             Recommended
                                         </span>
                                     )}
@@ -215,39 +218,31 @@ export const Reviews = ({ productId }: { productId: string }) => {
                                 </div>
                             </div>
 
-                            <div className="mt-3 sm:mt-4 sm:pl-15">
-                                <h4 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-gray-800 transition-colors break-words">
+                            <div className="mt-4 sm:mt-6 sm:pl-15">
+                                <h4 className="text-sm sm:text-base font-bold uppercase tracking-widest text-black group-hover:text-neutral-600 transition-colors break-words mb-3">
                                     {review.title}
                                 </h4>
 
                                 <div className="relative mt-2">
 
-                                    <p className="text-gray-500 leading-relaxed text-xs sm:text-[14px] break-words">
-                                        <Quote
-                                            size={16}
-                                            className="hidden sm:block absolute -left-5 top-0 text-gray-600 fill-gray-100 rotate-180"
-                                        />
+                                    <p className="text-neutral-600 leading-relaxed text-xs sm:text-[13px] break-words">
                                         {review.comment || review.body}
-                                        <Quote
-                                            size={16}
-                                            className="hidden sm:block absolute -right-1 bottom-0 text-gray-600 fill-gray-100"
-                                        />
                                     </p>
 
                                 </div>
                             </div>
 
 
-                            <div className="border-t border-gray-100 my-4 sm:my-5 sm:ml-15" />
+                            <div className="border-t border-neutral-100 my-5 sm:my-6 sm:ml-15" />
 
 
                             <div className="flex justify-between items-center gap-3 sm:pl-15">
-                                <div className="flex justify-start gap-2">
+                                <div className="flex justify-start gap-3">
                                     <button
                                         onClick={() => likeReview(review?._id)}
-                                        className={`w-fit flex items-center gap-1.5 sm:gap-2 border border-gray-200 rounded-lg sm:rounded-xl px-3 py-1.5 sm:px-4 sm:py-2.5 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 cursor-pointer text-[11px] sm:text-sm font-medium`}>
-                                        {likedReviewIds.includes(review._id) ? <FaThumbsUp key="filled" className="like_btn text-[12px] sm:text-[15px]" /> : <FaRegThumbsUp key="outline" className="like_btn text-[12px] sm:text-[15px]" />}
-                                        {review.likes || 0}
+                                        className={`w-fit flex items-center gap-2 border border-neutral-200 rounded-none px-4 py-2 hover:border-black transition-all duration-200 cursor-pointer text-[9px] uppercase tracking-widest font-bold text-black`}>
+                                        {likedReviewIds.includes(review._id) ? <FaThumbsUp key="filled" className="text-[12px]" /> : <FaRegThumbsUp key="outline" className="text-[12px]" />}
+                                        {Math.max(0, review.likes || 0)}
                                     </button>
 
                                     <div className="relative w-fit">
@@ -255,13 +250,13 @@ export const Reviews = ({ productId }: { productId: string }) => {
                                             onMouseEnter={() => setHoveredReview(review._id)}
                                             onMouseLeave={() => setHoveredReview(null)}
                                             onClick={() => helpfulReview(review._id)}
-                                            className="w-fit flex items-center gap-1.5 sm:gap-2 border border-gray-200 rounded-lg sm:rounded-xl px-3 py-1.5 sm:px-4 sm:py-2.5 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 cursor-pointer text-[11px] sm:text-sm font-medium text-gray-700"
+                                            className={`w-fit flex items-center gap-2 border border-neutral-200 rounded-none px-4 py-2 hover:border-black transition-all duration-200 cursor-pointer text-[9px] uppercase tracking-widest font-bold ${helpfulReviewIds.includes(review._id) ? 'text-black border-black' : 'text-neutral-500 hover:text-black'}`}
                                         >
-                                            Helpful ( {review.helpfulCount || 0} )
+                                            Helpful ( {Math.max(0, review.helpfulCount || 0)} )
                                         </button>
 
                                         {hoveredReview === review._id && (
-                                            <div className="tracking-wider absolute bottom-full left-0 sm:left-1/2 sm:-translate-x-1/2 mb-2 w-64 sm:w-70 text-center bg-slate-900 text-white text-[10px] sm:text-xs p-2 rounded-lg shadow-lg z-50">
+                                            <div className="tracking-widest absolute bottom-full left-0 sm:left-1/2 sm:-translate-x-1/2 mb-2 w-64 sm:w-70 text-center bg-black text-white text-[9px] uppercase p-3 rounded-none shadow-none border border-black z-50 font-bold">
                                                 Your vote helps other customers discover the most useful and trustworthy reviews.
                                             </div>
                                         )}
@@ -269,9 +264,9 @@ export const Reviews = ({ productId }: { productId: string }) => {
                                 </div>
                                 <div>
                                     {review.isVerifiedPurchase && (
-                                        <div className="flex items-center gap-1.5 text-emerald-500">
-                                            <BadgeCheck size={16} />
-                                            <span className="text-[10px] sm:text-[12px] md:text-[13px] font-bold">
+                                        <div className="flex items-center gap-1.5 text-black">
+                                            <BadgeCheck size={14} className="stroke-[1.5]" />
+                                            <span className="text-[9px] uppercase tracking-widest font-bold">
                                                 Verified purchase
                                             </span>
                                         </div>

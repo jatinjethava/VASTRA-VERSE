@@ -27,8 +27,7 @@ export const StarRating = ({ rating = 0 }: { rating?: number }) => {
     );
 };
 
-export const Card = ({ product }: { product: Product }
-) => {
+export const Card = ({ product }: { product: Product }) => {
 
     const { mutateAsync: addToWishList } = useAddToWishList();
     const { mutateAsync: removeFromWishList } = useRemoveFromWishList();
@@ -37,11 +36,8 @@ export const Card = ({ product }: { product: Product }
     const { mutateAsync: view } = useViewProduct();
     const { data: productReviews } = useGetProductAllReview(product?._id as string);
 
-    const [isFlipped, setIsFlipped] = useState<boolean>(false);
     const [showDetail, setShowDetail] = useState<boolean>(false);
-    const [isShow, setIsShow] = useState<boolean>(false);
     const [curruntProduct, setCurrentProduct] = useState<Product>(product);
-    const [liked, setLiked] = useState<boolean>(false);
 
     const isWishlisted = wishListData?.data?.wishlist?.some((item: any) => item.productId === curruntProduct?._id);
     const totalRating = productReviews?.reduce((acc, review) => acc + review.rating, 0);
@@ -50,175 +46,96 @@ export const Card = ({ product }: { product: Product }
     return (
         <>
             <motion.div
-                className="page"
-                onMouseEnter={() => setIsShow(true)}
-                onMouseLeave={() => setIsShow(false)}
-                initial={{ opacity: 0, y: 30 }}
+                className="group w-full max-w-sm flex flex-col gap-4 cursor-pointer mb-8"
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                 viewport={{ once: true, amount: 0.1 }}
+                onClick={() => {
+                    setCurrentProduct(product);
+                    setShowDetail(true);
+                    if (localStorage.getItem("token")) {
+                        recentlyViewed(product._id as string);
+                        view(product._id as string).catch(() => { });
+                    }
+                }}
             >
-                <div className="scene">
-                    <div
-                        className="card shadow-xl"
-                        style={{
-                            transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
-                            transition: "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)"
-                        }}
-                    >
-                        <div className="front" onMouseOver={() => setLiked(true)} onMouseLeave={() => setLiked(false)}>
-                            {(product?.isBestSeller) && (
-                                <span className={`absolute top-3 left-3 px-3 py-1 text-[7px] md:text-[9px] lg:text-[10px] shadow-lg font-bold tracking-wider rounded-lg ${product?.isBestSeller ? "bg-green-600 text-white" : "bg-green-600 text-white"}`}>
-                                    {product?.isBestSeller ? "Best Seller" : ""}
-                                </span>
-                            )}
+                {/* Image Container */}
+                <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#f9f9f9]">
+                    <img
+                        src={`${product?.images[0]}`}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        alt={product?.title}
+                    />
 
-                            {(product?.isNewArrival) && (
-                                <span className={`absolute mt-2 top-8 left-3 px-3 py-1 text-[7px] md:text-[9px] lg:text-[10px] shadow-lg font-bold tracking-wider rounded-lg ${product?.isNewArrival ? "bg-red-500 text-white" : "bg-green-600 text-white"}`}>
-                                    {product?.isNewArrival ? "New Arrival" : ""}
-                                </span>
-                            )}
+                    {/* Overlay for hover effect */}
+                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-
-                            <div className="img-container">
-                                <img src={`${product?.images[0]}`} className="h-full w-full rounded-t-lg object-cover" alt={product?.title} />
-                            </div>
-
-                            <div className="infoPanel flex flex-col justify-between">
-                                <p className="tag text-gray-500 text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[15px]">{product?.material}</p>
-                                <p className="text-gray-800 font-bold text-[12px] sm:text-[15px] md:text-base lg:text-lg tracking-wide my-1 sm:my-3 leading-tight line-clamp-2">
-                                    {product?.title}
-                                </p>
-
-                                <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2.5">
-                                    <span className="text-[#f0b429] text-[9px] sm:text-[13px]">
-                                        <StarRating rating={averageRating} />
-                                    </span>
-                                    <span className="text-[8px] sm:text-[11px] text-[#aaa]">{averageRating ? averageRating.toFixed(1) : ""}</span>
-                                </div>
-
-                                <div className="flex gap-1 sm:gap-1.5 mb-2 sm:mb-3.5 flex-wrap">
-                                    {[...new Set(product?.variants.map((v) => v.size))].map((size, index) => (
-                                        <button
-                                            key={index}
-                                            className={`sizeChip`}
-                                        >
-                                            {size}
-                                        </button>
-                                    ))}
-                                </div>
-
-                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                                    <div>
-                                        <div className="price flex flex-wrap items-baseline gap-1">
-                                            ₹{product?.discountPrice === 0 ? product?.basePrice : product?.discountPrice}{" "}
-                                            <span className="text-[8px] sm:text-[12px] font-normal text-[#aaa] line-through">
-                                                {product?.discountPrice === 0 ? "No discount" : `₹${product?.basePrice}`}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <button
-                                        className="flipBtn flex justify-center items-center"
-                                        onClick={() => setIsFlipped(true)}
-                                        title="See details"
-                                    >
-                                        <FaEye size={17} color="currentColor" />
-                                    </button>
-
-                                </div>
-                            </div>
-
-                            <div
-                                className="absolute top-3 right-3 w-10 h-10 bg-white flex items-center justify-center rounded-full"
-                                style={{
-                                    opacity: liked ? 1 : 0,
-                                    transform: liked ? "scale(1)" : "scale(0.3)",
-                                    transition: "opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                                    pointerEvents: liked ? "auto" : "none",
-                                }}
-                            >
-                                {isWishlisted ? (
-                                    <button
-                                        onClick={() => removeFromWishList(product._id as string)}
-                                        className={`cursor-pointer animate-scale-in duration-500 ease-in-out text-red-600`}>
-                                        <FaHeart />
-                                    </button>
-                                ) : (
-                                    <button
-                                        onClick={() => addToWishList(product._id as string)}
-                                        className={`cursor-pointer animate-scale-in duration-500 ease-in-out`}>
-                                        <CiHeart size={20} />
-                                    </button>
-                                )}
-                            </div>
-
-                        </div>
-
-                        <div className="back">
-                            <div>
-                                <p className="backTitle text-[10px] sm:text-[19px] md:text-[16px] lg:text-[18px] xl:text-[20px]">
-                                    {product?.title.length > 18 ? `${product?.title.slice(0, 18)}...` : product?.title}
-                                </p>
-                                <p className="backDesc text-[8px] sm:text-[12px] md:text-[12px] lg:text-[13px] xl:text-[13px] tracking-wide">
-                                    {(product?.description?.length || 0) > 160 ? `${product?.description?.slice(0, 160)}...` : product?.description}
-                                </p>
-                                <ul className="featureList">
-                                    {[
-                                        `220 GSM ${product?.material}`,
-                                        `${product?.fit}`,
-                                        `${(product?.tags?.length || 0) > 5 ? product?.tags?.map((tag) => tag).join(", ").slice(0, 65) + " ..." : product?.tags?.map((tag) => tag).join(", ")}`,
-                                        `For ${product?.gender}'s`,
-                                        `Made with ❤️ by Jatin Jethava`,
-                                    ].map((f) => (
-                                        <li key={f} className="featureItem text-[8px] sm:text-[12px] md:text-[12px] lg:text-[13px] xl:text-[13px]">
-                                            <span style={{ color: "#90e070", fontWeight: 500 }}>✓</span>
-                                            {f}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            <div>
-                                <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 12 }}>
-                                    <span className="backPrice text-sm sm:text-lg xl:text-xl">₹{product?.discountPrice == 0 ? product?.basePrice : product?.discountPrice}</span>
-                                    <span className="text-[10px] sm:text-[12px] text-[#666] line-through">
-                                        {product?.discountPrice === 0 ? "" : `₹${product?.basePrice}`}
-                                    </span>
-                                    <div className="text-[10px] sm:text-[12px]">
-                                        <span className="discountBadge">{product?.discountPrice == 0 ? "No discount" : `${Math.round(((product?.basePrice - product?.discountPrice) / product?.basePrice) * 100)}% off`}</span>
-                                    </div>
-                                </div>
-                                <button
-                                    className="addBtn text-[9px] sm:text-[12px] md:text-[14px] lg:text-[14px] xl:text-sm"
-                                    style={{ background: showDetail ? "#90e070" : "#fff", color: "#1a1a1a" }}
-                                    onClick={() => {
-                                        setCurrentProduct(product);
-                                        setShowDetail(true);
-                                        setIsFlipped(false);
-                                        if (localStorage.getItem("token")) {
-                                            recentlyViewed(product._id as string);
-                                            view(product._id as string).catch(() => { });
-                                        }
-                                    }}
-                                >
-                                    {showDetail ? "✓ Show Details!" : "Show Details"}
-                                </button>
-                                <p
-                                    className="text-[8px] sm:text-[10px] md:text-[13px] lg:text-[14px] xl:text-sm"
-                                    style={{ textAlign: "center", marginTop: 10, color: "#999", cursor: "pointer" }}
-                                    onClick={() => setIsFlipped(false)}
-                                >
-                                    ← back to preview
-                                </p>
-                            </div>
-                        </div>
-
+                    {/* Tags */}
+                    <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
+                        {product?.isBestSeller && (
+                            <span className="bg-black text-white text-[9px] uppercase tracking-[0.15em] px-3 py-1.5">
+                                Best Seller
+                            </span>
+                        )}
+                        {product?.isNewArrival && (
+                            <span className="bg-white text-black text-[9px] uppercase tracking-[0.15em] px-3 py-1.5 border border-black/10">
+                                New Arrival
+                            </span>
+                        )}
                     </div>
 
-                    <div className={`text-center mt-6 h-6 transition-all duration-300 ${isShow ? 'opacity-70' : 'opacity-0'}`}>
-                        <p className="text-[10px] sm:text-[12px] md:text-[12px] lg:text-[14px] xl:text-sm mx-auto text-gray-500 cursor-pointer" >
-                            Click eye icon to flip & view details
-                        </p>
+                    {/* Wishlist Button */}
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            isWishlisted ? removeFromWishList(product._id as string) : addToWishList(product._id as string);
+                        }}
+                        className="absolute top-4 right-4 p-2.5 bg-white/90 backdrop-blur-md rounded-full shadow-sm opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-white z-20"
+                    >
+                        {isWishlisted ? <FaHeart className="text-black" size={16} /> : <CiHeart size={18} className="text-black" />}
+                    </button>
+
+                    {/* Sizes on Hover (Optional, adds luxury feel) */}
+                    {product?.variants && product.variants.length > 0 && (
+                        <div className="absolute bottom-4 left-0 w-full flex justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 z-10">
+                            <div className="flex gap-2 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-sm mx-4 overflow-x-auto hide-scrollbar">
+                                {[...new Set(product?.variants.map((v) => v.size))].map((size, index) => (
+                                    <span key={index} className="text-[10px] font-medium text-black uppercase">{size}</span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Info Container */}
+                <div className="flex flex-col gap-1.5 px-1">
+                    <div className="flex justify-between items-start gap-4">
+                        <h3 className="text-sm font-medium text-black line-clamp-1">
+                            {product?.title}
+                        </h3>
+                        <div className="flex items-baseline gap-2 whitespace-nowrap">
+                            {product?.discountPrice !== 0 && (
+                                <span className="text-[11px] text-gray-400 line-through">
+                                    ₹{product?.basePrice}
+                                </span>
+                            )}
+                            <span className="text-sm text-black">
+                                ₹{product?.discountPrice === 0 ? product?.basePrice : product?.discountPrice}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                        <p className="text-[10px] text-gray-500 uppercase tracking-widest">{product?.material || "Premium Cotton"}</p>
+
+                        {/* Rating snippet */}
+                        {averageRating > 0 && (
+                            <div className="flex items-center gap-1">
+                                <FaStar className="text-black" size={10} />
+                                <span className="text-[10px] text-black font-medium">{averageRating.toFixed(1)}</span>
+                            </div>
+                        )}
                     </div>
                 </div>
             </motion.div>
