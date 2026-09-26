@@ -88,20 +88,20 @@ export const Reviews = ({ productId }: { productId: string }) => {
         <div className="w-full py-10 px-2 md:px-6">
             <div className="w-full max-w-5xl mx-auto">
 
-                <div className="flex items-center justify-between mb-10 border-b border-neutral-200 pb-4">
-                    <h2 className="text-2xl sm:text-3xl font-light editorial-text text-black tracking-tight">
+                <div className="flex flex-row items-center justify-between mb-8 sm:mb-10 border-b border-neutral-200 pb-4 gap-4">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-light editorial-text text-black tracking-tight">
                         Customer Reviews
                     </h2>
 
-                    <button onClick={() => setAddReview(true)} className="text-[9px] font-bold text-white bg-black py-2.5 px-6 uppercase tracking-widest rounded-none border border-black hover:bg-white hover:text-black transition-all duration-300 cursor-pointer shrink-0">
+                    <button onClick={() => setAddReview(true)} className="text-[8px] sm:text-[9px] font-bold text-white bg-black py-2 sm:py-2.5 px-4 sm:px-6 uppercase tracking-widest rounded-none border border-black hover:bg-white hover:text-black transition-all duration-300 cursor-pointer shrink-0">
                         Add Review
                     </button>
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
 
-                    <div className="border border-neutral-200 bg-white flex flex-col items-center justify-center shrink-0 px-8 py-8 sm:px-12 shadow-none rounded-none w-full lg:w-auto">
-                        <h1 className="text-5xl sm:text-6xl font-light editorial-text text-black tracking-tight">
+                    <div className="border border-neutral-200 bg-white flex flex-col items-center justify-center shrink-0 px-6 py-6 sm:px-12 sm:py-8 shadow-none rounded-none w-full lg:w-auto">
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl font-light editorial-text text-black tracking-tight">
                             {averageRating.toFixed(1)}
                         </h1>
                         <div className="flex items-center gap-0.5 mt-4">
@@ -144,12 +144,12 @@ export const Reviews = ({ productId }: { productId: string }) => {
                 </div>
 
 
-                <div className="flex flex-wrap gap-2 sm:gap-3 mt-10">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3 mt-8 sm:mt-10">
                     {filters.map((item, index) => (
                         <button
                             key={index}
                             onClick={() => setActiveFilter(index)}
-                            className={`px-4 py-2 rounded-none border transition-all duration-200 text-[9px] uppercase tracking-widest font-bold cursor-pointer shrink-0
+                            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-none border transition-all duration-200 text-[8px] sm:text-[9px] uppercase tracking-widest font-bold cursor-pointer shrink-0 flex-grow sm:flex-grow-0 text-center
                                 ${activeFilter === index
                                     ? "bg-black text-white border-black shadow-none"
                                     : "border-neutral-200 text-neutral-500 hover:border-black hover:text-black"
@@ -160,20 +160,20 @@ export const Reviews = ({ productId }: { productId: string }) => {
                     ))}
                 </div>
 
-                <div className="mt-8 flex md:flex-row md:items-center gap-4 justify-between border-b border-neutral-200 pb-4">
-                    <p className="text-neutral-400 text-[9px] uppercase tracking-widest font-bold">
+                <div className="mt-6 sm:mt-8 flex flex-row items-center gap-4 justify-between border-b border-neutral-200 pb-4">
+                    <p className="text-neutral-400 text-[8px] sm:text-[9px] uppercase tracking-widest font-bold">
                         Showing {reviewsData.length} of {reviewsData.length} reviews
                     </p>
 
-                    <button className="flex items-center gap-2 cursor-pointer group">
-                        <span className="font-bold text-black text-[9px] uppercase tracking-widest group-hover:text-neutral-500 transition-colors">
+                    <button className="flex items-center gap-1.5 sm:gap-2 cursor-pointer group">
+                        <span className="font-bold text-black text-[8px] sm:text-[9px] uppercase tracking-widest group-hover:text-neutral-500 transition-colors">
                             Highest rated
                         </span>
                         <div className="w-4 h-px bg-black group-hover:bg-neutral-500 transition-colors" />
                     </button>
                 </div>
 
-                
+
                 <div className="mt-0 space-y-0 max-h-[450px] overflow-y-auto md:max-h-none md:overflow-y-visible pr-1 sm:pr-0 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-200">
                     {filterReview().map((review, idx) => (
                         <div
