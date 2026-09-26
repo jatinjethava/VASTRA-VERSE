@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useGetWalletInfo, useAddMoneyToWallet, useVerifyRazorpaySignature, useWalletTransactions } from "../Hooks/user";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
-import { Wallet as WalletIcon, Plus, ShieldCheck, CreditCard, ArrowRight, ArrowDownLeft, ArrowUpRight, History, Clock, Sparkles } from "lucide-react";
+import { Plus, ShieldCheck, ArrowRight, ArrowDownLeft, ArrowUpRight, History, Clock, Sparkles } from "lucide-react";
 
 const QUICK_AMOUNTS = [500, 1000, 2000, 5000];
 
@@ -202,27 +202,27 @@ export const Wallet = () => {
                             <button
                                 onClick={addMoneyHandler}
                                 disabled={addMoneyPending || !amount || amount <= 0}
-                                className={`w-full py-4 rounded-xl font-bold uppercase tracking-[0.2em] text-xs transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer ${(addMoneyPending || !amount || amount <= 0)
+                                className={`w-full py-3.5 sm:py-4 px-2 rounded-xl font-bold uppercase tracking-wider sm:tracking-[0.2em] text-[10px] sm:text-xs transition-all duration-300 shadow-md flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer ${(addMoneyPending || !amount || amount <= 0)
                                     ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
                                     : 'bg-black text-white hover:bg-neutral-800 hover:shadow-xl hover:scale-[1.01]'
                                     }`}
                             >
                                 {addMoneyPending ? (
                                     <>
-                                        <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                                        <span>PROCESSING VIA GATEWAY...</span>
+                                        <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 border-2 border-white/20 border-t-white rounded-full animate-spin shrink-0" />
+                                        <span className="truncate">PROCESSING VIA GATEWAY...</span>
                                     </>
                                 ) : (
                                     <>
-                                        <span>Proceed To Secure Top-Up</span>
-                                        <ArrowRight className="w-4 h-4" />
+                                        <span className="truncate">Proceed To Secure Top-Up</span>
+                                        <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                                     </>
                                 )}
                             </button>
 
-                            <div className="flex items-center justify-center gap-2 text-[10px] font-mono uppercase tracking-wider text-neutral-400 pt-1">
-                                <ShieldCheck className="w-3.5 h-3.5 text-neutral-700" />
-                                <span>256-Bit Encrypted Payments by Razorpay</span>
+                            <div className="flex items-center sm:justify-center gap-1.5 sm:gap-2 text-[8px] sm:text-[10px] font-mono uppercase tracking-wider text-neutral-400 pt-2 px-1 text-left sm:text-center">
+                                <ShieldCheck className="w-3.5 h-3.5 sm:w-3.5 sm:h-3.5 text-neutral-700 shrink-0" />
+                                <span className="leading-tight">256-Bit Encrypted Payments by Razorpay</span>
                             </div>
                         </div>
                     </div>

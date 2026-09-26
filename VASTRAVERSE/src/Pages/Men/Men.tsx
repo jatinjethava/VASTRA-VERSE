@@ -186,19 +186,19 @@ export const Men = () => {
                     <div className="absolute -bottom-32 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
 
                     {/* Showcase Header Bar */}
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 sm:pb-8 border-b border-white/10 mb-6 sm:mb-8 relative z-10">
-                        <div className="flex items-center gap-3">
-                            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/50">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 sm:pb-8 border-b border-white/10 mb-6 sm:mb-8 relative z-10 text-center sm:text-left">
+                        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+                            <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-white/50">
                                 Curated Dispatches
                             </span>
-                            <span className="w-1 h-1 rounded-full bg-white/40" />
-                            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/80">
+                            <span className="hidden sm:block w-1 h-1 rounded-full bg-white/40" />
+                            <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] text-white/80">
                                 Vol. 2026 Archive
                             </span>
                         </div>
                         <Link
                             to="/blogs"
-                            className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] text-white/80 hover:text-white transition-colors cursor-pointer group"
+                            className="inline-flex items-center justify-center gap-2 text-[9px] sm:text-[11px] font-mono uppercase tracking-[0.2em] text-white/80 hover:text-white transition-colors cursor-pointer group w-full sm:w-auto mt-2 sm:mt-0"
                         >
                             <span>Explore Entire Journal</span>
                             <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCancelOrder, useGetUserOrder } from "../Hooks/order";
 import ReactGA from "react-ga4";
-import { Package, ArrowUpRight, ArrowRight, ShieldCheck, Clock, CheckCircle2, XCircle } from "lucide-react";
+import { Package, ArrowUpRight, ArrowRight } from "lucide-react";
 
 export const OrderList = () => {
 

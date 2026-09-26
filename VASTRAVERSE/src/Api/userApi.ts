@@ -60,7 +60,7 @@ export interface Wallet {
     razorpaySignature: string;
     walletBalance: number;
     status: "success" | "failed" | "pending",
-    isDeleted: Boolean,
+    isDeleted: boolean,
 }
 
 export interface ApiResponse<T> {

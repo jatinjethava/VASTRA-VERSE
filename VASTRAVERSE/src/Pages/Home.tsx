@@ -12,6 +12,8 @@ import { useState } from 'react';
 import { ArrowRight, Heart, Copy, Check, Sparkles, ShieldCheck, Search, ShoppingBag, Wifi } from 'lucide-react';
 import { useGetRecentlyViewed, useRecentlyViewed } from '../Hooks/user';
 import { useFlashCampaigns, useMarketingCampaigns } from '../Hooks/marketing';
+import { useFetchBlogs } from '../Hooks/blog';
+import type { IBlog } from '../Api/blogApi';
 import { FlashSaleBanner } from '../Components/FlashSaleBanner';
 import { HomeSlider } from '../Components/slider/homeSlider';
 import { useGetCoupons } from '../Hooks/help';
@@ -27,7 +29,10 @@ export const Home = () => {
     const { data: campaigns } = useMarketingCampaigns();
     const { data: flashCampaigns } = useFlashCampaigns();
     const { data: coupons } = useGetCoupons();
+    const { data: blogsData } = useFetchBlogs();
     const [copiedCode, setCopiedCode] = useState(false);
+
+    const latestBlogs = blogsData?.data?.blog?.slice(0, 3) || [];
 
     const primaryCouponCode = (coupons && coupons.length > 0 && coupons[0]?.code) ? coupons[0].code : "VASTRA20";
 
@@ -190,29 +195,29 @@ export const Home = () => {
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                                         />
                                         {item.material && (
-                                            <span className="absolute top-3 left-3 px-2.5 py-1 text-[8px] sm:text-[9px] font-medium uppercase tracking-[0.2em] bg-black text-white">
+                                            <span className="absolute top-2 sm:top-3 left-2 sm:left-3 px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[6px] sm:text-[9px] font-medium uppercase tracking-[0.2em] bg-black text-white">
                                                 {item.material}
                                             </span>
                                         )}
 
                                         {item.basePrice > item.discountPrice && item.discountPrice !== 0 && (
-                                            <span className="absolute top-3 right-3 px-2 py-0.5 text-[8px] sm:text-[9px] font-medium tracking-wider bg-white text-black border border-black">
+                                            <span className="absolute top-2 sm:top-3 right-2 sm:right-3 px-1.5 sm:px-2 py-0.5 text-[6px] sm:text-[9px] font-medium tracking-wider bg-white text-black border border-black">
                                                 {Math.round(((item.basePrice - item.discountPrice) / item.basePrice) * 100)}% OFF
                                             </span>
                                         )}
                                     </div>
 
-                                    <div className="p-4 sm:p-5 flex flex-col justify-between flex-1">
-                                        <h3 className="font-normal text-black text-xs sm:text-sm leading-snug line-clamp-2 uppercase tracking-wide group-hover:text-gray-600 transition-colors">
+                                    <div className="p-3 sm:p-5 flex flex-col justify-between flex-1">
+                                        <h3 className="font-normal text-black text-[10px] sm:text-sm leading-snug line-clamp-3 sm:line-clamp-2 uppercase tracking-wide group-hover:text-gray-600 transition-colors">
                                             {item.title}
                                         </h3>
 
-                                        <div className="mt-3 flex items-baseline gap-2">
-                                            <span className="font-medium text-sm sm:text-base text-black">
+                                        <div className="mt-2 flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2">
+                                            <span className="font-medium text-xs sm:text-base text-black">
                                                 ₹{item.discountPrice === 0 ? item.basePrice.toLocaleString('en-IN') : item.discountPrice.toLocaleString('en-IN')}
                                             </span>
                                             {item.discountPrice !== 0 && item.basePrice > item.discountPrice && (
-                                                <span className="text-xs text-gray-400 line-through">
+                                                <span className="text-[10px] sm:text-xs text-gray-400 line-through">
                                                     ₹{item.basePrice.toLocaleString('en-IN')}
                                                 </span>
                                             )}
@@ -483,9 +488,9 @@ export const Home = () => {
 
                 <div className="relative">
                     {reviewLoading && (
-                        <div className="flex gap-4 sm:gap-6 md:gap-8 py-4 overflow-hidden">
+                        <div className="flex flex-col sm:flex-row overflow-y-auto sm:overflow-x-auto max-h-[450px] sm:max-h-none gap-4 sm:gap-6 md:gap-8 py-4 pr-1 sm:pr-0 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-200 sm:[&::-webkit-scrollbar]:w-0 sm:hide-scrollbar">
                             {[...Array(4)].map((_, i) => (
-                                <div key={i} className="w-[280px] sm:w-[320px] md:w-[400px] lg:w-[450px] shrink-0 p-5 sm:p-6 md:p-8 rounded-lg border border-gray-100 bg-white shadow-sm space-y-4 hero-skeleton-fade-in" style={{ animationDelay: `${i * 0.12}s` }}>
+                                <div key={i} className="w-full sm:w-[320px] md:w-[400px] lg:w-[450px] shrink-0 p-5 sm:p-6 md:p-8 rounded-lg border border-gray-100 bg-white shadow-sm space-y-4 hero-skeleton-fade-in" style={{ animationDelay: `${i * 0.12}s` }}>
                                     <div className="flex justify-between items-center">
                                         <div className="flex gap-1.5">
                                             {[...Array(5)].map((_, s) => (
@@ -501,7 +506,7 @@ export const Home = () => {
                                         <div className="h-3 w-[70%] rounded-full bg-gray-50 hero-skeleton-pulse" style={{ animationDelay: '0.3s' }} />
                                     </div>
                                     <div className="pt-3 border-t border-gray-100 flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-full bg-gray-100 hero-skeleton-pulse" />
+                                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-100 hero-skeleton-pulse" />
                                         <div className="space-y-1.5 flex-1">
                                             <div className="h-3 w-24 rounded-full bg-gray-100 hero-skeleton-pulse" />
                                             <div className="h-2.5 w-32 rounded-full bg-gray-50 hero-skeleton-pulse" style={{ animationDelay: '0.15s' }} />
@@ -523,60 +528,155 @@ export const Home = () => {
                         </div>
                     )}
 
-                    <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 sm:gap-6 md:gap-8 py-6 px-4 sm:px-0">
+                    <div className="flex flex-col sm:flex-row overflow-y-auto sm:overflow-x-auto snap-y sm:snap-x snap-mandatory max-h-[450px] sm:max-h-none gap-4 sm:gap-6 md:gap-8 py-4 sm:py-6 pr-1 sm:pr-0 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-200 sm:[&::-webkit-scrollbar]:w-0 sm:hide-scrollbar">
                         {...(fiveStartReview || [])?.map((item: Review, index: number) => (
-                            <div key={`${item._id}-${index}`} className="w-[85vw] sm:w-[360px] md:w-[400px] lg:w-[450px] shrink-0 snap-center bg-white border border-black/10 p-6 sm:p-8 md:p-10 flex flex-col justify-between space-y-6">
+                            <div key={`${item._id}-${index}`} className="w-full sm:w-[360px] md:w-[400px] lg:w-[450px] shrink-0 snap-center bg-white border border-black/10 p-5 sm:p-8 md:p-10 flex flex-col justify-between space-y-4 sm:space-y-6">
 
                                 <div className="flex justify-between items-start">
-                                    <div className="flex flex-col gap-2.5">
+                                    <div className="flex flex-col gap-2 sm:gap-2.5">
                                         <div className="flex items-center gap-1.5">
                                             {[...Array(item.rating || 5)].map((_, i) => (
-                                                <svg key={i} className="w-3.5 h-3.5 text-black fill-current" viewBox="0 0 24 24">
+                                                <svg key={i} className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-black fill-current" viewBox="0 0 24 24">
                                                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                                                 </svg>
                                             ))}
                                         </div>
-                                        <p className="text-[9px] sm:text-[10px] font-medium tracking-[0.2em] text-gray-400 uppercase">
+                                        <p className="text-[8px] sm:text-[10px] font-medium tracking-[0.2em] text-gray-400 uppercase">
                                             Verified Buyer
                                         </p>
                                     </div>
-                                    <div className="flex items-center gap-1.5 text-[10px] tracking-widest text-gray-500 uppercase">
-                                        <Heart className="w-3.5 h-3.5 text-black" />
+                                    <div className="flex items-center gap-1.5 text-[9px] sm:text-[10px] tracking-widest text-gray-500 uppercase">
+                                        <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-black" />
                                         <span>{item?.likes}</span>
                                     </div>
                                 </div>
 
-                                <div className="space-y-4">
-                                    <h4 className="editorial-text text-lg sm:text-xl md:text-2xl font-light text-black leading-snug tracking-wide line-clamp-2">
+                                <div className="space-y-3 sm:space-y-4">
+                                    <h4 className="editorial-text text-base sm:text-xl md:text-2xl font-light text-black leading-snug tracking-wide line-clamp-2">
                                         "{item?.title}"
                                     </h4>
-                                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-light line-clamp-4">
+                                    <p className="text-xs sm:text-base text-gray-600 leading-relaxed font-light line-clamp-4">
                                         {item.comment}
                                     </p>
                                 </div>
 
-                                <div className="pt-6 sm:pt-8 mt-auto border-t border-black/5 flex items-center justify-between">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full bg-gray-50 flex items-center justify-center overflow-hidden border border-black/5">
+                                <div className="pt-4 sm:pt-8 mt-auto border-t border-black/5 flex items-center justify-between">
+                                    <div className="flex items-center gap-3 sm:gap-4">
+                                        <div className="w-8 h-8 sm:w-12 sm:h-12 shrink-0 rounded-full bg-gray-50 flex items-center justify-center overflow-hidden border border-black/5">
                                             <img src={item?.images?.[0] || "./profile.png"} className="h-full w-full object-cover" alt="profile image" />
                                         </div>
                                         <div>
-                                            <h4 className="text-[10px] sm:text-[11px] font-bold text-black uppercase tracking-[0.15em]">{item?.user?.name}</h4>
-                                            <p className="text-[9px] sm:text-[10px] tracking-[0.15em] text-gray-400 uppercase mt-1 line-clamp-1">{item?.user?.email}</p>
+                                            <h4 className="text-[9px] sm:text-[11px] font-bold text-black uppercase tracking-[0.15em]">{item?.user?.name}</h4>
+                                            <p className="text-[8px] sm:text-[10px] tracking-[0.15em] text-gray-400 uppercase mt-0.5 sm:mt-1 line-clamp-1">{item?.user?.email}</p>
                                         </div>
                                     </div>
                                     <button
                                         onClick={() => showProduct(item?.productId)}
-                                        className="group shrink-0 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 cursor-pointer"
+                                        className="group shrink-0 inline-flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 cursor-pointer"
                                     >
-                                        <ArrowRight size={16} strokeWidth={1.5} className="transition-transform duration-300 group-hover:translate-x-1" />
+                                        <ArrowRight size={14} strokeWidth={1.5} className="sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1" />
                                     </button>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
-            </section >
+            </section>
+
+            {/* Editorial Journal / Blog Highlights */}
+            {latestBlogs.length > 0 && (
+                <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-black/10 relative">
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16 sm:mb-20">
+                        <div className="space-y-3">
+                            <span className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-[0.3em]">Editorial Insights</span>
+                            <h2 className="editorial-text text-3xl sm:text-4xl md:text-5xl font-light text-black tracking-tight leading-tight">
+                                The <span className="italic">Journal</span>
+                            </h2>
+                            <p className="text-xs sm:text-sm text-gray-500 font-light max-w-md">
+                                Explore our latest styling guides, editorial lookbooks, and brand philosophy.
+                            </p>
+                        </div>
+                        <button
+                            onClick={() => navigate('/blogs')}
+                            className="shrink-0 group inline-flex items-center gap-4 bg-black text-white text-[10px] uppercase tracking-[0.2em] font-medium px-6 py-3 hover:bg-neutral-800 transition-all duration-300 shadow-sm"
+                        >
+                            <span>View All Articles</span>
+                            <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+                        </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">
+                        {latestBlogs.map((blog: IBlog) => (
+                            <div
+                                key={blog._id}
+                                onClick={() => navigate(`/blogs/detail?id=${blog._id}`, { state: { blog } })}
+                                className="group cursor-pointer flex flex-col gap-5"
+                            >
+                                <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-gray-100 border border-black/10">
+                                    <img
+                                        src={blog.featuredImage || "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80"}
+                                        alt={blog.title}
+                                        className="w-full h-full object-cover grayscale contrast-110 transition-all duration-1000 ease-out group-hover:scale-105 group-hover:grayscale-0"
+                                    />
+                                    <div className="absolute top-4 left-4 bg-black text-white text-[8px] uppercase tracking-[0.2em] px-3 py-1 font-medium">
+                                        {blog.category || "Editorial"}
+                                    </div>
+                                </div>
+                                <div className="space-y-3">
+                                    <h3 className="editorial-text text-xl sm:text-2xl font-normal text-black leading-snug line-clamp-2 group-hover:text-gray-600 transition-colors">
+                                        {blog.title}
+                                    </h3>
+                                    <p className="text-xs sm:text-sm text-gray-500 font-light line-clamp-2">
+                                        {blog.description}
+                                    </p>
+                                    <div className="pt-2 flex items-center gap-3 text-[10px] uppercase tracking-[0.15em] text-gray-400 font-medium">
+                                        <span>{blog.author || "Atelier Editor"}</span>
+                                        <span className="w-1 h-1 bg-gray-300 rounded-full" />
+                                        <span>{new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {/* Spotted in Vastraverse (Social Feed) */}
+            <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-black/10 relative overflow-hidden">
+                <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
+                    <span className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-[0.3em]">Community Archive</span>
+                    <h2 className="editorial-text text-3xl sm:text-4xl md:text-5xl font-light text-black tracking-tight leading-tight">
+                        Spotted in <span className="italic">Vastraverse</span>
+                    </h2>
+                    <p className="text-xs sm:text-sm text-gray-500 font-light">
+                        Join the movement. Tag @vastraverse on Instagram to be featured.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
+                    {[
+                        "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=500&q=80",
+                        "https://images.unsplash.com/photo-1492288991661-058aa541ff43?auto=format&fit=crop&w=500&q=80",
+                        "https://images.unsplash.com/photo-1509319117193-57bab727e09d?auto=format&fit=crop&w=500&q=80",
+                        "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=500&q=80"
+                    ].map((img, i) => (
+                        <div
+                            key={i}
+                            onClick={() => window.open("https://www.instagram.com/jatin_jethava_3125/", "_blank")}
+                            className="group relative aspect-[4/5] overflow-hidden bg-gray-100 cursor-pointer"
+                        >
+                            <img
+                                src={img}
+                                alt="Social post"
+                                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 grayscale contrast-125 hover:grayscale-0"
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <Heart className="w-6 h-6 text-white" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
 
             <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-black/10 relative">
                 <div className="text-center max-w-3xl mx-auto space-y-4 mb-14 sm:mb-20">
@@ -592,71 +692,71 @@ export const Home = () => {
                     </p>
                 </div>
 
-                <div className="relative rounded-[28px] sm:rounded-[36px] bg-gradient-to-b from-[#0c0c0d] via-[#070708] to-[#000000] border border-white/10 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.06)] overflow-hidden p-6 sm:p-10 lg:p-14">
+                <div className="relative rounded-[24px] sm:rounded-[36px] bg-gradient-to-b from-[#0c0c0d] via-[#070708] to-[#000000] border border-white/10 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.06)] overflow-hidden p-5 sm:p-10 lg:p-14">
 
                     <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
-                    <div className="absolute -top-32 right-1/4 w-96 h-96 bg-white/[0.03] rounded-full blur-3xl pointer-events-none" />
-                    <div className="absolute -bottom-32 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute -top-32 right-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-white/[0.03] rounded-full blur-2xl sm:blur-3xl pointer-events-none" />
+                    <div className="absolute -bottom-32 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-white/[0.02] rounded-full blur-2xl sm:blur-3xl pointer-events-none" />
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center relative z-10">
 
-                        <div className="lg:col-span-5 space-y-7 text-center lg:text-left">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 text-white/70 text-[9px] uppercase tracking-[0.25em] font-mono">
-                                <Sparkles className="w-3 h-3 text-white/80" />
+                        <div className="lg:col-span-5 space-y-5 sm:space-y-7 text-center lg:text-left">
+                            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 text-white/70 text-[8px] sm:text-[9px] uppercase tracking-[0.25em] font-mono">
+                                <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white/80" />
                                 Mobile Concierge Privileges
                             </div>
 
-                            <div className="space-y-3">
-                                <h3 className="editorial-text text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight leading-[1.12]">
+                            <div className="space-y-2 sm:space-y-3">
+                                <h3 className="editorial-text text-2xl sm:text-4xl md:text-5xl font-light text-white tracking-tight leading-[1.12]">
                                     Elevate Your Everyday <br className="hidden sm:block" />
                                     <span className="italic font-serif font-normal text-white/90">Wardrobe</span>
                                 </h3>
-                                <p className="text-sm sm:text-[15px] text-neutral-400 font-light leading-relaxed max-w-md mx-auto lg:mx-0">
+                                <p className="text-[11px] sm:text-[15px] text-neutral-400 font-light leading-relaxed max-w-sm sm:max-w-md mx-auto lg:mx-0">
                                     Download the Vastraverse digital concierge for real-time private courier tracking, bespoke size reservations, and invitation-only archive sales.
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-left max-w-md mx-auto lg:mx-0">
-                                <div className="p-3 bg-white/[0.03] border border-white/[0.08] rounded-xl flex items-start gap-2.5">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-white mt-1.5 shrink-0" />
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 pt-1 text-left max-w-sm sm:max-w-md mx-auto lg:mx-0">
+                                <div className="p-2.5 sm:p-3 bg-white/[0.03] border border-white/[0.08] rounded-lg sm:rounded-xl flex items-start gap-2.5">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-white mt-1 sm:mt-1.5 shrink-0" />
                                     <div>
-                                        <p className="text-[11px] font-medium text-white tracking-wide">Real-Time Telemetry</p>
-                                        <p className="text-[10px] text-neutral-400 font-light">White-glove private dispatch</p>
+                                        <p className="text-[10px] sm:text-[11px] font-medium text-white tracking-wide">Real-Time Telemetry</p>
+                                        <p className="text-[9px] sm:text-[10px] text-neutral-400 font-light">White-glove private dispatch</p>
                                     </div>
                                 </div>
-                                <div className="p-3 bg-white/[0.03] border border-white/[0.08] rounded-xl flex items-start gap-2.5">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-white mt-1.5 shrink-0" />
+                                <div className="p-2.5 sm:p-3 bg-white/[0.03] border border-white/[0.08] rounded-lg sm:rounded-xl flex items-start gap-2.5">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-white mt-1 sm:mt-1.5 shrink-0" />
                                     <div>
-                                        <p className="text-[11px] font-medium text-white tracking-wide">Archive Access</p>
-                                        <p className="text-[10px] text-neutral-400 font-light">Secret vaults & limited capsules</p>
+                                        <p className="text-[10px] sm:text-[11px] font-medium text-white tracking-wide">Archive Access</p>
+                                        <p className="text-[9px] sm:text-[10px] text-neutral-400 font-light">Secret vaults & limited capsules</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
+                            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-3.5 pt-2">
                                 <button
                                     onClick={() => toast.info("App Store release scheduled shortly. Add to whitelist.")}
-                                    className="w-full sm:w-auto bg-white hover:bg-neutral-100 text-black px-6 py-3.5 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] hover:scale-[1.02] cursor-pointer group"
+                                    className="w-full sm:w-auto bg-white hover:bg-neutral-100 text-black px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl flex items-center justify-center gap-2.5 sm:gap-3 transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] hover:scale-[1.02] cursor-pointer group"
                                 >
-                                    <svg className="w-5 h-5 fill-current shrink-0" viewBox="0 0 170 170">
+                                    <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current shrink-0" viewBox="0 0 170 170">
                                         <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.68-7.75-11.93-14.14-5.2-7.8-9.43-16.7-12.7-26.69-3.26-10-4.9-19.68-4.9-29.04 0-14.35 3.65-26.06 10.96-35.13 7.3-9.08 16.48-13.68 27.52-13.8 4.8 0 10.15 1.25 16.05 3.75 5.91 2.5 9.77 3.86 11.6 4.08 1.42-.32 5.37-1.74 11.83-4.24 6.46-2.51 11.96-3.66 16.5-3.46 12.56.76 22.42 5.48 29.58 14.16-10.99 6.64-16.36 15.77-16.12 27.38.25 9.15 3.75 16.85 10.5 23.09 6.75 6.24 14.65 9.77 23.7 10.6-2.07 6.18-4.59 12.3-7.56 18.36zM119.22 33.04c0-7.3 2.66-14.11 7.97-20.44 5.31-6.32 11.85-10.42 19.62-12.3.87 7.08-1.44 14.07-6.93 20.97-5.49 6.9-12.37 10.9-20.66 11.77z" />
                                     </svg>
                                     <div className="text-left leading-tight">
-                                        <span className="text-[8px] uppercase tracking-wider text-neutral-500 font-semibold block">Download on</span>
-                                        <span className="text-xs uppercase tracking-[0.15em] text-black font-bold block">Apple iOS</span>
+                                        <span className="text-[7px] sm:text-[8px] uppercase tracking-wider text-neutral-500 font-semibold block">Download on</span>
+                                        <span className="text-[10px] sm:text-xs uppercase tracking-[0.15em] text-black font-bold block">Apple iOS</span>
                                     </div>
                                 </button>
 
                                 <button
                                     onClick={() => toast.info("Google Play release scheduled shortly. Add to whitelist.")}
-                                    className="w-full sm:w-auto bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/20 hover:border-white/40 px-6 py-3.5 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 hover:scale-[1.02] cursor-pointer group"
+                                    className="w-full sm:w-auto bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/20 hover:border-white/40 px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl flex items-center justify-center gap-2.5 sm:gap-3 transition-all duration-300 hover:scale-[1.02] cursor-pointer group"
                                 >
-                                    <svg className="w-5 h-5 fill-current shrink-0 text-white/90" viewBox="0 0 24 24">
+                                    <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current shrink-0 text-white/90" viewBox="0 0 24 24">
                                         <path d="M3.609 1.814L13.792 12 3.61 22.186c-.37-.34-.61-.83-.61-1.39V3.204c0-.56.24-1.05.609-1.39zm11.24 11.24l2.484-2.485-12.01-6.934 9.526 9.419zm0 1.892l-9.526 9.419 12.01-6.934-2.484-2.485zm1.485-1.485l3.232 1.866c.86.497.86 1.309 0 1.806l-3.232 1.866-1.06-1.06 1.06-1.06 1.06-1.06-1.06-1.06 1.06-1.06-1.06-1.06z" />
                                     </svg>
                                     <div className="text-left leading-tight">
-                                        <span className="text-[8px] uppercase tracking-wider text-neutral-400 font-semibold block">Get it on</span>
-                                        <span className="text-xs uppercase tracking-[0.15em] text-white font-bold block">Google Play</span>
+                                        <span className="text-[7px] sm:text-[8px] uppercase tracking-wider text-neutral-400 font-semibold block">Get it on</span>
+                                        <span className="text-[10px] sm:text-xs uppercase tracking-[0.15em] text-white font-bold block">Google Play</span>
                                     </div>
                                 </button>
                             </div>

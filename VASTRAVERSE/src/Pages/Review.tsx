@@ -77,15 +77,15 @@ export const MyReview = () => {
                                                 className="w-full h-full object-cover"
                                             />
                                         </div>
-                                        <div className="flex flex-col flex-1 md:mt-3">
-                                            <h4 className="font-medium text-neutral-900 text-sm md:text-base line-clamp-2 leading-tight">
+                                        <div className="flex flex-col flex-1 min-w-0 justify-center md:mt-3">
+                                            <h4 className="font-medium text-neutral-900 text-xs sm:text-sm md:text-base line-clamp-2 leading-tight">
                                                 {review.productId?.name || "Bespoke Garment"}
                                             </h4>
                                             <button
                                                 onClick={() => showProduct(review.productId?._id || review.productId)}
-                                                className="mt-2 text-neutral-900 hover:text-black text-xs font-semibold uppercase tracking-wider flex items-center gap-1 group w-fit cursor-pointer underline-offset-4 hover:underline"
+                                                className="mt-1.5 sm:mt-2 text-neutral-900 hover:text-black text-[9px] sm:text-xs font-semibold uppercase tracking-wider flex items-center gap-1 group w-fit cursor-pointer underline-offset-4 hover:underline whitespace-nowrap"
                                             >
-                                                Inspect Garment <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                                                Inspect Garment <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform sm:w-[13px] sm:h-[13px]" />
                                             </button>
                                         </div>
                                     </div>

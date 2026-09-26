@@ -90,56 +90,50 @@ export const Notification = () => {
                             data.notifications.map((notification: any) => (
                                 <div
                                     key={notification._id}
-                                    className={`relative overflow-hidden rounded-3xl border transition-all duration-300 ${
-                                        notification.isRead 
-                                            ? 'bg-white border-neutral-200/80 hover:border-black/30 shadow-sm' 
-                                            : 'bg-[#0c0c0e] border-white/10 text-white shadow-xl'
-                                    }`}
+                                    className={`relative overflow-hidden rounded-2xl sm:rounded-3xl border transition-all duration-300 ${notification.isRead
+                                        ? 'bg-white border-neutral-200/80 hover:border-black/30 shadow-sm'
+                                        : 'bg-[#0c0c0e] border-white/10 text-white shadow-xl'
+                                        }`}
                                 >
                                     {!notification.isRead && (
                                         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
                                     )}
-                                    <div className="p-5 sm:p-7 flex flex-row gap-4 sm:gap-6 items-start">
-                                        <div className={`shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center ${
-                                            notification.isRead ? 'bg-neutral-100 text-neutral-800' : 'bg-white/10 text-white border border-white/15'
-                                        }`}>
+                                    <div className="p-3.5 sm:p-7 flex flex-row gap-3 sm:gap-6 items-start">
+                                        <div className={`shrink-0 w-8 h-8 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center ${notification.isRead ? 'bg-neutral-100 text-neutral-800' : 'bg-white/10 text-white border border-white/15'
+                                            }`}>
                                             {getIconForType(notification.type)}
                                         </div>
 
                                         <div className="flex-1 min-w-0">
-                                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 sm:gap-4 mb-1.5">
-                                                <div className="flex items-center gap-2">
+                                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-0.5 sm:gap-4 mb-1 sm:mb-1.5">
+                                                <div className="flex items-center gap-1.5 sm:gap-2">
                                                     {!notification.isRead && (
                                                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                                                     )}
-                                                    <h4 className={`text-sm sm:text-base font-normal tracking-tight truncate ${
-                                                        notification.isRead ? 'text-neutral-900' : 'text-white'
-                                                    }`}>
+                                                    <h4 className={`text-[11px] sm:text-base font-normal tracking-tight truncate ${notification.isRead ? 'text-neutral-900' : 'text-white'
+                                                        }`}>
                                                         {notification.title}
                                                     </h4>
                                                 </div>
-                                                <span className={`text-[10px] font-medium uppercase tracking-[0.15em] whitespace-nowrap ${
-                                                    notification.isRead ? 'text-neutral-400' : 'text-white/40'
-                                                }`}>
+                                                <span className={`text-[8px] sm:text-[10px] font-medium uppercase tracking-[0.15em] whitespace-nowrap mt-0.5 sm:mt-0 ${notification.isRead ? 'text-neutral-400' : 'text-white/40'
+                                                    }`}>
                                                     {timeAgo(notification.createdAt)}
                                                 </span>
                                             </div>
-                                            <p className={`text-xs sm:text-sm leading-relaxed mb-4 font-light ${
-                                                notification.isRead ? 'text-neutral-500' : 'text-white/70'
-                                            }`}>
+                                            <p className={`text-[10px] sm:text-sm leading-relaxed mb-3 sm:mb-4 font-light ${notification.isRead ? 'text-neutral-500' : 'text-white/70'
+                                                }`}>
                                                 {notification.message}
                                             </p>
 
-                                            <div className="flex items-center gap-4 pt-1">
+                                            <div className="flex items-center gap-3 sm:gap-4 pt-1">
                                                 {notification.actionUrl && (
                                                     <Link
                                                         to={notification.actionUrl.startsWith('/') ? notification.actionUrl : `/${notification.actionUrl}`}
                                                         onClick={() => {
                                                             if (!notification.isRead) markAsRead(notification._id);
                                                         }}
-                                                        className={`text-[10px] sm:text-xs font-medium uppercase tracking-[0.15em] hover:underline underline-offset-4 transition-all ${
-                                                            notification.isRead ? 'text-black' : 'text-white'
-                                                        }`}
+                                                        className={`text-[9px] sm:text-xs font-medium uppercase tracking-[0.15em] hover:underline underline-offset-4 transition-all ${notification.isRead ? 'text-black' : 'text-white'
+                                                            }`}
                                                     >
                                                         View Dossier &rarr;
                                                     </Link>
@@ -149,7 +143,7 @@ export const Notification = () => {
                                                     <button
                                                         onClick={() => markAsRead(notification._id)}
                                                         disabled={isMarkAsReadPending}
-                                                        className="text-[10px] sm:text-xs font-medium text-white/50 hover:text-white transition-colors uppercase tracking-[0.15em] cursor-pointer"
+                                                        className="text-[9px] sm:text-xs font-medium text-white/50 hover:text-white transition-colors uppercase tracking-[0.15em] cursor-pointer"
                                                     >
                                                         Mark as Read
                                                     </button>

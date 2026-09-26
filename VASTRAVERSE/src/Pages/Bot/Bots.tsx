@@ -356,7 +356,7 @@ export const Bots = () => {
             let results = allProducts;
 
             if (keywords.length > 0) {
-                let filtered = results.filter(product => {
+                const filtered = results.filter(product => {
                     const categoryName = typeof product.category === 'object' ? (product.category as any).name || "" : product.category || "";
                     const searchable = `${product.title} ${product.description} ${categoryName} ${product.tags?.join(" ") || ""} ${product.gender} ${product.material} ${product.fit}`.toLowerCase();
                     return keywords.every(kw => {

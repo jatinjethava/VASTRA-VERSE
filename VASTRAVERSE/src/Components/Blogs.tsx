@@ -23,7 +23,7 @@ export const MensBlog = ({ blog }: { blog: IBlog }) => {
     return (
         <article
             onClick={handleRead}
-            className="group relative w-[280px] sm:w-[320px] md:w-[350px] bg-gradient-to-b from-neutral-900/95 via-[#0d0d0d]/95 to-black border border-white/10 hover:border-white/30 rounded-2xl sm:rounded-3xl p-4 sm:p-5 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_25px_rgba(255,255,255,0.08)] cursor-pointer select-none shrink-0"
+            className="group relative w-[250px] sm:w-[320px] md:w-[350px] bg-gradient-to-b from-neutral-900/95 via-[#0d0d0d]/95 to-black border border-white/10 hover:border-white/30 rounded-2xl sm:rounded-3xl p-4 sm:p-5 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-md sm:shadow-xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_25px_rgba(255,255,255,0.08)] cursor-pointer select-none shrink-0"
         >
             {/* Top specular hairline accent */}
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
@@ -62,11 +62,11 @@ export const MensBlog = ({ blog }: { blog: IBlog }) => {
                 </div>
 
                 {/* Article Typography */}
-                <div className="space-y-2">
-                    <h3 className="editorial-text text-sm sm:text-base font-light text-white tracking-wide line-clamp-2 group-hover:text-neutral-200 transition-colors leading-snug">
+                <div className="space-y-1.5 sm:space-y-2">
+                    <h3 className="editorial-text text-xs sm:text-base font-light text-white tracking-wide line-clamp-2 group-hover:text-neutral-200 transition-colors leading-snug">
                         {blog?.title || blog?.subTitle}
                     </h3>
-                    <p className="text-xs sm:text-[13px] text-neutral-400 font-light leading-relaxed line-clamp-2">
+                    <p className="text-[10px] sm:text-[13px] text-neutral-400 font-light leading-relaxed line-clamp-2">
                         {blog?.description}
                     </p>
                 </div>
@@ -78,12 +78,12 @@ export const MensBlog = ({ blog }: { blog: IBlog }) => {
                     <div className="w-5 h-5 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-[9px] font-mono text-white/80 uppercase">
                         {(blog?.author || "V")[0]}
                     </div>
-                    <span className="text-[10px] font-mono text-neutral-300 tracking-wider uppercase truncate max-w-[120px]">
+                    <span className="text-[9px] sm:text-[10px] font-mono text-neutral-300 tracking-wider uppercase truncate max-w-[110px] sm:max-w-[120px]">
                         {blog?.author || "Atelier Editor"}
                     </span>
                 </div>
 
-                <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-white/60 group-hover:text-white flex items-center gap-1 transition-colors">
+                <span className="text-[8px] sm:text-[9px] font-mono uppercase tracking-[0.2em] text-white/60 group-hover:text-white flex items-center gap-1 transition-colors">
                     Read Article
                 </span>
             </div>
