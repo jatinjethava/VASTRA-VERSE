@@ -51,7 +51,7 @@ export const UpdateUser = ({ setEditProfile, user }: { setEditProfile: (edit: bo
         }}>
             <div className="bg-white rounded-3xl shadow-2xl border border-neutral-200 p-6 sm:p-8 md:p-10 w-full max-w-2xl relative animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto no-scrollbar">
 
-                {/* Top specular highlight accent */}
+                
                 <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                 <button

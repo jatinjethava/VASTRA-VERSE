@@ -65,7 +65,7 @@ function CancelModal({
 
     return (
         <div className="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-neutral-200/80 overflow-hidden">
-            {/* Specular hairline */}
+            
             <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
             <div className="flex items-center justify-between mb-4">

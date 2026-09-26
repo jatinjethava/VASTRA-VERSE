@@ -31,7 +31,7 @@ export const Wishlist = () => {
                 ) : (
                     <div className="bg-white rounded-3xl border border-neutral-200/80 shadow-xl p-8 sm:p-16 flex flex-col items-center justify-center text-center max-w-2xl mx-auto mb-20 relative overflow-hidden">
                         
-                        {/* Top specular hairline */}
+                        
                         <div className="absolute top-0 left-12 right-12 h-[1px] bg-gradient-to-r from-transparent via-neutral-200 to-transparent" />
 
                         <div className="w-16 h-16 sm:w-20 sm:h-20 bg-neutral-100 rounded-full flex items-center justify-center mb-5">

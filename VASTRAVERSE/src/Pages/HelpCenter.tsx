@@ -28,7 +28,7 @@ export const HelpCenter = () => {
 
                 <section className="bg-[#0a0a0b] relative overflow-hidden border-b border-white/10">
 
-                    {/* Specular hairline */}
+                    
                     <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
                     <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[50vh] h-[50vh] rounded-full bg-white/5 opacity-40 blur-3xl pointer-events-none"></div>

@@ -161,9 +161,9 @@ export const Men = () => {
                 </div>
             </div>
 
-            {/* Thoughtful Articles / Editorial Section */}
+            
             <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-black/10 relative">
-                {/* Section Header */}
+                
                 <div className="text-center max-w-3xl mx-auto space-y-4 mb-12 sm:mb-16">
                     <div className="inline-flex items-center gap-2 px-3 py-1 border border-black/15 bg-black/[0.03] text-black/80 rounded-full text-[10px] tracking-[0.25em] uppercase font-mono font-medium">
                         <span className="w-1.5 h-1.5 rounded-full bg-black/70 animate-pulse" />
@@ -177,15 +177,15 @@ export const Men = () => {
                     </p>
                 </div>
 
-                {/* Black & White Luxury Editorial Showcase Container */}
+                
                 <div className="relative rounded-[28px] sm:rounded-[36px] bg-gradient-to-b from-[#0c0c0d] via-[#070708] to-[#000000] border border-white/10 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.06)] overflow-hidden p-6 sm:p-8 lg:p-10">
 
-                    {/* Specular hairline & ambient light */}
+                    
                     <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
                     <div className="absolute -top-32 right-1/4 w-96 h-96 bg-white/[0.03] rounded-full blur-3xl pointer-events-none" />
                     <div className="absolute -bottom-32 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
 
-                    {/* Showcase Header Bar */}
+                    
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 sm:pb-8 border-b border-white/10 mb-6 sm:mb-8 relative z-10 text-center sm:text-left">
                         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
                             <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-white/50">
@@ -205,7 +205,7 @@ export const Men = () => {
                         </Link>
                     </div>
 
-                    {/* Infinite Marquee Slider with Fade Gradients */}
+                    
                     <div className="relative">
                         <BlogSlider />
                     </div>

@@ -380,7 +380,7 @@ export const SignUp = () => {
                         <div className='fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity'></div>
                         <div className='fixed inset-0 z-50 flex items-center justify-center p-4'>
                             <div className='relative py-8 px-6 sm:px-8 border border-neutral-200 bg-white w-full sm:w-[420px] rounded-3xl shadow-2xl flex flex-col items-center justify-center space-y-5 overflow-hidden'>
-                                {/* Specular hairline */}
+                                
                                 <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                                 <div className="w-12 h-12 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center text-xl">
@@ -426,7 +426,7 @@ export const SignUp = () => {
                     </>
                 )}
                 <div className="relative w-full max-w-md bg-white rounded-3xl border border-neutral-200/80 p-5 sm:p-6 sm:pb-8 shadow-xl overflow-y-auto max-h-[85vh] custom-scrollbar space-y-3 sm:space-y-4">
-                    {/* Top specular hairline */}
+                    
                     <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                     {isPending && (

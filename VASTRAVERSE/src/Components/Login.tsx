@@ -217,7 +217,7 @@ export const Login = () => {
                 <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 md:p-12">
                     <div className="relative w-full max-w-md bg-white rounded-3xl border border-neutral-200/80 p-7 sm:p-10 shadow-xl overflow-hidden space-y-6 sm:space-y-7">
 
-                        {/* Top specular hairline */}
+                        
                         <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                         {isPending && (

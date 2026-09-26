@@ -61,7 +61,7 @@ export const ReturnRequestModal = ({ orderNumber, items, orderId, onClose }: { o
 
     return (
         <div className="relative w-[95vw] sm:w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl flex flex-col p-6 sm:p-9 bg-white shadow-2xl border border-neutral-200/80 mx-auto">
-            {/* Specular hairline */}
+            
             <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
             <div className="flex w-full justify-between items-center mb-5 sm:mb-6">

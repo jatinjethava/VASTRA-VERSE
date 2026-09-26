@@ -14,7 +14,7 @@ export const SessionActivity = ({ setOpenSessionActivity }: { setOpenSessionActi
                     onClick={() => setOpenSessionActivity(false)}
                 />
                 <div className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl p-6 sm:p-8 transform transition-all max-h-[85vh] flex flex-col border border-neutral-200 overflow-hidden z-10">
-                    {/* Specular hairline */}
+                    
                     <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-neutral-900/20 to-transparent" />
 
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 shrink-0">

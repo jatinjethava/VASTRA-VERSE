@@ -40,13 +40,13 @@ export const Profile = () => {
     return (
         <div className="min-h-screen bg-[#fafafa] px-4 py-8 sm:py-12 md:px-8 lg:px-12">
 
-            {/* VIP Client Dossier Hero Card */}
+            
             <div className="max-w-7xl mx-auto bg-black text-white rounded-none border border-black p-6 sm:p-10 md:p-12 relative overflow-hidden flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
 
-                {/* Top specular hairline */}
+                
                 <div className="absolute top-0 left-12 right-12 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
-                {/* Ambient glow */}
+                
                 <div className="absolute top-0 right-0 w-96 h-96 bg-white/[0.03] rounded-none blur-3xl pointer-events-none -mr-20 -mt-20" />
 
                 <div className="relative group shrink-0 z-10">
@@ -106,7 +106,7 @@ export const Profile = () => {
             </div>
 
 
-            {/* Shipping Addresses Section */}
+            
             <div className="mx-auto my-12 sm:my-16 max-w-7xl">
                 <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
                     <div>
@@ -190,11 +190,11 @@ export const Profile = () => {
             </div>
 
 
-            {/* Divider */}
+            
             <div className="my-12 sm:my-16 max-w-7xl mx-auto h-[1px] bg-gradient-to-r from-transparent via-neutral-200 to-transparent" />
 
 
-            {/* Member Editorial Workspace Section */}
+            
             <div className="mx-auto max-w-7xl mb-16">
 
                 <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">

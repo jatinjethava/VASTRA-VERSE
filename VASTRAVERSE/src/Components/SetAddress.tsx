@@ -80,7 +80,7 @@ export const Address = ({ isUpdating, setOpenAddressModel, userData, selectedAdd
             <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-1000 flex items-center justify-center p-4 transition-opacity animate-in fade-in duration-200">
                 <div className="w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-neutral-200 max-h-[90vh] overflow-y-auto no-scrollbar relative animate-in zoom-in-95 duration-200">
                     
-                    {/* Top specular highlight accent */}
+                    
                     <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                     <div className="sticky -top-6 bg-white pt-2 pb-4 z-10 border-b border-neutral-100 flex items-center justify-between mb-5">

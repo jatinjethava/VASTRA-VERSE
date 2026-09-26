@@ -64,7 +64,7 @@ export const AddReview = ({ setAddReview, productId }: { setAddReview: (addRevie
         <div className="fixed inset-0 z-1000 flex items-center justify-center p-4 backdrop-blur-md bg-black/60 transition-opacity animate-in fade-in duration-200">
             <div className="relative bg-white rounded-3xl shadow-2xl border border-neutral-200/80 p-6 sm:p-8 w-full max-w-lg animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto no-scrollbar">
 
-                {/* Specular hairline */}
+                
                 <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                 {isLoadingReview && (

@@ -65,7 +65,7 @@ export const MyReview = () => {
                                 key={review._id}
                                 className="relative bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200/80 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
                             >
-                                {/* Specular hairline */}
+                                
                                 <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                                 <div className="flex flex-col md:flex-row gap-6">

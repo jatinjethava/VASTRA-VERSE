@@ -78,7 +78,7 @@ export const Wallet = () => {
         <div className="min-h-screen bg-[#fafafa] py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto space-y-10">
 
-                {/* Section Header */}
+                
                 <div className="text-center max-w-2xl mx-auto space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 border border-black/15 bg-black/[0.03] text-black/80 rounded-full text-[10px] tracking-[0.25em] uppercase font-mono font-medium">
                         <span className="w-1.5 h-1.5 rounded-full bg-black/70 animate-pulse" />
@@ -94,14 +94,14 @@ export const Wallet = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-                    {/* Left Column: Titanium Card & Add Funds (7 Cols) */}
+                    
                     <div className="lg:col-span-7 space-y-6 sm:space-y-8">
 
-                        {/* Obsidian Centurion VIP Card */}
+                        
                         {walletInfo && (
                             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c0c0d] via-[#070708] to-black text-white p-7 sm:p-9 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.12)] transition-transform hover:scale-[1.01] duration-500">
 
-                                {/* Specular edge and glow */}
+                                
                                 <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
                                 <div className="absolute -top-24 -right-24 w-64 h-64 bg-white/[0.05] rounded-full blur-3xl pointer-events-none" />
 
@@ -142,7 +142,7 @@ export const Wallet = () => {
                             </div>
                         )}
 
-                        {/* Add Funds Form Box */}
+                        
                         <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-[0_4px_25px_rgba(0,0,0,0.02)] border border-neutral-200/80 space-y-6">
                             <div className="flex items-center justify-between border-b border-neutral-100 pb-4">
                                 <div className="flex items-center gap-2.5">
@@ -158,7 +158,7 @@ export const Wallet = () => {
                                 </span>
                             </div>
 
-                            {/* Quick Select Pills */}
+                            
                             <div>
                                 <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400 block mb-2.5">
                                     Select Nominal Amount
@@ -179,7 +179,7 @@ export const Wallet = () => {
                                 </div>
                             </div>
 
-                            {/* Custom Amount Input */}
+                            
                             <div className="space-y-1.5">
                                 <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400 block">
                                     Or Specify Custom Value
@@ -198,7 +198,7 @@ export const Wallet = () => {
                                 </div>
                             </div>
 
-                            {/* Pay Action Button */}
+                            
                             <button
                                 onClick={addMoneyHandler}
                                 disabled={addMoneyPending || !amount || amount <= 0}
@@ -227,7 +227,7 @@ export const Wallet = () => {
                         </div>
                     </div>
 
-                    {/* Right Column: Recent Transactions (5 Cols) */}
+                    
                     <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-[0_4px_25px_rgba(0,0,0,0.02)] border border-neutral-200/80 space-y-6">
                         <div className="flex items-center justify-between border-b border-neutral-100 pb-4">
                             <div className="flex items-center gap-2.5">

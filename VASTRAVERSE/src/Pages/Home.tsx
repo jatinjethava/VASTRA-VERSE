@@ -583,7 +583,7 @@ export const Home = () => {
                 </div>
             </section>
 
-            {/* Editorial Journal / Blog Highlights */}
+            
             {latestBlogs.length > 0 && (
                 <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-black/10 relative">
                     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16 sm:mb-20">
@@ -641,7 +641,7 @@ export const Home = () => {
                 </section>
             )}
 
-            {/* Spotted in Vastraverse (Social Feed) */}
+            
             <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-black/10 relative overflow-hidden">
                 <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
                     <span className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-[0.3em]">Community Archive</span>

@@ -48,7 +48,7 @@ export const OrderList = () => {
     return (
         <div className="min-h-screen bg-[#fafafa] py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-                {/* Header */}
+                
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 sm:mb-12 gap-4 pb-6 border-b border-neutral-200/80">
                     <div className="space-y-2">
                         <div className="inline-flex items-center gap-2 px-3 py-0.5 border border-black/15 bg-black/[0.03] text-black/80 rounded-full text-[9px] tracking-[0.25em] uppercase font-mono font-medium">
@@ -90,10 +90,10 @@ export const OrderList = () => {
                                 key={order.orderNumber}
                                 className="group relative bg-white rounded-3xl border border-neutral-200/80 hover:border-black/25 shadow-[0_4px_25px_rgba(0,0,0,0.02)] hover:shadow-lg transition-all duration-300 overflow-hidden"
                             >
-                                {/* Top hairline specular accent */}
+                                
                                 <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-neutral-300/40 to-transparent pointer-events-none" />
 
-                                {/* Order Header Strip */}
+                                
                                 <div className="border-b border-neutral-200/80 bg-neutral-50/70 px-5 sm:px-7 py-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                                     <div className="flex flex-wrap w-full md:w-auto gap-x-6 sm:gap-x-8 gap-y-3 text-xs justify-between sm:justify-start">
                                         <div>
@@ -112,7 +112,7 @@ export const OrderList = () => {
                                         </div>
                                     </div>
 
-                                    {/* Status Badge */}
+                                    
                                     <div className="flex items-center gap-3 w-full md:w-auto pt-2 md:pt-0 border-t border-neutral-200/60 md:border-t-0 justify-between md:justify-end">
                                         <span className={`px-3 py-1 text-[10px] font-mono font-semibold rounded-full uppercase tracking-widest border ${order.orderStatus === 'delivered'
                                             ? 'bg-black text-white border-black'
@@ -130,7 +130,7 @@ export const OrderList = () => {
                                     </div>
                                 </div>
 
-                                {/* Order Items Body */}
+                                
                                 <div className="px-5 sm:px-7 py-5">
                                     <div className="divide-y divide-neutral-100">
                                         {order?.items.map((item: any, idx: number) => {
@@ -169,7 +169,7 @@ export const OrderList = () => {
                                         })}
                                     </div>
 
-                                    {/* Order Footer Actions */}
+                                    
                                     <div className="mt-5 pt-4 flex justify-between items-center gap-3 border-t border-neutral-100">
                                         <button
                                             onClick={async () => {

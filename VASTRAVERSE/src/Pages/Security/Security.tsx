@@ -82,9 +82,9 @@ export const Security = () => {
             <div className="px-4 sm:px-6 lg:px-8 py-8 sm:py-12 bg-[#fafafa] min-h-screen text-neutral-900">
                 <div className="max-w-5xl mx-auto space-y-8">
 
-                    {/* Editorial Hero Header */}
+                    
                     <div className="bg-[#0a0a0b] text-white border border-white/10 rounded-2xl sm:rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-2xl">
-                        {/* Specular hairline gradient */}
+                        
                         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
                         <div className="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-white/5 blur-3xl pointer-events-none" />
 
@@ -127,10 +127,10 @@ export const Security = () => {
                         </div>
                     </div>
 
-                    {/* Action Cards Grid */}
+                    
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                        {/* Password Settings */}
+                        
                         <div className="bg-white rounded-2xl sm:rounded-3xl border border-neutral-200/80 p-6 sm:p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
                             <div className="space-y-4">
                                 <div className="w-12 h-12 rounded-xl bg-neutral-900 text-white flex items-center justify-center transition-transform group-hover:scale-105">
@@ -171,7 +171,7 @@ export const Security = () => {
                             </button>
                         </div>
 
-                        {/* Login Activity */}
+                        
                         <div className="bg-white rounded-2xl sm:rounded-3xl border border-neutral-200/80 p-6 sm:p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
                             <div className="space-y-4">
                                 <div className="w-12 h-12 rounded-xl bg-neutral-100 text-neutral-900 flex items-center justify-center transition-transform group-hover:scale-105 border border-neutral-200/60">
@@ -208,7 +208,7 @@ export const Security = () => {
                             </button>
                         </div>
 
-                        {/* Session Activity */}
+                        
                         <div className="bg-white rounded-2xl sm:rounded-3xl border border-neutral-200/80 p-6 sm:p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
                             <div className="space-y-4">
                                 <div className="w-12 h-12 rounded-xl bg-neutral-100 text-neutral-900 flex items-center justify-center transition-transform group-hover:scale-105 border border-neutral-200/60">
@@ -247,7 +247,7 @@ export const Security = () => {
                     </div>
                 </div>
 
-                {/* Change Password Modal */}
+                
                 {openChangePassword && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                         <div
@@ -256,7 +256,7 @@ export const Security = () => {
                         />
 
                         <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl p-6 sm:p-8 transform transition-all border border-neutral-200 overflow-hidden z-10">
-                            {/* Specular hairline */}
+                            
                             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-neutral-900/20 to-transparent" />
 
                             <div className="flex items-start justify-between mb-6">

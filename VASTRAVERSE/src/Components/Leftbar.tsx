@@ -3,7 +3,7 @@ export const LeftBar = () => {
         <>
             <div className="left_bar hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col justify-between p-12 lg:p-16 bg-[#0a0a0b] text-white border-r border-white/10">
 
-                {/* Ambient glow and subtle texture */}
+                
                 <div
                     className="absolute inset-0 opacity-[0.06] pointer-events-none"
                     style={{
@@ -12,7 +12,7 @@ export const LeftBar = () => {
                     }}
                 />
                 
-                {/* Top specular hairline */}
+                
                 <div className="absolute top-0 left-12 right-12 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
                 <div className="relative z-10 flex items-center gap-3">

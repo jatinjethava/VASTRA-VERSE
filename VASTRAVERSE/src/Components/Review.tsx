@@ -173,7 +173,7 @@ export const Reviews = ({ productId }: { productId: string }) => {
                     </button>
                 </div>
 
-                {/* Mobile scroll container */}
+                
                 <div className="mt-0 space-y-0 max-h-[450px] overflow-y-auto md:max-h-none md:overflow-y-visible pr-1 sm:pr-0 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-200">
                     {filterReview().map((review, idx) => (
                         <div

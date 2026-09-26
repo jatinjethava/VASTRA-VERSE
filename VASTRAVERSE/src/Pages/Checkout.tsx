@@ -271,7 +271,7 @@ export const Checkout = () => {
                 <div className="flex flex-col lg:flex-row w-[95%] sm:w-[90%] max-w-7xl mx-auto gap-8 lg:gap-10">
                     <form onSubmit={handleOrderSubmit} className="w-full lg:w-2/3 relative bg-white rounded-3xl border border-neutral-200/80 p-6 sm:p-10 shadow-sm overflow-hidden">
 
-                        {/* Top specular hairline */}
+                        
                         <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                         <div className="mb-8">
@@ -506,10 +506,10 @@ export const Checkout = () => {
                         )}
                     </form>
 
-                    {/* Obsidian Order Summary Card */}
+                    
                     <div className="w-full lg:w-1/3 lg:sticky rounded-3xl lg:top-24 h-fit p-6 sm:p-8 shadow-2xl order-1 lg:order-2 bg-[#0a0a0b] text-white border border-white/10 relative overflow-hidden">
 
-                        {/* Top specular highlight hairline */}
+                        
                         <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
                         <div className="flex justify-between items-center mb-6">
@@ -559,7 +559,7 @@ export const Checkout = () => {
                             })}
                         </div>
 
-                        {/* Price Breakdown Ledger */}
+                        
                         <div className="space-y-2.5 pt-4 border-t border-white/10 text-xs text-white/70">
                             <div className="flex justify-between font-light">
                                 <span>Subtotal</span>
@@ -588,7 +588,7 @@ export const Checkout = () => {
                             </div>
                         </div>
 
-                        {/* Coupon Section */}
+                        
                         {userCart?.[0]?.code ? (
                             <div className="flex justify-between items-center p-3 mt-4 border border-emerald-500/30 bg-emerald-500/10 rounded-xl text-emerald-400">
                                 <span className="text-[10px] uppercase font-bold tracking-widest">Privilege '{userCart[0].code}' Active</span>

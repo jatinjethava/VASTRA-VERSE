@@ -7,7 +7,7 @@ import { FaWhatsapp } from "react-icons/fa6";
 import { colorMap } from "../Components/Detail";
 import { Trash2, Plus, Minus, ShoppingBag, ShieldCheck, Bookmark } from "lucide-react";
 
-// Notes : if is guest user than fetch data from localstorage otherwise fetch from server
+
 
 export const Cart = () => {
     const cart = useSelector((state: any) => state.cart.cart);
@@ -84,7 +84,7 @@ export const Cart = () => {
     return (
         <div className="min-h-screen py-10 sm:py-14 px-4 sm:px-6 lg:px-8 relative bg-[#fafafa]">
 
-            {/* Editorial Page Header */}
+            
             <div className="max-w-7xl mx-auto text-center mb-10 sm:mb-14 space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 border border-black/15 bg-black/[0.03] text-black/80 rounded-full text-[10px] tracking-[0.25em] uppercase font-mono font-medium">
                     <span className="w-1.5 h-1.5 rounded-full bg-black/70 animate-pulse" />
@@ -100,7 +100,7 @@ export const Cart = () => {
 
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 pb-20">
 
-                {/* Left Column: Cart Items List */}
+                
                 <div className="lg:col-span-2 space-y-4">
                     <div className="flex justify-between items-center bg-white py-3.5 sm:py-4 px-5 sm:px-6 rounded-2xl border border-neutral-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.02)] mb-2">
                         <div className="flex items-center gap-2.5">
@@ -148,10 +148,10 @@ export const Cart = () => {
                                             key={item._id || index}
                                             className="group relative flex flex-row bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-neutral-200/80 hover:border-black/25 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-md gap-4 sm:gap-6 items-stretch transition-all duration-300"
                                         >
-                                            {/* Specular hairline top accent */}
+                                            
                                             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-neutral-300/40 to-transparent pointer-events-none" />
 
-                                            {/* Product Image */}
+                                            
                                             <div className="w-24 sm:w-32 h-28 sm:h-32 bg-neutral-100 rounded-xl overflow-hidden shrink-0 border border-neutral-200/60 relative">
                                                 <img
                                                     src={images[0]}
@@ -160,7 +160,7 @@ export const Cart = () => {
                                                 />
                                             </div>
 
-                                            {/* Details & Actions */}
+                                            
                                             <div className="flex-1 flex flex-col justify-between min-w-0">
                                                 <div>
                                                     <div className="flex justify-between items-start">
@@ -181,7 +181,7 @@ export const Cart = () => {
                                                         </button>
                                                     </div>
 
-                                                    {/* Attributes Pills */}
+                                                    
                                                     <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-2 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-neutral-600">
                                                         <div className="flex items-center gap-1.5 px-2 py-0.5 bg-neutral-100 rounded border border-neutral-200/60">
                                                             <span className="text-neutral-400">Size:</span>
@@ -200,7 +200,7 @@ export const Cart = () => {
                                                     </div>
                                                 </div>
 
-                                                {/* Stepper & Price Row */}
+                                                
                                                 <div className="flex justify-between items-end mt-3 pt-2.5 border-t border-neutral-100">
                                                     <div className="flex items-center bg-neutral-50 rounded-lg border border-neutral-200 overflow-hidden h-7 sm:h-8">
                                                         <button
@@ -271,11 +271,11 @@ export const Cart = () => {
                     )}
                 </div>
 
-                {/* Right Column: Obsidian Luxury Order Summary */}
+                
                 <div className="lg:col-span-1">
                     <div className="bg-gradient-to-b from-[#0c0c0d] via-[#070708] to-black text-white p-6 sm:p-7 rounded-3xl border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] sticky top-24 relative overflow-hidden">
 
-                        {/* Top specular hairline */}
+                        
                         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
 
                         <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">

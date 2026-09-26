@@ -60,7 +60,7 @@ export const Card = ({ product }: { product: Product }) => {
                     }
                 }}
             >
-                {/* Image Container */}
+                
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#f9f9f9]">
                     <img
                         src={`${product?.images[0]}`}
@@ -68,10 +68,10 @@ export const Card = ({ product }: { product: Product }) => {
                         alt={product?.title}
                     />
 
-                    {/* Overlay for hover effect */}
+                    
                     <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                    {/* Tags */}
+                    
                     <div className="absolute top-3 sm:top-4 left-3 sm:left-4 flex flex-col gap-1.5 sm:gap-2 z-10">
                         {product?.isBestSeller && (
                             <span className="bg-black text-white text-[7px] sm:text-[9px] uppercase tracking-[0.15em] px-2 sm:px-3 py-1 sm:py-1.5">
@@ -85,7 +85,7 @@ export const Card = ({ product }: { product: Product }) => {
                         )}
                     </div>
 
-                    {/* Wishlist Button */}
+                    
                     <button
                         onClick={(e) => {
                             e.stopPropagation();
@@ -96,7 +96,7 @@ export const Card = ({ product }: { product: Product }) => {
                         {isWishlisted ? <FaHeart className="text-black" size={14} /> : <CiHeart size={16} className="text-black" />}
                     </button>
 
-                    {/* Sizes on Hover (Optional, adds luxury feel) */}
+                    
                     {product?.variants && product.variants.length > 0 && (
                         <div className="absolute bottom-3 sm:bottom-4 left-0 w-full flex justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 z-10">
                             <div className="flex gap-1.5 sm:gap-2 bg-white/90 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-sm mx-3 sm:mx-4 overflow-x-auto hide-scrollbar">
@@ -108,7 +108,7 @@ export const Card = ({ product }: { product: Product }) => {
                     )}
                 </div>
 
-                {/* Info Container */}
+                
                 <div className="flex flex-col gap-1.5 px-1 mt-1 sm:mt-0">
                     <div className="flex justify-between items-start gap-2 sm:gap-4">
                         <h3 className="text-xs sm:text-sm font-medium text-black line-clamp-2 sm:line-clamp-1 flex-1 leading-snug">
@@ -129,7 +129,7 @@ export const Card = ({ product }: { product: Product }) => {
                     <div className="flex justify-between items-center mt-0.5 sm:mt-0">
                         <p className="text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-widest truncate max-w-[100px] sm:max-w-none">{product?.material || "Premium Cotton"}</p>
 
-                        {/* Rating snippet */}
+                        
                         {averageRating > 0 && (
                             <div className="flex items-center gap-1 shrink-0">
                                 <FaStar className="text-black" size={9} />
