@@ -54,10 +54,10 @@ export const removeFromWishlist = async (req: CustomRequest, res: Response) => {
 
 export const getWishlistForCheck = async (req: CustomRequest, res: Response) => {
     try {
-        const { error, value } = getWishlistSchema.validate(req.query);
+        const { error } = getWishlistSchema.validate(req.query);
         if (error) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, error.details[0]?.message || "Validation Error", {}, {}));
 
-        const wishlist = await getData(WishlistModel, { userId: req.user?._id, isDeleted: false }, { _id: 0, userId: 0, __v: 0, isDeleted: 0 });
+        const wishlist = await getData(WishlistModel, { userId: req.user?._id, isDeleted: false }, { productId: 1, _id: 0 });
         if (!wishlist) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Wishlist"), {}, {}));
 
         return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, responseMessage.getDataSuccess("Wishlist"), { wishlist }, {}));
@@ -69,19 +69,17 @@ export const getWishlistForCheck = async (req: CustomRequest, res: Response) => 
 
 export const getWishlistShowProducts = async (req: CustomRequest, res: Response) => {
     try {
-        const wishlist = await getData(WishlistModel, { userId: req.user?._id, isDeleted: false }, { _id: 0, userId: 0, __v: 0, isDeleted: 0 });
+        const wishlist = await getData(WishlistModel, { userId: req.user?._id, isDeleted: false }, { productId: 1, _id: 0 });
         if (!wishlist) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Wishlist"), {}, {}));
 
-        const product = await Promise.all(
-            wishlist.map(async (item: any) => {
-                const product = await getFirstMatch(TShirtModel, { _id: item.productId });
-                return product;
-            })
-        )
+        const productIds = wishlist.map((item: any) => item.productId).filter(Boolean);
+        if (productIds.length === 0) {
+            return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, responseMessage.getDataSuccess("Wishlist"), { finalProduct: [] }, {}));
+        }
 
-        const finalProduct = product.filter((item: any) => item !== null);
+        const finalProduct = await getData(TShirtModel, { _id: { $in: productIds }, isDeleted: false });
 
-        return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, responseMessage.getDataSuccess("Wishlist"), { finalProduct }, {}));
+        return res.status(HTTP_STATUS.OK).json(new apiResponse(HTTP_STATUS.OK, responseMessage.getDataSuccess("Wishlist"), { finalProduct: finalProduct || [] }, {}));
     } catch (error) {
         console.log("Error in getWishlistShowProducts:", error);
         return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json(new apiResponse(HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage.internalServerError, {}, {}));

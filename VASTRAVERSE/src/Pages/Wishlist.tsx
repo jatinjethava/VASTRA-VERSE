@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export const Wishlist = () => {
 
-    const { data } = useGetWishlistProducts();
+    const { data, isLoading } = useGetWishlistProducts();
 
     return (
         <div className="min-h-screen py-10 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#fafafa]">
@@ -22,7 +22,22 @@ export const Wishlist = () => {
                     <div className="w-12 h-[1px] bg-neutral-300 mx-auto mt-4"></div>
                 </div>
 
-                {data?.data?.finalProduct && data.data.finalProduct.length > 0 ? (
+                {isLoading ? (
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 mb-20 animate-pulse">
+                        {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                            <div key={i} className="flex flex-col gap-4">
+                                <div className="aspect-[3/4] w-full bg-neutral-200/80 relative overflow-hidden" />
+                                <div className="space-y-2 px-1">
+                                    <div className="h-3.5 bg-neutral-200/80 rounded w-3/4" />
+                                    <div className="flex justify-between items-center">
+                                        <div className="h-3 bg-neutral-200/60 rounded w-1/3" />
+                                        <div className="h-3 bg-neutral-200/70 rounded w-1/4" />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : data?.data?.finalProduct && data.data.finalProduct.length > 0 ? (
                     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 mb-20'>
                         {data.data.finalProduct.map((item: any) => (
                             <Card key={item._id} product={item} />
@@ -30,8 +45,8 @@ export const Wishlist = () => {
                     </div>
                 ) : (
                     <div className="bg-white rounded-3xl border border-neutral-200/80 shadow-xl p-8 sm:p-16 flex flex-col items-center justify-center text-center max-w-2xl mx-auto mb-20 relative overflow-hidden">
-                        
-                        
+
+
                         <div className="absolute top-0 left-12 right-12 h-[1px] bg-gradient-to-r from-transparent via-neutral-200 to-transparent" />
 
                         <div className="w-16 h-16 sm:w-20 sm:h-20 bg-neutral-100 rounded-full flex items-center justify-center mb-5">

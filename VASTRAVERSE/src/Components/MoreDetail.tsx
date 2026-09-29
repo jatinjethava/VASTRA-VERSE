@@ -13,6 +13,7 @@ import ReactGA from "react-ga4";
 import { QA } from "./QA";
 import { useGetProductAllReview } from "../Hooks/review";
 import { colorMap } from "./Detail";
+import { toast } from "sonner";
 
 interface LocationState {
     product: Product;
@@ -36,11 +37,11 @@ export const MoreDetails = () => {
     }, [product]);
 
     const { mutateAsync: addToCart, isPending: cartPending } = useAddToCart();
-    const { mutateAsync: addToWishList, isPending: wishListPending } = useAddToWishList();
-    const { mutateAsync: removeFromWishList, isPending: removeFromWishListPending } = useRemoveFromWishList();
+    const { mutateAsync: addToWishList } = useAddToWishList();
+    const { mutateAsync: removeFromWishList } = useRemoveFromWishList();
     const { data: wishListData } = useGetWishList();
     const { data: productReviews } = useGetProductAllReview(product?._id as string);
-    const isPending = cartPending || wishListPending || removeFromWishListPending;
+    const isPending = cartPending;
 
     const [count, setCount] = useState<number>(1);
     const [selectedSize, setSelectedSize] = useState<string>();
@@ -341,15 +342,29 @@ export const MoreDetails = () => {
 
                                     {isWishlisted ? (
                                         <button
-                                            onClick={() => { removeFromWishList(product?._id as string) }}
-                                            className="shrink-0 w-12 h-12 flex items-center justify-center text-red-500 hover:opacity-70 transition-opacity duration-300 cursor-pointer border border-neutral-200">
-                                            <FaHeart className="text-lg" />
+                                            onClick={() => {
+                                                if (!localStorage.getItem("token")) {
+                                                    toast.error("Please login to manage wishlist", { duration: 1500 });
+                                                    return;
+                                                }
+                                                removeFromWishList(product?._id as string);
+                                            }}
+                                            aria-label="Remove from wishlist"
+                                            className="shrink-0 w-12 h-12 flex items-center justify-center text-red-500 hover:opacity-70 transition-all duration-200 cursor-pointer border border-neutral-200 active:scale-90">
+                                            <FaHeart className="text-lg transition-transform duration-200" />
                                         </button>
                                     ) : (
                                         <button
-                                            onClick={() => { addToWishList(product?._id as string) }}
-                                            className="shrink-0 w-12 h-12 flex items-center justify-center text-black hover:opacity-50 transition-opacity duration-300 cursor-pointer border border-neutral-200">
-                                            <FaRegHeart className="text-lg" />
+                                            onClick={() => {
+                                                if (!localStorage.getItem("token")) {
+                                                    toast.error("Please login to manage wishlist", { duration: 1500 });
+                                                    return;
+                                                }
+                                                addToWishList(product);
+                                            }}
+                                            aria-label="Add to wishlist"
+                                            className="shrink-0 w-12 h-12 flex items-center justify-center text-black hover:opacity-50 transition-all duration-200 cursor-pointer border border-neutral-200 active:scale-90">
+                                            <FaRegHeart className="text-lg transition-transform duration-200" />
                                         </button>
                                     )}
                                 </div>

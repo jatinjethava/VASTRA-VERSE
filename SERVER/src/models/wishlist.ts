@@ -12,4 +12,7 @@ const WishlistSchema = new Schema<Iwishlist>({
     isDeleted: { type: Boolean, default: false },
 }, { timestamps: true });
 
+WishlistSchema.index({ userId: 1, isDeleted: 1, productId: 1 });
+WishlistSchema.index({ userId: 1, productId: 1 });
+
 export const WishlistModel = mongoose.model<Iwishlist>("wishlist", WishlistSchema);

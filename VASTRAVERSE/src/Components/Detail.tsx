@@ -56,11 +56,11 @@ export const Detail = ({
 }) => {
 
     const { mutateAsync: addToCart, isPending: cartPending } = useAddToCart();
-    const { mutateAsync: addToWishList, isPending: wishListPending } = useAddToWishList();
-    const { mutateAsync: removeFromWishList, isPending: removeFromWishListPending } = useRemoveFromWishList();
+    const { mutateAsync: addToWishList } = useAddToWishList();
+    const { mutateAsync: removeFromWishList } = useRemoveFromWishList();
     const { data: wishListData } = useGetWishList();
     const { data: productReviews } = useGetProductAllReview(curruntProduct?._id as string);
-    const isPending = cartPending || wishListPending || removeFromWishListPending;
+    const isPending = cartPending;
 
     const navigate = useNavigate();
     const [count, setCount] = useState<number>(1);
@@ -428,21 +428,34 @@ export const Detail = ({
 
                         {isWishlisted ? (
                             <button
-                                onClick={() => { removeFromWishList(curruntProduct?._id as string) }}
-                                className="w-12 h-12 rounded-none border border-black bg-white flex items-center justify-center text-black hover:bg-gray-100 transition-all duration-200 cursor-pointer shrink-0">
-                                <FaHeart className="text-[16px] sm:text-[18px]" />
+                                onClick={() => {
+                                    if (!localStorage.getItem("token")) {
+                                        toast.error("Please login to manage wishlist", { duration: 1500 });
+                                        return;
+                                    }
+                                    removeFromWishList(curruntProduct?._id as string);
+                                }}
+                                aria-label="Remove from wishlist"
+                                className="w-12 h-12 rounded-none border border-black bg-white flex items-center justify-center text-red-500 hover:bg-gray-100 transition-all duration-200 cursor-pointer shrink-0 active:scale-90">
+                                <FaHeart className="text-[16px] sm:text-[18px] transition-transform duration-200" />
                             </button>
                         ) : (
                             <button
-                                onClick={() => { addToWishList(curruntProduct?._id as string) }}
-                                className="w-12 h-12 rounded-none border border-black/20 bg-white flex items-center justify-center text-black hover:border-black transition-all duration-200 cursor-pointer shrink-0">
-                                <FaRegHeart className="text-[16px] sm:text-[18px]" />
+                                onClick={() => {
+                                    if (!localStorage.getItem("token")) {
+                                        toast.error("Please login to manage wishlist", { duration: 1500 });
+                                        return;
+                                    }
+                                    addToWishList(curruntProduct);
+                                }}
+                                aria-label="Add to wishlist"
+                                className="w-12 h-12 rounded-none border border-black/20 bg-white flex items-center justify-center text-black hover:border-black transition-all duration-200 cursor-pointer shrink-0 active:scale-90">
+                                <FaRegHeart className="text-[16px] sm:text-[18px] transition-transform duration-200" />
                             </button>
                         )}
                     </div>
                 </div>
             </div>
-
         </div >
     );
 };
