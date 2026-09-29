@@ -183,8 +183,10 @@ export const ProductForm = ({
                                         type="number"
                                         name="basePrice"
                                         placeholder="Enter base price"
-                                        value={product.basePrice}
+                                        value={product.basePrice ?? ""}
                                         onChange={handleChange}
+                                        step="any"
+                                        min="0"
                                         className="w-full border border-gray-400 rounded-lg px-4 py-2 outline-none focus:ring focus:ring-gray-500"
                                     />
                                 </div>
@@ -198,8 +200,10 @@ export const ProductForm = ({
                                         type="number"
                                         name="discountPrice"
                                         placeholder='Enter discount price'
-                                        value={product.discountPrice}
+                                        value={product.discountPrice ?? ""}
                                         onChange={handleChange}
+                                        step="any"
+                                        min="0"
                                         className="w-full border border-gray-400 rounded-lg px-4 py-2 outline-none focus:ring focus:ring-gray-500"
                                     />
                                 </div>
@@ -213,8 +217,10 @@ export const ProductForm = ({
                                         type="number"
                                         name="costPrice"
                                         placeholder='Enter cost price'
-                                        value={product.costPrice}
+                                        value={product.costPrice ?? ""}
                                         onChange={handleChange}
+                                        step="any"
+                                        min="0"
                                         className="w-full border border-gray-400 rounded-lg px-4 py-2 outline-none focus:ring focus:ring-gray-500"
                                     />
                                 </div>
@@ -414,7 +420,9 @@ export const ProductForm = ({
                                                 type="number"
                                                 name="stock"
                                                 placeholder="Stock"
-                                                value={variant.stock}
+                                                value={variant.stock ?? ""}
+                                                step="1"
+                                                min="0"
                                                 onChange={(e) =>
                                                     handleVariantChange(index, e)
                                                 }
@@ -436,7 +444,9 @@ export const ProductForm = ({
                                                 type="number"
                                                 name="price"
                                                 placeholder="Price"
-                                                value={variant.price}
+                                                value={variant.price ?? ""}
+                                                step="any"
+                                                min="0"
                                                 onChange={(e) =>
                                                     handleVariantChange(index, e)
                                                 }
@@ -447,7 +457,9 @@ export const ProductForm = ({
                                                 type="number"
                                                 name="discountPrice"
                                                 placeholder="Discount Price"
-                                                value={variant.discountPrice}
+                                                value={variant.discountPrice ?? ""}
+                                                step="any"
+                                                min="0"
                                                 onChange={(e) =>
                                                     handleVariantChange(index, e)
                                                 }

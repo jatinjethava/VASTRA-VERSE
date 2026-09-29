@@ -19,6 +19,7 @@ export interface Product {
     isPublished: boolean;
     isBestSeller: boolean;
     isNewArrival: boolean;
+    limitedEdition?: boolean;
     seoTitle: string;
     seoDescription: string;
     variants: Variant[];
@@ -134,19 +135,46 @@ export const updateProduct = async (id: string, product: Product): Promise<ApiRe
     try {
         const formData = new FormData();
 
-        const ignoreKeys = ['slug', 'createdAt', 'updatedAt', '__v', 'isDeleted', 'ratingsAverage', 'ratingsQuantity', 'soldCount', 'reviews', 'salesApplied'];
+        const ignoreKeys = [
+            '_id',
+            'slug',
+            'createdAt',
+            'updatedAt',
+            '__v',
+            'isDeleted',
+            'ratingsAverage',
+            'ratingsQuantity',
+            'soldCount',
+            'reviews',
+            'salesApplied',
+            'discountPercentage'
+        ];
+
+        const existingImages = (product.images || []).filter((image) => typeof image === 'string');
+        const newImages = (product.images || []).filter((image: any) => image instanceof File);
+
+        formData.append('_id', id);
+        formData.append('existingImages', JSON.stringify(existingImages));
+        newImages.forEach((image) => {
+            formData.append('images', image);
+        });
 
         Object.keys(product).forEach((key) => {
-            if (ignoreKeys.includes(key)) return;
+            if (ignoreKeys.includes(key) || key === 'images') return;
 
             const value = (product as any)[key];
-            if (key === 'images') {
-                value.forEach((image: any) => {
-                    formData.append('images', image);
-                });
-            } else if (key === 'variants' || key === 'tags') {
+            if (key === 'variants' || key === 'tags') {
                 formData.append(key, JSON.stringify(value));
-            } else {
+            } else if (key === 'category') {
+                const categoryId = typeof value === 'object' && value !== null ? value._id : value;
+                if (categoryId) formData.append('category', categoryId);
+            } else if (key === 'discountPrice') {
+                if (value === "" || value === null || value === undefined) {
+                    formData.append('discountPrice', '');
+                } else {
+                    formData.append('discountPrice', String(value));
+                }
+            } else if (value !== undefined && value !== null) {
                 formData.append(key, value);
             }
         });

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from "sonner";
 import { LeftBar } from './Leftbar';
@@ -329,7 +329,7 @@ export const SignUp = () => {
         }
     }
 
-    const handleGoogleLogin = async (response: CredentialResponse) => {
+    const handleGoogleLogin = React.useCallback(async (response: CredentialResponse) => {
         try {
             const res = await googleLoginUser(response.credential as string);
             if (res.success) {
@@ -366,7 +366,15 @@ export const SignUp = () => {
                 duration: 1500,
             });
         }
-    }
+    }, [googleLoginUser, dispatch, navigate]);
+
+    const handleGoogleError = React.useCallback(() => {
+        toast.error("Google Signup failed");
+    }, []);
+
+    const googleButton = React.useMemo(() => (
+        <GoogleLogin onSuccess={handleGoogleLogin} size='large' width={btnWidth} text="signup_with" onError={handleGoogleError} />
+    ), [handleGoogleLogin, handleGoogleError, btnWidth]);
 
     return (
         <div className="min-h-screen bg-[#fafafa] flex flex-col lg:flex-row">
@@ -380,7 +388,7 @@ export const SignUp = () => {
                         <div className='fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity'></div>
                         <div className='fixed inset-0 z-50 flex items-center justify-center p-4'>
                             <div className='relative py-8 px-6 sm:px-8 border border-neutral-200 bg-white w-full sm:w-[420px] rounded-3xl shadow-2xl flex flex-col items-center justify-center space-y-5 overflow-hidden'>
-                                
+
                                 <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                                 <div className="w-12 h-12 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center text-xl">
@@ -426,7 +434,7 @@ export const SignUp = () => {
                     </>
                 )}
                 <div className="relative w-full max-w-md bg-white rounded-3xl border border-neutral-200/80 p-5 sm:p-6 sm:pb-8 shadow-xl overflow-y-auto max-h-[85vh] custom-scrollbar space-y-3 sm:space-y-4">
-                    
+
                     <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                     {isPending && (
@@ -455,7 +463,7 @@ export const SignUp = () => {
                     </div>
 
                     <div ref={googleBtnRef} className='w-full'>
-                        <GoogleLogin onSuccess={handleGoogleLogin} size='large' width={btnWidth} text="signup_with" onError={() => { toast.error("Google Signup failed"); }} />
+                        {googleButton}
                     </div>
 
                     <div className="flex items-center gap-3">

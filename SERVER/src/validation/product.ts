@@ -7,7 +7,7 @@ export const createProductSchema = joi.object({
     brand: joi.string().optional().trim().min(1).max(50),
     category: joi.string().required().trim().min(1).max(50),
     basePrice: joi.number().required().min(0),
-    discountPrice: joi.number().min(0),
+    discountPrice: joi.number().optional().allow(null).min(0),
     costPrice: joi.number().required().min(0),
     gender: joi.string().required().valid(PRODUCT_GENDER.KIDS, PRODUCT_GENDER.MEN, PRODUCT_GENDER.WOMEN, PRODUCT_GENDER.UNISEX),
     fit: joi.string().required().valid(PRODUCT_FIT.REGULAR, PRODUCT_FIT.SLIM, PRODUCT_FIT.OVERSIZED),
@@ -19,7 +19,7 @@ export const createProductSchema = joi.object({
             size: joi.string().required().valid(PRODUCT_SIZE.XS, PRODUCT_SIZE.S, PRODUCT_SIZE.M, PRODUCT_SIZE.L, PRODUCT_SIZE.XL, PRODUCT_SIZE.XXL),
             price: joi.number().required().min(0),
             sku: joi.string().required().trim().min(1).max(50),
-            discountPrice: joi.number().min(0),
+            discountPrice: joi.number().optional().allow(null).min(0),
             stock: joi.number().required().min(0),
         })
     ).required().min(1),
@@ -39,12 +39,13 @@ export const updateProductSchema = joi.object({
     description: joi.string().optional().trim().min(1).max(500),
     category: joi.custom(isValidObjectId).optional(),
     basePrice: joi.number().optional().min(0),
-    costPrice: joi.number().optional().min(0),
-    discountPrice: joi.number().optional().min(0),
+    costPrice: joi.number().optional().allow(null).min(0),
+    discountPrice: joi.number().optional().allow(null).min(0),
     discountPercentage: joi.number().optional().min(0).max(100),
     gender: joi.string().optional().valid(PRODUCT_GENDER.KIDS, PRODUCT_GENDER.MEN, PRODUCT_GENDER.WOMEN, PRODUCT_GENDER.UNISEX),
     fit: joi.string().optional().valid(PRODUCT_FIT.REGULAR, PRODUCT_FIT.SLIM, PRODUCT_FIT.OVERSIZED),
     material: joi.string().optional().trim().min(1).max(50),
+    existingImages: joi.array().items(joi.string().required()).optional(),
     images: joi.array().items(joi.string().required()).optional().min(1),
     variants: joi.array().items(
         joi.object({
@@ -52,7 +53,7 @@ export const updateProductSchema = joi.object({
             size: joi.string().required().valid(PRODUCT_SIZE.XS, PRODUCT_SIZE.S, PRODUCT_SIZE.M, PRODUCT_SIZE.L, PRODUCT_SIZE.XL, PRODUCT_SIZE.XXL),
             price: joi.number().required().min(0),
             sku: joi.string().required().trim().min(1).max(50),
-            discountPrice: joi.number().required().min(0),
+            discountPrice: joi.number().optional().allow(null).min(0),
             stock: joi.number().required().min(0),
         })
     ).optional().min(1),
@@ -62,8 +63,8 @@ export const updateProductSchema = joi.object({
     isBestSeller: joi.boolean().optional().default(false),
     isNewArrival: joi.boolean().optional().default(false),
     limitedEdition: joi.boolean().optional().default(false),
-    seoTitle: joi.string().optional().trim().min(1).max(200),
-    seoDescription: joi.string().optional().trim().min(1).max(500),
+    seoTitle: joi.string().optional().allow("").trim().max(200),
+    seoDescription: joi.string().optional().allow("").trim().max(500),
 });
 
 export const deleteProductSchema = joi.object({

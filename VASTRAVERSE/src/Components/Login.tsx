@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from "sonner";
 import { LeftBar } from './Leftbar';
@@ -169,7 +169,7 @@ export const Login = () => {
         }
     }, [dispatch, navigate, token]);
 
-    const handleGoogleLogin = async (response: any) => {
+    const handleGoogleLogin = React.useCallback(async (response: any) => {
         try {
             const res = await googleLogin(response.credential);
             if (res.success) {
@@ -206,7 +206,15 @@ export const Login = () => {
                 duration: 1500,
             });
         }
-    }
+    }, [googleLogin, dispatch, navigate]);
+
+    const handleGoogleError = React.useCallback(() => {
+        toast.error("Google Login failed");
+    }, []);
+
+    const googleButton = React.useMemo(() => (
+        <GoogleLogin onSuccess={handleGoogleLogin} size='large' width={btnWidth} onError={handleGoogleError} />
+    ), [handleGoogleLogin, handleGoogleError, btnWidth]);
 
     return (
         <>
@@ -217,7 +225,7 @@ export const Login = () => {
                 <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 md:p-12">
                     <div className="relative w-full max-w-md bg-white rounded-3xl border border-neutral-200/80 p-7 sm:p-10 shadow-xl overflow-hidden space-y-6 sm:space-y-7">
 
-                        
+
                         <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
 
                         {isPending && (
@@ -245,7 +253,7 @@ export const Login = () => {
                         </div>
 
                         <div ref={googleBtnRef} className='w-full'>
-                            <GoogleLogin onSuccess={handleGoogleLogin} size='large' width={btnWidth} onError={() => { toast.error("Google Login failed"); }} />
+                            {googleButton}
                         </div>
 
                         <div className="flex items-center gap-3">

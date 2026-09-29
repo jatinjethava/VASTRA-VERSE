@@ -109,27 +109,98 @@ export const Product = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const invalidField = Object.keys(product).find((key) => {
-
+        const requiredFields = ["title", "description", "basePrice", "costPrice", "category", "material", "gender", "fit"];
+        const invalidField = requiredFields.find((key) => {
             const value = (product as any)[key];
-
-            return (
-                value === null ||
-                value === undefined ||
-                value === "" ||
-                (Array.isArray(value.variants) && value.length === 0)
-            );
+            return value === null || value === undefined || value === "";
         });
 
         if (invalidField) {
-
-            toast.error(`${invalidField} is required`, {
-                duration: 1500,
-            });
-
+            toast.error(`${invalidField} is required`, { duration: 1500 });
             return;
         }
-        mutate(product as any, {
+
+        if (Number(product.basePrice) <= 0) {
+            toast.error("Base price must be greater than 0", { duration: 1500 });
+            return;
+        }
+
+        if (Number(product.costPrice) < 0) {
+            toast.error("Cost price cannot be negative", { duration: 1500 });
+            return;
+        }
+
+        if (
+            product.discountPrice !== "" &&
+            product.discountPrice !== null &&
+            product.discountPrice !== undefined
+        ) {
+            if (Number(product.discountPrice) < 0) {
+                toast.error("Discount price cannot be negative", { duration: 1500 });
+                return;
+            }
+            if (Number(product.discountPrice) >= Number(product.basePrice)) {
+                toast.error("Discount price must be less than base price", { duration: 1500 });
+                return;
+            }
+        }
+
+        if (!product.variants?.length) {
+            toast.error("At least one variant is required", { duration: 1500 });
+            return;
+        }
+
+        const invalidVariant = product.variants.find(
+            (variant: any) =>
+                !variant.size ||
+                !variant.color ||
+                variant.stock === null ||
+                variant.stock === undefined ||
+                variant.stock === "" ||
+                !variant.sku ||
+                variant.price === null ||
+                variant.price === undefined ||
+                variant.price === ""
+        );
+
+        if (invalidVariant) {
+            toast.error("Please complete all variant fields", { duration: 1500 });
+            return;
+        }
+
+        const invalidVariantPrice = product.variants.find(
+            (variant: any) =>
+                variant.discountPrice !== "" &&
+                variant.discountPrice !== null &&
+                variant.discountPrice !== undefined &&
+                Number(variant.discountPrice) >= Number(variant.price)
+        );
+
+        if (invalidVariantPrice) {
+            toast.error("Variant discount price must be less than variant price", { duration: 1500 });
+            return;
+        }
+
+        const formattedProduct = {
+            ...product,
+            basePrice: Number(product.basePrice),
+            costPrice: Number(product.costPrice),
+            discountPrice:
+                product.discountPrice === "" || product.discountPrice === null || product.discountPrice === undefined
+                    ? null
+                    : Number(product.discountPrice),
+            variants: product.variants.map((v: any) => ({
+                ...v,
+                price: Number(v.price),
+                stock: Number(v.stock),
+                discountPrice:
+                    v.discountPrice === "" || v.discountPrice === null || v.discountPrice === undefined
+                        ? null
+                        : Number(v.discountPrice),
+            }))
+        };
+
+        mutate(formattedProduct as any, {
             onSuccess: () => {
                 setProduct({
                     title: "",

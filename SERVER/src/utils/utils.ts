@@ -56,8 +56,14 @@ export const generateToken = async (data: any = {}, expiresIn: any = '24h') => {
     return token;
 };
 
-export const isValidObjectId = (id: any) => {
-    return Types.ObjectId.isValid(id) ? new Types.ObjectId(id) : null;
+export const isValidObjectId = (id: any, helpers?: any) => {
+    if (id && Types.ObjectId.isValid(id)) {
+        return new Types.ObjectId(id);
+    }
+    if (helpers) {
+        return helpers.error("any.invalid");
+    }
+    return null;
 };
 
 
@@ -279,6 +285,7 @@ export const applySales = (products: any, sales: any) => {
             finalPrice = finalPrice - Discount;
         }
 
+        finalPrice = Math.round(finalPrice * 100) / 100;
         prodObj.discountPrice = Math.max(0, finalPrice);
         if (prodObj.basePrice > 0 && prodObj.discountPrice < prodObj.basePrice) {
             prodObj.discountPercentage = Math.round(((prodObj.basePrice - prodObj.discountPrice) / prodObj.basePrice) * 100);

@@ -8,6 +8,12 @@ import { ProductForm } from "./ProductForm";
 import { toast } from "sonner";
 import { useGetCategories } from "../../Hooks/category";
 
+const toFormNumber = (value: number | null | undefined) =>
+    value === null || value === undefined ? "" : value;
+
+const toFormText = (value: string | null | undefined) =>
+    value ?? "";
+
 export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
     const [page, setPage] = useState(1);
     const limit = 10;
@@ -98,7 +104,10 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
     const handleVariantChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         const updated = [...product.variants];
-        updated[index] = { ...updated[index], [name]: value };
+        updated[index] = {
+            ...updated[index],
+            [name]: value
+        };
         setProduct({ ...product, variants: updated });
     };
 
@@ -119,28 +128,98 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
     const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const invalidField = Object.keys(product).find((key) => {
-
+        const requiredFields = ["title", "description", "basePrice", "costPrice", "category", "material", "gender", "fit"];
+        const invalidField = requiredFields.find((key) => {
             const value = (product as any)[key];
-
-            return (
-                value === null ||
-                value === undefined ||
-                value === "" ||
-                (Array.isArray(value.variants) && value.length === 0)
-            );
+            return value === null || value === undefined || value === "";
         });
 
         if (invalidField) {
-
-            toast.error(`${invalidField} is required`, {
-                duration: 1500,
-            });
-
+            toast.error(`${invalidField} is required`, { duration: 1500 });
             return;
         }
 
-        await updateProduct({ id: product._id as string, product });
+        if (Number(product.basePrice) <= 0) {
+            toast.error("Base price must be greater than 0", { duration: 1500 });
+            return;
+        }
+
+        if (Number(product.costPrice) < 0) {
+            toast.error("Cost price cannot be negative", { duration: 1500 });
+            return;
+        }
+
+        if (
+            product.discountPrice !== "" &&
+            product.discountPrice !== null &&
+            product.discountPrice !== undefined
+        ) {
+            if (Number(product.discountPrice) < 0) {
+                toast.error("Discount price cannot be negative", { duration: 1500 });
+                return;
+            }
+            if (Number(product.discountPrice) >= Number(product.basePrice)) {
+                toast.error("Discount price must be less than base price", { duration: 1500 });
+                return;
+            }
+        }
+
+        if (!product.variants?.length) {
+            toast.error("At least one variant is required", { duration: 1500 });
+            return;
+        }
+
+        const invalidVariant = product.variants.find(
+            (variant: any) =>
+                !variant.size ||
+                !variant.color ||
+                variant.stock === null ||
+                variant.stock === undefined ||
+                variant.stock === "" ||
+                !variant.sku ||
+                variant.price === null ||
+                variant.price === undefined ||
+                variant.price === ""
+        );
+
+        if (invalidVariant) {
+            toast.error("Please complete all variant fields", { duration: 1500 });
+            return;
+        }
+
+        const invalidVariantPrice = product.variants.find(
+            (variant: any) =>
+                variant.discountPrice !== "" &&
+                variant.discountPrice !== null &&
+                variant.discountPrice !== undefined &&
+                Number(variant.discountPrice) >= Number(variant.price)
+        );
+
+        if (invalidVariantPrice) {
+            toast.error("Variant discount price must be less than variant price", { duration: 1500 });
+            return;
+        }
+
+        const formattedProduct = {
+            ...product,
+            basePrice: Number(product.basePrice),
+            costPrice: Number(product.costPrice),
+            discountPrice:
+                product.discountPrice === "" || product.discountPrice === null || product.discountPrice === undefined
+                    ? null
+                    : Number(product.discountPrice),
+            variants: product.variants.map((v: any) => ({
+                ...v,
+                price: Number(v.price),
+                stock: Number(v.stock),
+                discountPrice:
+                    v.discountPrice === "" || v.discountPrice === null || v.discountPrice === undefined
+                        ? null
+                        : Number(v.discountPrice),
+            }))
+        };
+
+        await updateProduct({ id: product._id as string, product: formattedProduct });
 
         setProduct({
             title: "",
@@ -173,7 +252,6 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
         });
         setIdUpdate(false);
         setImagePreviews([]);
-        setIdUpdate(false);
     };
 
     const handleDelete = async (id: string) => {
@@ -430,9 +508,28 @@ export const ProductList = ({ categoryFilter }: { categoryFilter: string }) => {
                                                     </button>
                                                     <button title="Edit"
                                                         onClick={() => {
-                                                            setIdUpdate(true),
-                                                                setProduct(product),
-                                                                setImagePreviews(product.images || [])
+                                                            setIdUpdate(true);
+                                                            setProduct({
+                                                                ...product,
+                                                                category: typeof product.category === 'object' && product.category !== null ? (product.category as any)._id : product.category,
+                                                                basePrice: toFormNumber(product.basePrice),
+                                                                discountPrice: toFormNumber(product.discountPrice),
+                                                                costPrice: toFormNumber(product.costPrice),
+                                                                seoTitle: toFormText(product.seoTitle),
+                                                                seoDescription: toFormText(product.seoDescription),
+                                                                variants: product.variants?.map((variant) => ({
+                                                                    ...variant,
+                                                                    price: toFormNumber(variant.price),
+                                                                    stock: toFormNumber(variant.stock),
+                                                                    discountPrice: toFormNumber(variant.discountPrice),
+                                                                })) ?? [],
+                                                                isFeatured: product.isFeatured || false,
+                                                                isPublished: product.isPublished || false,
+                                                                isBestSeller: product.isBestSeller || false,
+                                                                isNewArrival: product.isNewArrival || false,
+                                                                limitedEdition: product.limitedEdition || false
+                                                            });
+                                                            setImagePreviews(product.images || []);
                                                         }}
                                                         className="p-1.5 rounded-md hover:bg-gray-300 transition-colors text-blue-600 hover:text-blue-800 cursor-pointer border-none bg-transparent">
                                                         <Edit size={16} />
