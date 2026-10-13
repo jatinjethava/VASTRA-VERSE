@@ -255,10 +255,11 @@ export const QA = () => {
                                     </thead>
                                     <tbody className="divide-y divide-gray-100">
                                         {group?.questions?.map((item: any) => {
-                                            const isPending = !item._doc?.isAnswered;
+                                            const qData = item?._doc || item;
+                                            const isPending = !qData?.isAnswered;
                                             return (
                                                 <tr
-                                                    key={item._doc._id}
+                                                    key={qData?._id}
                                                     className={`transition-colors duration-200 border-l-4 ${isPending
                                                         ? "bg-amber-50/40 border-amber-400"
                                                         : "bg-white border-transparent hover:bg-gray-50/50"
@@ -266,11 +267,11 @@ export const QA = () => {
                                                 >
                                                     <td className="px-6 py-4 max-w-xs">
                                                         <p className="text-sm font-medium text-gray-900 truncate">
-                                                            {item?._doc?.question}
+                                                            {qData?.question}
                                                         </p>
-                                                        {item?._doc?.answer && (
+                                                        {qData?.answer && (
                                                             <p className="text-xs text-gray-400 truncate mt-0.5">
-                                                                Reply: {item?._doc?.answer}
+                                                                Reply: {qData?.answer}
                                                             </p>
                                                         )}
                                                     </td>
@@ -278,20 +279,20 @@ export const QA = () => {
                                                     <td className="px-6 py-4">
                                                         <div className="flex flex-col gap-0.5">
                                                             <span className="text-sm font-medium text-gray-800">
-                                                                {item?._doc?.user?.name || "N/A"}
+                                                                {qData?.user?.name || "N/A"}
                                                             </span>
                                                             <span className="text-xs text-gray-400 tracking-wide">
-                                                                {item?._doc?.user?.email || "N/A"}
+                                                                {qData?.user?.email || "N/A"}
                                                             </span>
                                                         </div>
                                                     </td>
 
                                                     <td className="px-6 py-4 text-sm text-gray-500">
-                                                        {new Date(item?._doc?.createdAt).toLocaleDateString()}
+                                                        {qData?.createdAt ? new Date(qData.createdAt).toLocaleDateString() : "N/A"}
                                                     </td>
 
                                                     <td className="px-6 py-4">
-                                                        {item?._doc?.isAnswered ? (
+                                                        {qData?.isAnswered ? (
                                                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700 border border-emerald-200">
                                                                 Answered
                                                             </span>
@@ -304,7 +305,7 @@ export const QA = () => {
 
                                                     <td className="px-6 py-4 text-right">
                                                         <div className="flex items-center justify-end gap-2">
-                                                            {!item._doc.isAnswered && (
+                                                            {!qData?.isAnswered && (
                                                                 <button
                                                                     onClick={() => handleOpenAnswer(item)}
                                                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-all duration-200 active:scale-95 border border-indigo-100 hover:border-indigo-200 cursor-pointer"
@@ -314,7 +315,7 @@ export const QA = () => {
                                                                 </button>
                                                             )}
                                                             <button
-                                                                onClick={() => deleteQuestion(item._doc._id)}
+                                                                onClick={() => deleteQuestion(qData?._id)}
                                                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-red-700 bg-red-50 hover:bg-red-100 rounded-lg transition-all duration-200 active:scale-95 border border-red-100 hover:border-red-200 cursor-pointer"
                                                             >
                                                                 <Trash2 size={14} />

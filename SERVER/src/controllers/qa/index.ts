@@ -144,9 +144,10 @@ export const getAllQuestions = async (req: Request, res: Response) => {
         if (!products) return res.status(HTTP_STATUS.BAD_REQUEST).json(new apiResponse(HTTP_STATUS.BAD_REQUEST, responseMessage.getDataNotFound("Products"), {}, {}));
 
         const resultWithProduct = result.map((q: any) => {
-            const product = products.find((p: any) => p._id.toString() === q.productId.toString());
+            const qObj = q._doc || (q.toObject ? q.toObject() : q);
+            const product = products.find((p: any) => p._id?.toString() === qObj.productId?.toString());
             return {
-                ...q,
+                ...qObj,
                 product
             }
         })
